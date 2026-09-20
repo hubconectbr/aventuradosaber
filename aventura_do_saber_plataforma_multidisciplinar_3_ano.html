@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura do Saber - 3º Ano ETI Almirante Tamandaré</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        nunito: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            purple: '#6C5CE7',
+                            yellow: '#FDCB6E',
+                            pink: '#FD79A8',
+                            blue: '#0984E3',
+                            green: '#00B894',
+                            orange: '#E17055',
+                            dark: '#2D3436'
+                        }
+                    },
+                    boxShadow: {
+                        'game': '0 8px 0px 0px rgba(0, 0, 0, 0.15)',
+                        'game-btn': '0 6px 0px 0px #4b38b3',
+                        'game-green': '0 6px 0px 0px #00896f',
+                        'game-orange': '0 6px 0px 0px #c0392b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            min-height: 100vh;
+            user-select: none;
+        }
+        .title-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .pulse-star {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Animações dos Mascotes Gamificados */
+        @keyframes mascotBreathe {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-4px) scale(1.02); }
+        }
+        @keyframes mascotWalk {
+            0% { transform: translateY(0) rotate(-6deg); }
+            25% { transform: translateY(-8px) rotate(0deg); }
+            50% { transform: translateY(0) rotate(6deg); }
+            75% { transform: translateY(-8px) rotate(0deg); }
+            100% { transform: translateY(0) rotate(-6deg); }
+        }
+        @keyframes mascotJump {
+            0% { transform: translateY(0) scale(1) rotate(0deg); }
+            30% { transform: translateY(-35px) scale(1.2) rotate(-12deg); }
+            50% { transform: translateY(-45px) scale(1.25) rotate(12deg); }
+            75% { transform: translateY(-15px) scale(1.1) rotate(-5deg); }
+            100% { transform: translateY(0) scale(1) rotate(0deg); }
+        }
+
+        .mascot-state-sitting {
+            animation: mascotBreathe 2.5s infinite ease-in-out;
+        }
+        .mascot-state-walking {
+            animation: mascotWalk 0.6s infinite ease-in-out;
+        }
+        .mascot-state-jumping {
+            animation: mascotJump 0.8s ease-out;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6C5CE7; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen">
+
+    <header class="bg-white/95 backdrop-blur shadow-md sticky top-0 z-40 px-4 py-3 border-b-4 border-indigo-200">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <!-- App Logo / Title -->
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 bg-indigo-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="title-font text-lg md:text-xl font-bold text-indigo-900 leading-none">Aventura do Saber</h1>
+                    <p class="text-xs text-indigo-600 font-bold">ETI Almirante Tamandaré • 3º Ano EF</p>
+                </div>
+            </div>
+
+            <!-- Profile Info & Ranking Quick Badge -->
+            <div id="topUserBar" class="hidden flex items-center space-x-2 md:space-x-3">
+                <div id="cloudStatusBadge" class="flex items-center bg-emerald-100 border border-emerald-300 text-emerald-800 px-2.5 py-1 rounded-full text-xs font-bold shadow-sm" title="Dados salvos em tempo real na nuvem">
+                    <i class="fa-solid fa-cloud text-emerald-600 mr-1 animate-pulse"></i>
+                    <span class="hidden sm:inline">Nuvem Conectada</span>
+                </div>
+
+                <div class="flex items-center bg-amber-100 border-2 border-amber-400 px-3 py-1 rounded-full text-amber-900 font-bold text-xs md:text-sm shadow-sm">
+                    <i class="fa-solid fa-star text-amber-500 mr-1 pulse-star"></i>
+                    <span id="userPoints">0</span> <span class="ml-1 text-[10px] md:text-xs text-amber-700">pts</span>
+                </div>
+                
+                <button onclick="openRankingModal()" class="flex items-center bg-indigo-100 hover:bg-indigo-200 border-2 border-indigo-300 text-indigo-800 px-3 py-1.5 rounded-full font-bold text-xs md:text-sm transition">
+                    <i class="fa-solid fa-trophy text-amber-500 mr-1.5"></i>
+                    <span class="hidden sm:inline">Ranking</span>
+                </button>
+
+                <div class="flex items-center space-x-2 pl-2 border-l border-gray-200">
+                    <div id="userAvatarBadge" class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center text-lg border-2 border-white shadow">
+                        🧙‍♂️
+                    </div>
+                    <span id="childDisplayName" class="hidden md:inline font-bold text-indigo-900 text-sm"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+
+        <section id="screenAuth" class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-indigo-300 max-w-2xl mx-auto w-full my-4">
+            <div class="text-center mb-6">
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 font-bold rounded-full text-xs uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> Acesso Supervisionado pelos Pais
+                </span>
+                <h2 class="title-font text-2xl md:text-3xl font-extrabold text-indigo-900">
+                    Maratona de Estudos 3º Bimestre!
+                </h2>
+                <p class="text-gray-600 text-sm mt-1">
+                    Preencha os dados do responsável para liberar todas as matérias e simulados das provas (21/09 a 25/09).
+                </p>
+            </div>
+
+            <!-- Banner de Alerta para erro de formulario em vez de alert() -->
+            <div id="authErrorMessage" class="hidden bg-rose-100 border-2 border-rose-300 text-rose-800 p-3 rounded-xl text-xs font-bold mb-4 flex items-center space-x-2">
+                <i class="fa-solid fa-circle-exclamation text-rose-600 text-base"></i>
+                <span id="authErrorText">Por favor, preencha todos os campos obrigatórios.</span>
+            </div>
+
+            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">
+                            <i class="fa-solid fa-user-tie text-indigo-500 mr-1"></i> Nome do Pai / Mãe / Responsável:
+                        </label>
+                        <input type="text" id="parentName" required placeholder="Ex: Carlos Silva"
+                            class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">
+                            <i class="fa-solid fa-phone text-indigo-500 mr-1"></i> Telefone / WhatsApp:
+                        </label>
+                        <input type="tel" id="parentPhone" required placeholder="(63) 90000-0000"
+                            class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition text-sm">
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-gray-100">
+                    <label class="block text-sm font-bold text-indigo-900 mb-1">
+                        <i class="fa-solid fa-child text-pink-500 mr-1"></i> Como a criança gosta de ser chamada?
+                    </label>
+                    <input type="text" id="childName" required placeholder="Ex: Aninha, Pedrinho, Sofia..."
+                        class="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:outline-none transition text-base font-semibold text-indigo-900 bg-indigo-50/50">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-800 mb-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1"></i> Escolha seu Arquétipo Guia:
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="archetypeContainer">
+                        <!-- Renderizado via JS -->
+                    </div>
+                </div>
+
+                <button type="submit" 
+                    class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white title-font font-bold text-lg rounded-2xl shadow-game-green transition transform active:translate-y-1 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-rocket text-xl"></i>
+                    <span>AUTORIZAR E COMEÇAR A JOGAR!</span>
+                </button>
+            </form>
+        </section>
+
+        <section id="screenDashboard" class="hidden space-y-6">
+            <div class="bg-white/95 backdrop-blur rounded-3xl p-5 md:p-6 shadow-xl border-4 border-indigo-200 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <div id="dashboardHeroAvatar" class="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-4xl shadow-md border-2 border-white shrink-0">
+                        🧙‍♂️
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h2 class="title-font text-2xl font-bold text-indigo-950">
+                                Olá, <span id="dashChildName" class="text-indigo-600">Explorador</span>!
+                            </h2>
+                            <span id="archetypeBadgeLabel" class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-0.5 rounded-full font-bold border border-indigo-300">
+                                Mago das Palavras
+                            </span>
+                        </div>
+                        <p class="text-gray-600 text-xs md:text-sm mt-0.5">
+                            Calendário Oficial de Avaliações: <strong class="text-indigo-700">21/09 a 25/09</strong>. Escolha a matéria e bons estudos!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2.5 w-full md:w-auto justify-end">
+                    <button onclick="openParentModal()" class="px-4 py-2.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded-xl font-bold text-xs flex items-center">
+                        <i class="fa-solid fa-user-shield mr-1.5 text-indigo-500"></i> Painel dos Pais
+                    </button>
+                    <button onclick="startSimuladoGeral()" class="px-5 py-2.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-xl font-bold title-font text-xs md:text-sm shadow-md hover:brightness-105 transition flex items-center">
+                        <i class="fa-solid fa-crown mr-2"></i> SIMULADO GERAL (TODAS)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Subject Tabs Navigation -->
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-2 shadow-md border-2 border-indigo-100 flex overflow-x-auto space-x-2 scrollbar-none" id="subjectTabs">
+                <!-- Abas geradas por JS -->
+            </div>
+
+            <!-- Current Subject Banner & Missions List -->
+            <div class="space-y-4">
+                <div id="subjectHeaderBox" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl p-4 shadow-md flex justify-between items-center">
+                    <div>
+                        <span id="subjectExamDate" class="text-xs font-bold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full">
+                            PROVA: 21/09 (SEGUNDA-FEIRA)
+                        </span>
+                        <h3 id="subjectTitleName" class="title-font text-2xl font-black mt-2">
+                            Língua Portuguesa
+                        </h3>
+                    </div>
+                    <div id="subjectBigIcon" class="text-4xl opacity-90 hidden sm:block">
+                        📚
+                    </div>
+                </div>
+
+                <div id="missionsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Missões renderizadas por JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="screenQuiz" class="hidden bg-white rounded-3xl p-5 md:p-8 shadow-2xl border-4 border-indigo-300 max-w-3xl mx-auto w-full relative">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                <button onclick="confirmExitQuiz()" class="text-gray-500 hover:text-gray-800 font-bold text-xs flex items-center bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Voltar ao Painel
+                </button>
+                
+                <div class="flex items-center space-x-2">
+                    <span id="quizMissionTitle" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                        Missão
+                    </span>
+                    <span id="questionCounter" class="text-xs font-extrabold text-gray-500">
+                        1 / 3
+                    </span>
+                </div>
+            </div>
+
+            <div class="w-full bg-gray-200 rounded-full h-3 mb-6 overflow-hidden">
+                <div id="quizProgressBar" class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-3 rounded-full transition-all duration-300" style="width: 33%"></div>
+            </div>
+
+            <div id="questionContextCard" class="hidden bg-indigo-50/80 border-2 border-indigo-200 rounded-2xl p-4 mb-5 text-sm text-indigo-950">
+                <!-- Texto explicativo / imagem da questao -->
+            </div>
+
+            <div class="mb-5">
+                <div class="flex items-start space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold title-font flex items-center justify-center shrink-0 mt-0.5">
+                        ?
+                    </span>
+                    <h3 id="questionText" class="title-font text-lg md:text-xl font-bold text-gray-800 leading-snug">
+                        Pergunta vai aqui...
+                    </h3>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <button id="btnHint" onclick="toggleHint()" class="inline-flex items-center text-xs font-bold bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300 px-3.5 py-2 rounded-xl transition">
+                    <i class="fa-solid fa-lightbulb text-amber-500 mr-2 text-sm"></i>
+                    <span>Precisa de uma dica do herói? Clique aqui!</span>
+                </button>
+                <div id="hintBox" class="hidden mt-3 p-3.5 bg-amber-50 border-l-4 border-amber-400 rounded-r-xl text-xs text-amber-900 leading-relaxed shadow-sm">
+                    <strong class="font-bold block mb-1">💡 Dica Pedagógica:</strong>
+                    <span id="hintContent">Aqui vai a dica...</span>
+                </div>
+            </div>
+
+            <div id="optionsContainer" class="space-y-3 mb-6">
+                <!-- Opções de resposta renderizadas por JS -->
+            </div>
+
+            <div id="feedbackBox" class="hidden rounded-2xl p-4 mb-4 border-2 transition-all">
+                <div class="flex items-start space-x-3">
+                    <div id="feedbackIcon" class="text-3xl shrink-0">
+                        🎉
+                    </div>
+                    <div>
+                        <h4 id="feedbackTitle" class="title-font font-bold text-base mb-1">
+                            Muito Bem!
+                        </h4>
+                        <div id="feedbackText" class="text-xs md:text-sm leading-relaxed">
+                            Explicação detalhada pedagógica...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="actionArea" class="hidden flex justify-end">
+                <button id="btnNextQuestion" onclick="nextQuestion()" 
+                    class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold title-font rounded-xl shadow-game-green transition transform active:translate-y-1 flex items-center space-x-2">
+                    <span>PRÓXIMA PERGUNTA</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="screenResult" class="hidden bg-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-amber-300 max-w-xl mx-auto w-full text-center">
+            <div class="w-20 h-20 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 border-4 border-amber-300 shadow-md">
+                🏆
+            </div>
+            <h2 class="title-font text-2xl md:text-3xl font-extrabold text-indigo-900 mb-1">
+                Missão Concluída!
+            </h2>
+            <p id="resultSubtitle" class="text-gray-600 text-sm mb-6">
+                Você reforçou seus conhecimentos para as provas!
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4">
+                    <span class="block text-xs font-bold text-indigo-500 uppercase">Acertos</span>
+                    <span id="resultScoreText" class="title-font text-2xl font-black text-indigo-900">0/0</span>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                    <span class="block text-xs font-bold text-amber-600 uppercase">Pontos Ganhos</span>
+                    <span id="resultXpText" class="title-font text-2xl font-black text-amber-600">+0 pts</span>
+                </div>
+            </div>
+
+            <p id="resultEncouragement" class="text-xs md:text-sm text-indigo-800 bg-indigo-50 p-3.5 rounded-xl mb-6 font-semibold border border-indigo-100">
+                Continue praticando para se destacar na avaliação!
+            </p>
+
+            <button onclick="showDashboard()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white title-font font-bold rounded-2xl shadow-game transition transform active:translate-y-1">
+                VOLTAR PARA O PAINEL DE MATÉRIAS
+            </button>
+        </section>
+
+    </main>
+
+    <div id="modalRanking" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border-4 border-amber-300 relative">
+            <button onclick="closeRankingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
+                ✕
+            </button>
+
+            <div class="text-center mb-5">
+                <div class="w-14 h-14 bg-amber-400 text-white rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-md mb-2">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="title-font text-xl font-bold text-indigo-950">Ranking dos Campeões</h3>
+                <p class="text-xs text-gray-500">Alunos do 3º Ano - ETI Almirante Tamandaré</p>
+            </div>
+
+            <div id="rankingListContainer" class="space-y-2 max-h-64 overflow-y-auto pr-1 mb-5">
+                <!-- Ranking items gerados via JS -->
+            </div>
+
+            <button onclick="closeRankingModal()" class="w-full py-2.5 bg-indigo-600 text-white font-bold title-font rounded-xl hover:bg-indigo-700 transition">
+                CONTINUAR ESTUDANDO
+            </button>
+        </div>
+    </div>
+
+    <div id="modalParent" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border-4 border-indigo-400 relative">
+            <button onclick="closeParentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
+                ✕
+            </button>
+
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <h3 class="title-font text-lg font-bold text-indigo-950">Painel do Responsável</h3>
+                    <p class="text-xs text-gray-500">Informações da Escola e Cronograma Oficial</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-xs mb-5">
+                <div class="bg-gray-50 p-3 rounded-xl border border-gray-200">
+                    <strong class="text-gray-700 block mb-1">Dados Cadastrados (Salvos na Nuvem):</strong>
+                    <p>• <strong>Responsável:</strong> <span id="parentSummaryName">-</span></p>
+                    <p>• <strong>Contato:</strong> <span id="parentSummaryPhone">-</span></p>
+                    <p>• <strong>Estudante:</strong> <span id="childSummaryName">-</span></p>
+                    <p class="mt-1 text-[11px] text-emerald-700 font-semibold flex items-center">
+                        <i class="fa-solid fa-cloud-check mr-1"></i> Sincronizado na nuvem para acesso a qualquer momento.
+                    </p>
+                </div>
+
+                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
+                    <strong class="text-indigo-900 block mb-1">Cronograma do 3º Bimestre (21 a 25/09):</strong>
+                    <ul class="list-disc list-inside space-y-1 text-indigo-900">
+                        <li><strong>21/09 (2ª feira):</strong> Língua Portuguesa</li>
+                        <li><strong>22/09 (3ª feira):</strong> SAEP Bimestral III</li>
+                        <li><strong>23/09 (4ª feira):</strong> Matemática</li>
+                        <li><strong>24/09 (5ª feira):</strong> História e Geografia</li>
+                        <li><strong>25/09 (6ª feira):</strong> Ciências</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button onclick="closeParentModal()" class="w-full py-2.5 bg-gray-800 text-white font-bold rounded-xl hover:bg-gray-900 transition">
+                FECHAR PAINEL
+            </button>
+        </div>
+    </div>
+
+    <div id="mascotWidget" class="hidden fixed bottom-3 right-3 md:bottom-5 md:right-5 z-40 flex items-end space-x-2 pointer-events-none">
+        <div id="mascotSpeechBubble" class="bg-white border-2 border-indigo-400 rounded-2xl p-3 shadow-xl max-w-[200px] text-xs font-bold text-indigo-950 pointer-events-auto transform transition-all duration-300 scale-100 opacity-100 relative mb-2">
+            <span id="mascotSpeechText">Olá! Vamos estudar juntos? 🚀</span>
+            <div class="absolute -right-2 bottom-3 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-indigo-400 border-b-[6px] border-b-transparent"></div>
+        </div>
+
+        <div id="mascotAvatarContainer" onclick="triggerMascotTap()" class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-indigo-100 to-purple-100 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center text-4xl md:text-5xl cursor-pointer pointer-events-auto transition hover:scale-105 relative select-none mascot-state-sitting">
+            <span id="mascotGraphic">🧙‍♂️</span>
+            <div id="mascotSparkle" class="hidden absolute -top-2 -right-1 text-xl animate-ping">✨</div>
+            <div id="mascotPostureBadge" class="absolute -bottom-1 bg-indigo-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white">
+                Lendo
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let parentData = {
+            parentName: '',
+            phone: '',
+            childName: '',
+            archetype: 'mago'
+        };
+
+        let userState = {
+            points: 0,
+            activeSubjectIndex: 0,
+            completedMissions: [],
+            currentMissionIndex: null,
+            currentQuestionIndex: 0,
+            currentMissionScore: 0,
+            isSimulado: false,
+            simuladoQuestions: []
+        };
+
+        const archetypes = [
+            { id: 'mago', name: 'Mago dos Saberes', icon: '🧙‍♂️', desc: 'Mestre dos mistérios e descobertas!', sittingIcon: '🧙‍♂️', walkingIcon: '🧙‍♂️', jumpingIcon: '✨🧙‍♂️' },
+            { id: 'astronauta', name: 'Astronauta do Espaço', icon: '🚀', desc: 'Viaja pelo universo do conhecimento!', sittingIcon: '🧑‍🚀', walkingIcon: '🚀', jumpingIcon: '🌟🧑‍🚀' },
+            { id: 'detetive', name: 'Detetive Curioso', icon: '🕵️‍♀️', desc: 'Desvenda charadas e pistas!', sittingIcon: '🕵️‍♀️', walkingIcon: '🔍🕵️‍♀️', jumpingIcon: '💡🕵️‍♀️' },
+            { id: 'explorador', name: 'Explorador de Taquaruçu', icon: '🦁', desc: 'Corajoso para desbravar a natureza!', sittingIcon: '🦁', walkingIcon: '🐾🦁', jumpingIcon: '👑🦁' },
+            { id: 'superheroi', name: 'Super-Herói das Letras', icon: '🦸‍♀️', desc: 'Protege o saber com superpoderes!', sittingIcon: '🦸‍♀️', walkingIcon: '⚡🦸‍♀️', jumpingIcon: '💥🦸‍♀️' }
+        ];
+
+        /* ================= SISTEMA DO MASCOTE ANIMADO ================= */
+        let mascotStateTimeout = null;
+
+        function updateMascotAppearance(state = 'sitting', customMessage = null) {
+            const arch = archetypes.find(a => a.id === parentData.archetype) || archetypes[0];
+            const container = document.getElementById('mascotAvatarContainer');
+            const graphic = document.getElementById('mascotGraphic');
+            const badge = document.getElementById('mascotPostureBadge');
+            const speechText = document.getElementById('mascotSpeechText');
+            const sparkle = document.getElementById('mascotSparkle');
+
+            container.className = "w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-indigo-100 to-purple-100 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center text-4xl md:text-5xl cursor-pointer pointer-events-auto transition hover:scale-105 relative select-none ";
+
+            if (state === 'sitting') {
+                container.classList.add('mascot-state-sitting');
+                graphic.textContent = arch.sittingIcon || arch.icon;
+                badge.textContent = "Lendo";
+                badge.className = "absolute -bottom-1 bg-indigo-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white";
+                sparkle.classList.add('hidden');
+                if (!customMessage) customMessage = `Estou concentrado junto com você, ${parentData.childName || 'Explorador'}!`;
+            } else if (state === 'walking') {
+                container.classList.add('mascot-state-walking');
+                graphic.textContent = arch.walkingIcon || arch.icon;
+                badge.textContent = "Andando";
+                badge.className = "absolute -bottom-1 bg-amber-500 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white";
+                sparkle.classList.add('hidden');
+                if (!customMessage) customMessage = "Caminhando para o próximo desafio! 🚶‍♂️";
+            } else if (state === 'jumping') {
+                container.classList.add('mascot-state-jumping');
+                graphic.textContent = arch.jumpingIcon || arch.icon;
+                badge.textContent = "Saltando!";
+                badge.className = "absolute -bottom-1 bg-emerald-500 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white animate-bounce";
+                sparkle.classList.remove('hidden');
+                if (!customMessage) customMessage = "ISSO AÍ! VOCÊ ACERTOU! 🎉⭐";
+            }
+
+            if (customMessage) {
+                speechText.textContent = customMessage;
+            }
+
+            document.getElementById('mascotWidget').classList.remove('hidden');
+
+            if (state === 'jumping' || state === 'walking') {
+                if (mascotStateTimeout) clearTimeout(mascotStateTimeout);
+                mascotStateTimeout = setTimeout(() => {
+                    updateMascotAppearance('sitting');
+                }, 3500);
+            }
+        }
+
+        function triggerMascotTap() {
+            playChirpSound();
+            const quotes = [
+                `Você é super inteligente, ${parentData.childName || 'Explorador'}!`,
+                "Vamos gabaritar essa prova do 3º Ano! 💪",
+                "Estou aqui torcendo por cada ponto seu!",
+                "Estudar é o maior superpoder do mundo! ✨"
+            ];
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            updateMascotAppearance('jumping', randomQuote);
+        }
+
+        const mockLeaderboard = [
+            { name: 'Gabriel S. (Girassóis)', archetype: '🚀', points: 720 },
+            { name: 'Maria Eduarda', archetype: '🕵️‍♀️', points: 640 },
+            { name: 'Enzo Gabriel', archetype: '🦁', points: 580 },
+            { name: 'Sofia M.', archetype: '🦸‍♀️', points: 510 }
+        ];
+
+        const subjectsData = [
+            /* 1. LÍNGUA PORTUGUESA */
+            {
+                id: 'portugues',
+                name: 'Língua Portuguesa',
+                date: '21/09 (2ª Feira)',
+                icon: '📚',
+                bgGradient: 'from-indigo-600 to-purple-600',
+                missions: [
+                    {
+                        id: 'port_m1',
+                        title: 'Textos Injuntivos',
+                        subtitle: 'Receitas e Instruções de Montagem',
+                        icon: '🍳',
+                        questions: [
+                            {
+                                context: `<strong>RECEITA DE BOLO DE CANECA</strong><br>
+                                <strong>Ingredientes:</strong> 1 ovo, 2 colheres de chocolate, 3 colheres de farinha.<br>
+                                <strong>Modo de Preparo:</strong><br>
+                                1. <u>Misture</u> tudo na caneca.<br>
+                                2. <u>Leve</u> ao micro-ondas por 3 minutos.`,
+                                question: 'Qual é a função principal de um texto injuntivo como esta receita?',
+                                hint: 'Textos injuntivos servem para ensinar passo a passo como fazer algo ou dar ordens.',
+                                options: [
+                                    'Instruir e orientar o leitor a preparar uma comida passo a passo.',
+                                    'Contar uma piada divertida sobre um bolo.',
+                                    'Noticiar um acontecimento da cidade de Palmas.'
+                                ],
+                                correct: 0,
+                                explanation: 'Exatamente! A receita é um texto injuntivo pois nos ensina as etapas para preparar um alimento.'
+                            },
+                            {
+                                context: `Palavras do modo de preparo: <strong>"Misture"</strong>, <strong>"Leve"</strong> e <strong>"Adicione"</strong>.`,
+                                question: 'O que essas palavras indicam nas instruções de montagem ou receita?',
+                                hint: 'Elas indicam ações e ordens diretas que devemos cumprir.',
+                                options: [
+                                    'São nomes de objetos da cozinha.',
+                                    'São verbos de comando que indicam as ações a serem feitas.',
+                                    'São qualidades e enfeites das palavras.'
+                                ],
+                                correct: 1,
+                                explanation: 'Correto! Em textos de instrução, usamos verbos de comando (no imperativo) para direcionar o leitor.'
+                            },
+                            {
+                                context: `<strong>MANUAL DO BRINQUEDO:</strong><br>
+                                1º Encaixe as rodas no eixo azul.<br>
+                                2º Cole os adesivos nas laterais.<br>
+                                3º Aperte o botão para ligar.`,
+                                question: 'Por que é importante seguir as etapas do manual na ordem correta?',
+                                hint: 'Se pularmos etapas de montagem, o brinquedo pode não funcionar.',
+                                options: [
+                                    'Porque a ordem garante que o brinquedo seja montado corretamente sem quebrar.',
+                                    'Porque não faz diferença a ordem das etapas.',
+                                    'Para transformar o manual em um poema de rimas.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! A sequência ordenada de passos é a característica fundamental do texto de instrução.'
+                            },
+                            {
+                                context: `Nas receitas, o texto costuma ser dividido em duas partes principais:`,
+                                question: 'Quais são as duas seções principais de uma receita culinária?',
+                                hint: 'Uma lista os itens necessários e a outra ensina como fazer.',
+                                options: [
+                                    'Ingredientes e Modo de Preparo.',
+                                    'Título e Personagens principais.',
+                                    'Início, Meio e Fim da história.'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso mesmo! Primeiro apresentamos a lista de ingredientes e depois o modo de preparo passo a passo.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'port_m2',
+                        title: 'Tirinhas & Onomatopeias',
+                        subtitle: 'Histórias em Quadrinhos e Leitura Visual',
+                        icon: '🎨',
+                        questions: [
+                            {
+                                context: `Na tirinha, o Cebolinha tropeça e aparece escrito em letras bem grandes: <strong>"POW! CRASH!"</strong>`,
+                                question: 'Como se chamam as palavras que imitam barulhos e sons na história?',
+                                hint: 'São palavras que reproduzem sons de batidas, espirros e relógios.',
+                                options: [
+                                    'Onomatopeias',
+                                    'Substantivos',
+                                    'Acentos agudos'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! Onomatopeia é a palavra que imita um som (ex: POW, CABUM, TOC-TOC, MIAU).'
+                            },
+                            {
+                                context: `Um balão em formato de <strong>nuvenzinha com bolinhas</strong> aponta para a cabeça do personagem.`,
+                                question: 'O que esse formato de balão significa na história em quadrinhos?',
+                                hint: 'Diferente da fala em voz alta, esse balão mostra o que está na cabeça do personagem.',
+                                options: [
+                                    'Indica que o personagem está gritando bem alto.',
+                                    'Indica um pensamento do personagem.',
+                                    'Indica o som de uma chuva caindo.'
+                                ],
+                                correct: 1,
+                                explanation: 'Isso aí! O balão em forma de nuvem representa os pensamentos do personagem.'
+                            },
+                            {
+                                context: `Na tirinha da Mônica, a Magali aparece com os olhos arregalados, boca aberta e a língua de fora diante de uma melancia.`,
+                                question: 'A expressão facial e os desenhos nos quadrinhos (linguagem não-verbal) ajudam o leitor a entender:',
+                                hint: 'Olhe para a carinha do personagem sem precisar ler o texto falado.',
+                                options: [
+                                    'A emoção, o desejo e os sentimentos dos personagens.',
+                                    'O preço da melancia no mercado.',
+                                    'Apenas a cor da roupa da Mônica.'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! A leitura de imagens em HQs nos ajuda a compreender os sentimentos e reações das personagens.'
+                            },
+                            {
+                                context: `Ao redor de uma personagem que está correndo rápido na tirinha, aparecem <strong>risquinhos de poeira e linhas de movimento</strong>.`,
+                                question: 'Esses recursos visuais servem para indicar:',
+                                hint: 'Linhas ao redor de uma pessoa indicam a ação e a rapidez.',
+                                options: [
+                                    'Movimento e velocidade do personagem na cena.',
+                                    'Que a personagem está dormindo profundamente.',
+                                    'Que o quadrinho está rasgado.'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! Os traços de movimento mostram a direção e a velocidade das ações na história.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'port_m3',
+                        title: 'Sílabas & Acentuação',
+                        subtitle: 'Classificação Silábica e Acentuação',
+                        icon: '✂️',
+                        questions: [
+                            {
+                                context: `Vamos separar em pedacinhos a palavra: <strong>BORBOLETA</strong> (bor-bo-le-ta).`,
+                                question: 'Quantas sílabas ela tem e qual é a sua classificação?',
+                                hint: '1 = Monossílaba, 2 = Dissílaba, 3 = Trissílaba, 4 ou mais = Polissílaba.',
+                                options: [
+                                    'Tem 4 sílabas e é uma palavra Polissílaba.',
+                                    'Tem 3 sílabas e é uma palavra Trissílaba.',
+                                    'Tem 2 sílabas e é uma palavra Dissílaba.'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! Como bor-bo-le-ta tem 4 sílabas, ela é classificada como Polissílaba.'
+                            },
+                            {
+                                context: `Analise as palavras: <strong>SOL</strong>, <strong>PÉ</strong> e <strong>PÃO</strong>.`,
+                                question: 'Essas palavras possuem apenas 1 sílaba. Como são chamadas?',
+                                hint: 'O prefixo "Mono" quer dizer um só.',
+                                options: [
+                                    'Monossílabas',
+                                    'Trissílabas',
+                                    'Polissílabas'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! Palavras pronunciadas em uma só emissão de som são Monossílabas.'
+                            },
+                            {
+                                context: `Separe em sílabas a palavra <strong>ESCOLA</strong>: (es-co-la).`,
+                                question: 'Como a palavra ESCOLA possui 3 pedacinhos (sílabas), ela é:',
+                                hint: 'Possui três sílabas.',
+                                options: [
+                                    'Trissílaba',
+                                    'Dissílaba',
+                                    'Monossílaba'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! Palavras com 3 sílabas são chamadas de Trissílabas.'
+                            },
+                            {
+                                context: `Observe os acentos nas palavras: <strong>PÁ</strong> (acento agudo) e <strong>VOVÔ</strong> (acento circunflexo).`,
+                                question: 'Para que servem os acentos gráficos nas palavras?',
+                                hint: 'Acentos mostram a pronúncia da sílaba mais forte (aberta ou fechada).',
+                                options: [
+                                    'Indicar a pronúncia correta e a sílaba tônica (mais forte).',
+                                    'Mudar a cor das letras no caderno.',
+                                    'Separar a frase em parágrafos.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! Os acentos marcam a sílaba tônica e o som aberto (´) ou fechado (^).'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'port_m4',
+                        title: 'Classes de Palavras',
+                        subtitle: 'Substantivos, Verbos e Adjetivos',
+                        icon: '🏷️',
+                        questions: [
+                            {
+                                context: `Frase: <strong>"O cachorrinho alegre correu pela praça."</strong>`,
+                                question: 'A palavra <u>alegre</u> dá uma característica/qualidade ao cachorrinho. Ela é um:',
+                                hint: 'Substantivo nomeia, Verbo é ação e Adjetivo é qualidade/característica.',
+                                options: [
+                                    'Adjetivo',
+                                    'Verbo',
+                                    'Substantivo'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! "Alegre" é um adjetivo pois atribui uma característica ao substantivo cachorrinho.'
+                            },
+                            {
+                                context: `Na mesma frase: <strong>"O cachorrinho alegre <u>correu</u> pela praça."</strong>`,
+                                question: 'A palavra <u>correu</u> é uma ação praticada pelo cachorrinho. Trata-se de um:',
+                                hint: 'Palavras que indicam ações (correr, pular, estudar) são verbos.',
+                                options: [
+                                    'Verbo',
+                                    'Sufixo',
+                                    'Substantivo'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! "Correu" é um verbo porque expressa uma ação.'
+                            },
+                            {
+                                context: `Palavras que dão nome a coisas, pessoas, lugares e animais: <strong>Palmas, menino, caneta, gato</strong>.`,
+                                question: 'Essas palavras que DÃO NOME aos seres pertencem à classe dos:',
+                                hint: 'São os nomes das coisas ao nosso redor.',
+                                options: [
+                                    'Substantivos',
+                                    'Verbos',
+                                    'Acentos'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso aí! Substantivos são as palavras responsáveis por nomear tudo o que existe.'
+                            },
+                            {
+                                context: `Analise as palavras: <strong>rápido, inteligente, bondoso, grande</strong>.`,
+                                question: 'Todas essas palavras indicam qualidades de algo ou alguém. São:',
+                                hint: 'Palavras que dão qualidade aos substantivos.',
+                                options: [
+                                    'Adjetivos',
+                                    'Substantivos',
+                                    'Verbos'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! Adjetivos caracterizam e qualificam os substantivos.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'port_m5',
+                        title: 'Prefixos e Sufixos',
+                        subtitle: 'Formação de Palavras Derivadas',
+                        icon: '🧩',
+                        questions: [
+                            {
+                                context: `Adicionando o pedacinho <strong>IN-</strong> antes de <i>FELIZ</i>, temos a palavra <strong>INFELIZ</strong>.`,
+                                question: 'Esse elemento colocado no INÍCIO da palavra é chamado de:',
+                                hint: 'Vem antes (pré) do radical da palavra.',
+                                options: [
+                                    'Prefixo',
+                                    'Sufixo',
+                                    'Verbo'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! Prefixo é a partícula colocada antes da palavra primitiva para formar uma nova palavra.'
+                            },
+                            {
+                                context: `A palavra <i>PEDRA</i> com o pedacinho <strong>-EIRO</strong> no final vira <strong>PEDREIRO</strong>.`,
+                                question: 'O pedacinho colocado no FINAL da palavra para formar uma nova é um:',
+                                hint: 'Quando fica no final da palavra, chamamos de sufixo.',
+                                options: [
+                                    'Sufixo',
+                                    'Prefixo',
+                                    'Onomatopeia'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso aí! Sufixo é adicionado ao final da palavra para criar uma palavra derivada.'
+                            },
+                            {
+                                context: `Colocando o elemento <strong>RE-</strong> na palavra <i>FAZER</i>, obtemos <strong>REFAZER</strong>.`,
+                                question: 'O prefixo <strong>RE-</strong> adiciona a ideia de:',
+                                hint: 'Refazer significa fazer de novo.',
+                                options: [
+                                    'Repetição (fazer novamente).',
+                                    'Negação (não fazer nada).',
+                                    'Diminutivo de fazer.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! O prefixo RE- expressa a ideia de repetir ou fazer mais uma vez.'
+                            },
+                            {
+                                context: `Transformando o adjetivo <i>FELIZ</i> na palavra <strong>FELIZMENTE</strong> com o pedacinho <strong>-MENTE</strong>.`,
+                                question: 'O pedacinho final -MENTE é um:',
+                                hint: 'Foi adicionado depois/no final da palavra primitiva.',
+                                options: [
+                                    'Sufixo',
+                                    'Prefixo',
+                                    'Substantivo'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! -MENTE é um sufixo formador de palavras derivadas.'
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            /* 2. MATEMÁTICA */
+            {
+                id: 'matematica',
+                name: 'Matemática',
+                date: '23/09 (4ª Feira)',
+                icon: '🔢',
+                bgGradient: 'from-blue-600 to-cyan-600',
+                missions: [
+                    {
+                        id: 'mat_m1',
+                        title: 'Adição e Subtração',
+                        subtitle: 'Cálculo Mental e Resolução de Problemas',
+                        icon: '➕',
+                        questions: [
+                            {
+                                context: `Lucas tinha 35 figurinhas do campeonato. Ele ganhou mais 18 figurinhas do seu colega.`,
+                                question: 'Quantas figurinhas Lucas tem agora ao todo?',
+                                hint: 'Some 35 + 18. Lembre-se de somar primeiro as unidades (5+8) e depois as dezenas!',
+                                options: [
+                                    '53 figurinhas (35 + 18)',
+                                    '43 figurinhas',
+                                    '23 figurinhas'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! 35 + 18 = 53 figurinhas (5+8=13, sobe 1; 3+1+1=5).'
+                            },
+                            {
+                                context: `Em uma caixa havia 50 canetinhas coloridas. A professora retirou 15 para a aula de arte.`,
+                                question: 'A ideia de "retirar" uma quantidade está ligada a qual operação e qual é o resultado?',
+                                hint: 'Juntar é Adição, retirar é Subtração.',
+                                options: [
+                                    'Subtração (50 - 15 = 35)',
+                                    'Adição (50 + 15 = 65)',
+                                    'Divisão (50 ÷ 15 = 3)'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! A ação de retirar ou diminuir corresponde à operação de Subtração (50 - 15 = 35).'
+                            },
+                            {
+                                context: `Ana tem 24 reais e quer comprar um livro de historinhas que custa 40 reais.`,
+                                question: 'Quanto dinheiro falta para Ana conseguir comprar o livro?',
+                                hint: 'Subtraia o valor do livro pelo valor que Ana tem (40 - 24).',
+                                options: [
+                                    'Faltam 16 reais (40 - 24)',
+                                    'Faltam 20 reais',
+                                    'Faltam 14 reais'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! A ideia de "quanto falta" é resolvida por subtração: 40 - 24 = 16 reais.'
+                            },
+                            {
+                                context: `Mariana resolveu mentalmente a conta: <strong>120 + 80</strong>.`,
+                                question: 'Qual é o resultado correto desse cálculo mental?',
+                                hint: 'Pense em 12 dezenas + 8 dezenas = 20 dezenas.',
+                                options: [
+                                    '200',
+                                    '190',
+                                    '210'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! 120 + 80 = 200.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'mat_m2',
+                        title: 'Divisão e Repartição',
+                        subtitle: 'Distribuição em Partes Iguais',
+                        icon: '🍕',
+                        questions: [
+                            {
+                                context: `A professora tem 20 lápis de cor e quer repartir igualmente entre 4 alunos.`,
+                                question: 'Quantos lápis de cor cada aluno vai receber?',
+                                hint: 'Pense em qual número multiplicado por 4 dá 20 (4 x ? = 20).',
+                                options: [
+                                    '5 lápis para cada aluno.',
+                                    '10 lápis para cada aluno.',
+                                    '4 lápis para cada aluno.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! 20 repartido em 4 partes iguais é igual a 5 lápis (20 ÷ 4 = 5).'
+                            },
+                            {
+                                context: `Um confeiteiro tem 18 brigadeiros e quer organizar igualmente em 3 caixas.`,
+                                question: 'Quantos brigadeiros haverá em cada caixa?',
+                                hint: 'Divida 18 em 3 partes iguais (3 x ? = 18).',
+                                options: [
+                                    '6 brigadeiros em cada caixa.',
+                                    '8 brigadeiros em cada caixa.',
+                                    '5 brigadeiros em cada caixa.'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso aí! 18 ÷ 3 = 6 brigadeiros por caixa.'
+                            },
+                            {
+                                context: `Na sala de aula do 3º ano, há 4 fileiras com 5 carteiras em cada fileira (organização retangular).`,
+                                question: 'Quantas carteiras há ao todo na sala?',
+                                hint: 'Multiplique o número de fileiras pelo número de carteiras (4 x 5).',
+                                options: [
+                                    '20 carteiras (4 x 5)',
+                                    '15 carteiras',
+                                    '9 carteiras'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! Em organizações em grade/retângulo, multiplicamos linhas por colunas: 4 x 5 = 20.'
+                            },
+                            {
+                                context: `A mãe de João fez 16 laranjadas e deu a metade para os vizinhos.`,
+                                question: 'A ideia de "metade" corresponde a dividir o total por quanto?',
+                                hint: 'Dividir ao meio é repartir em 2 partes iguais.',
+                                options: [
+                                    'Dividir por 2 (16 ÷ 2 = 8).',
+                                    'Dividir por 4.',
+                                    'Subtrair 1.'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! Encontrar a metade de um número é dividir por 2.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'mat_m3',
+                        title: 'Localização e Espaço',
+                        subtitle: 'Pontos de Referência e Trajetos',
+                        icon: '🗺️',
+                        questions: [
+                            {
+                                context: `Para explicar onde mora, Sofia disse: <strong>"Minha casa fica em frente à padaria e ao lado da farmácia."</strong>`,
+                                question: 'A padaria e a farmácia usadas por Sofia são chamadas de:',
+                                hint: 'Lugares conhecidos que ajudam a encontrar um endereço.',
+                                options: [
+                                    'Pontos de referência.',
+                                    'Símbolos matemáticos.',
+                                    'Imagens de satélite.'
+                                ],
+                                correct: 0,
+                                explanation: 'Exatamente! Pontos de referência são locais conhecidos que ajudam a nos orientar no espaço.'
+                            },
+                            {
+                                context: `No mapa da escola, para ir da biblioteca até a quadra de esportes, o aluno deve andar para a <strong>direita</strong> e depois virar à <strong>esquerda</strong>.`,
+                                question: 'Essas orientações de direita, esquerda, em frente e atrás servem para:',
+                                hint: 'Ajudam no deslocamento e localização espacial.',
+                                options: [
+                                    'Descrever a movimentação e trajetos no espaço.',
+                                    'Contar a quantidade de alunos.',
+                                    'Saber a hora do recreio.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! As direções espaciais ajudam na navegação e representação de trajetos.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'mat_m4',
+                        title: 'Medidas de Tempo',
+                        subtitle: 'Relógios Digitais, Analógicos e Horas',
+                        icon: '⏰',
+                        questions: [
+                            {
+                                context: `No relógio de ponteiros (analógico), o <strong>ponteiro pequeno</strong> aponta para o 9 e o <strong>ponteiro grande</strong> aponta para o 12.`,
+                                question: 'Que horas este relógio está marcando?',
+                                hint: 'Ponteiro pequeno marca as HORAS, ponteiro grande marca os MINUTOS.',
+                                options: [
+                                    '9 horas exatas (09:00).',
+                                    '12 horas exatas (12:00).',
+                                    '3 horas exatas.'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso mesmo! Ponteiro menor no 9 indica 9 horas, e ponteiro maior no 12 indica hora cheia.'
+                            },
+                            {
+                                context: `Um filme infantil começou às 14:00 e terminou às 16:00.`,
+                                question: 'Qual foi a duração desse filme?',
+                                hint: 'Calcule a diferença entre as 16 horas e as 14 horas.',
+                                options: [
+                                    '2 horas de duração.',
+                                    '4 horas de duração.',
+                                    '1 hora de duração.'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! De 14:00 até 16:00 passaram-se exatamente 2 horas.'
+                            },
+                            {
+                                context: `Quantos minutos possui <strong>1 hora inteira</strong> e quantas horas possui <strong>1 dia completo</strong>?`,
+                                hint: 'Lembre-se da relação de tempo: 1 hora = 60 minutos.',
+                                options: [
+                                    '1 hora = 60 minutos / 1 dia = 24 horas.',
+                                    '1 hora = 100 minutos / 1 dia = 10 horas.',
+                                    '1 hora = 30 minutos / 1 dia = 12 horas.'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! 1 hora equivale a 60 minutos e 1 dia completo possui 24 horas.'
+                            },
+                            {
+                                context: `O relógio digital de Caio está marcando <strong>10:30</strong>.`,
+                                question: 'Como lemos o horário indicado nesse relógio digital?',
+                                hint: 'O número antes dos dois pontos são horas, e depois são os minutos.',
+                                options: [
+                                    'Dez horas e trinta minutos (ou dez e meia).',
+                                    'Dez horas exatas.',
+                                    'Três horas e dez minutos.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! 10:30 significa dez horas e trinta minutos.'
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            /* 3. HISTÓRIA */
+            {
+                id: 'historia',
+                name: 'História',
+                date: '24/09 (5ª Feira)',
+                icon: '🏛️',
+                bgGradient: 'from-amber-600 to-orange-600',
+                missions: [
+                    {
+                        id: 'hist_m1',
+                        title: 'Espaços Públicos e Privados',
+                        subtitle: 'A Cidade e Convivência em Palmas',
+                        icon: '🏞️',
+                        questions: [
+                            {
+                                context: `A <strong>Praça dos Girassóis</strong> em Palmas é um local bonito onde todos os cidadãos podem passear livremente.`,
+                                question: 'A Praça dos Girassóis é classificada como um:',
+                                hint: 'Espaços mantidos pelo governo para uso livre de todos são públicos.',
+                                options: [
+                                    'Espaço Público (de uso comum da população).',
+                                    'Espaço Privado (com entrada restrita do dono).',
+                                    'Espaço Secreto.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! As praças, parques e ruas são espaços públicos abertos para toda a comunidade.'
+                            },
+                            {
+                                context: `A nossa casa, o quarto e lojas do shopping possuem donos e regras próprias de entrada.`,
+                                question: 'Esses locais com acesso restrito definidos pelo proprietário são chamados de:',
+                                hint: 'Espaços particulares que pertencem a alguém.',
+                                options: [
+                                    'Espaços Privados.',
+                                    'Espaços Públicos.',
+                                    'Espaços da Natureza Aberta.'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! Casas, apartamentos e comércios são propriedades privadas.'
+                            },
+                            {
+                                context: `Quem é o responsável por administrar e cuidar da manutenção das ruas, praças e iluminação pública na cidade?`,
+                                hint: 'É a gestão governamental da nossa cidade.',
+                                options: [
+                                    'O Governo / Prefeitura, juntamente com a população que deve preservar.',
+                                    'Apenas uma pessoa dona da praça.',
+                                    'Ninguém cuida dos espaços da cidade.'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! O poder público administra e mantém os espaços coletivos com a colaboração dos cidadãos.'
+                            },
+                            {
+                                context: `Ao frequentar uma praça pública de Palmas, um aluno viu uma pessoa jogando lixo na grama e rabiscando os bancos.`,
+                                question: 'Qual seria a atitude correta de um cidadão consciente nesses espaços públicos?',
+                                hint: 'Devemos cuidar do patrimônio coletivo.',
+                                options: [
+                                    'Jogar o lixo nas lixeiras e cuidar das instalações da praça.',
+                                    'Ajudar a pichar mais bancos.',
+                                    'Deixar mais sujeira espalhada.'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso mesmo! Cuidar e respeitar os espaços públicos é dever de todos os cidadãos.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'hist_m2',
+                        title: 'Patrimônio e Conservação',
+                        subtitle: 'Cuidados com as Áreas Verdes do Tocantins',
+                        icon: '🌿',
+                        questions: [
+                            {
+                                context: `Em Palmas, no distrito de <strong>Taquaruçu</strong> e na <strong>Ilha do Bananal</strong>, existem áreas de conservação ambiental.`,
+                                question: 'Por que é importante proteger e preservar essas áreas naturais?',
+                                hint: 'A preservação cuida das cachoeiras, animais e plantas para o futuro de todos.',
+                                options: [
+                                    'Para proteger a fauna, flora, águas e garantir a qualidade de vida do planeta.',
+                                    'Para construir prédios gigantes em cima das cachoeiras.',
+                                    'Para jogar lixo sem ninguém ver.'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! Preservar as áreas ambientais de Taquaruçu e do Tocantins garante a proteção dos animais e rios.'
+                            },
+                            {
+                                context: `Chamamos de <strong>Patrimônio Público</strong> todos os bens, monumentos e locais que pertencem a toda a comunidade.`,
+                                question: 'A preservação do patrimônio público depende de qual atitude?',
+                                hint: 'Depende do comportamento consciente de cada um.',
+                                options: [
+                                    'Atitude consciente de não depredar, manter limpo e respeitar os locais.',
+                                    'Destruir o que não for nosso.',
+                                    'Trancar todas as praças para ninguém usar.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! A educação patrimonial nos ensina a valorizar e conservar o bem coletivo.'
+                            },
+                            {
+                                context: `No estado do Tocantins, o Parque Estadual do Jalapão e a Ilha do Bananal são Unidades de Conservação.`,
+                                question: 'Essas unidades existem principalmente para:',
+                                hint: 'Elas protegem as espécies de plantas e animais do Cerrado.',
+                                options: [
+                                    'Proteger a biodiversidade do Cerrado e os recursos naturais.',
+                                    'Criar indústrias poluidoras.',
+                                    'Desmatar as florestas.'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! As unidades de conservação garantem a preservação do meio ambiente e ecossistemas.'
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            /* 4. GEOGRAFIA */
+            {
+                id: 'geografia',
+                name: 'Geografia',
+                date: '24/09 (5ª Feira)',
+                icon: '🗺️',
+                bgGradient: 'from-emerald-600 to-teal-600',
+                missions: [
+                    {
+                        id: 'geo_m1',
+                        title: 'Pontos de Vista',
+                        subtitle: 'Visão Vertical, Oblíqua e Frontal',
+                        icon: '👁️',
+                        questions: [
+                            {
+                                context: `Quando um drone voa bem alto e tira uma foto de um prédio olhando de <strong>cima para baixo</strong> de forma reta (Planta).`,
+                                question: 'Qual é o nome desse ponto de vista?',
+                                hint: 'Olhar direto do alto para baixo é a visão vertical.',
+                                options: [
+                                    'Visão Vertical (planta do local).',
+                                    'Visão Frontal (olhando de frente).',
+                                    'Visão Transversal.'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! A visão vertical é aquela observada exatamente de cima para baixo.'
+                            },
+                            {
+                                context: `Quando olhamos para uma maquete de lado e de cima ao mesmo tempo, vendo a altura e o teto inclinados.`,
+                                question: 'Esse ponto de vista inclinado é chamado de:',
+                                hint: 'Visão que mostra o objeto meio de lado e meio de cima.',
+                                options: [
+                                    'Visão Oblíqua.',
+                                    'Visão Frontal.',
+                                    'Visão Cega.'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! A visão oblíqua permite enxergar o objeto do alto e de lado ao mesmo tempo.'
+                            },
+                            {
+                                context: `Ao olhar para a fachada da sua escola ficando exatamente de pé em frente aos portões.`,
+                                question: 'Qual ponto de vista você está utilizando ao olhar direto para a frente?',
+                                hint: 'Olhar de frente é a visão frontal.',
+                                options: [
+                                    'Visão Frontal.',
+                                    'Visão Vertical.',
+                                    'Visão Invertida.'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso mesmo! A visão frontal registra os objetos observados de frente.'
+                            },
+                            {
+                                context: `Desenhar a <strong>Planta Baixa</strong> de uma sala de aula exige representar a sala vista de qual ponto de vista?`,
+                                hint: 'Plantas baixas são desenhadas olhando direto do alto para baixo.',
+                                options: [
+                                    'Visão Vertical (de cima para baixo).',
+                                    'Visão Frontal.',
+                                    'Visão Subterrânea.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! As plantas cartográficas utilizam a visão vertical.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'geo_m2',
+                        title: 'Imagens 2D vs 3D e Maquetes',
+                        subtitle: 'Representações Cartográficas e Legendas',
+                        icon: '📐',
+                        questions: [
+                            {
+                                context: `Uma <strong>maquete</strong> possui largura, comprimento e ALTURA (profundidade).`,
+                                question: 'Por ter essas três dimensões, dizemos que a maquete é:',
+                                hint: 'Tem 3 dimensões (3D).',
+                                options: [
+                                    'Uma imagem Tridimensional (3D).',
+                                    'Uma imagem Bidimensional (2D).',
+                                    'Uma foto plana de papel.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! Objetos tridimensionais (3D) ocupam espaço com largura, comprimento e altura.'
+                            },
+                            {
+                                context: `Um desenho feito em uma folha de papel plana possui apenas <strong>largura e comprimento</strong>.`,
+                                question: 'Essa representação plana de duas dimensões é chamada de:',
+                                hint: '2 dimensões (2D).',
+                                options: [
+                                    'Bidimensional (2D).',
+                                    'Tridimensional (3D).',
+                                    'Escultura de gesso.'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! Imagens bidimensionais (2D) possuem apenas duas dimensões no plano.'
+                            },
+                            {
+                                context: `Nos mapas e plantas da cidade, existe um quadro com quadradinhos coloridos e símbolos explicando o que significa cada cor.`,
+                                question: 'Como se chama esse quadro explicativo dos mapas?',
+                                hint: 'É a explicação dos símbolos e cores do mapa.',
+                                options: [
+                                    'Legenda do Mapa.',
+                                    'Título da história.',
+                                    'Calculadora gráfica.'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! A legenda nos explica o significado dos símbolos, linhas e cores representados no mapa.'
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            /* 5. CIÊNCIAS */
+            {
+                id: 'ciencias',
+                name: 'Ciências',
+                date: '25/09 (6ª Feira)',
+                icon: '🔬',
+                bgGradient: 'from-pink-600 to-rose-600',
+                missions: [
+                    {
+                        id: 'cie_m1',
+                        title: 'Tipos de Solo e Cuidados',
+                        subtitle: 'Arenoso, Argiloso e Humoso',
+                        icon: '🌱',
+                        questions: [
+                            {
+                                context: `Um solo escuro, rico em matéria orgânica (restos de plantas e animais), fofo e ideal para o cultivo de hortas.`,
+                                question: 'Como é chamado esse solo fértil?',
+                                hint: 'Tem muito húmus e nutrientes para as plantas.',
+                                options: [
+                                    'Solo Humoso (ou humífero).',
+                                    'Solo Arenoso (da praia).',
+                                    'Solo de Pedras.'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso mesmo! O solo humoso é o mais fértil e rico em matéria orgânica para o plantio.'
+                            },
+                            {
+                                context: `O solo da praia tem grãos grandes e a água passa por ele muito rápido sem acumular.`,
+                                question: 'Esse solo formado principalmente por areia é o:',
+                                hint: 'Contém muita areia e seca rapidamente.',
+                                options: [
+                                    'Solo Arenoso.',
+                                    'Solo Argiloso.',
+                                    'Solo Asfáltico.'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! O solo arenoso possui grãos maiores de areia e deixa a água escoar facilmente.'
+                            },
+                            {
+                                context: `Um solo com partículas bem finas e compactas, que segura muita água, fica encharcado quando molhado e duro quando seco.`,
+                                question: 'Trata-se do:',
+                                hint: 'É feito de argila.',
+                                options: [
+                                    'Solo Argiloso.',
+                                    'Solo Arenoso.',
+                                    'Solo Humoso.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! O solo argiloso é impermeável e retém bastante água entre suas partículas finas.'
+                            },
+                            {
+                                context: `Para manter o solo saudável e produtivo para a agricultura, o que devemos evitar?`,
+                                hint: 'Ações destrutivas que estragam o solo.',
+                                options: [
+                                    'Evitar queimadas, desmatamento e poluição do solo.',
+                                    'Adubar e arar a terra.',
+                                    'Regar as plantas com água limpa.'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! Queimadas, desmatamento e erosão causam sérios prejuízos à qualidade do solo.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'cie_m2',
+                        title: 'O Som e Saúde Visual',
+                        subtitle: 'Intensidade Sonora e Cuidados com Telas',
+                        icon: '🔊',
+                        questions: [
+                            {
+                                context: `O som é produzido pela vibração de objetos e se espalha pelo ar em todas as direções.`,
+                                question: 'O barulho forte de uma furadeira ou trovão é classificado quanto à sua intensidade como:',
+                                hint: 'Sons de grande volume e força.',
+                                options: [
+                                    'Som Forte (alta intensidade).',
+                                    'Som Fraco (sussurro).',
+                                    'Som Inaudível.'
+                                ],
+                                correct: 0,
+                                explanation: 'Excelente! Trovões, furadeiras e buzinas de carros são exemplos de sons fortes.'
+                            },
+                            {
+                                context: `O barulho excessivo de buzinas, obras e trânsito intenso na cidade causa desconforto às pessoas.`,
+                                question: 'Como chamamos esse excesso de ruídos desagradáveis no ambiente?',
+                                hint: 'É a poluição provocada pelos barulhos muito fortes.',
+                                options: [
+                                    'Poluição Sonora.',
+                                    'Poluição da Água.',
+                                    'Sombra Visual.'
+                                ],
+                                correct: 0,
+                                explanation: 'Correto! A poluição sonora ocorre quando há excesso de sons fortes e incômodos no meio ambiente.'
+                            },
+                            {
+                                context: `Para manter uma boa <strong>saúde visual</strong> com celulares, tablets e videogames, devemos:`,
+                                question: 'Qual é a atitude correta para cuidar da visão das crianças?',
+                                hint: 'Ficar perto demais ou muitas horas sem pausa faz mal aos olhos.',
+                                options: [
+                                    'Fazer pausas no uso de telas e manter uma boa iluminação ambiente.',
+                                    'Usar o celular no escuro encostado no olho por 10 horas seguidas.',
+                                    'Nunca mais lavar os olhos.'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! Pausas regulares e boa iluminação protegem a saúde dos nossos olhos contra o cansaço visual.'
+                            }
+                        ]
+                    },
+                    {
+                        id: 'cie_m3',
+                        title: 'Ciclo de Vida e Fases',
+                        subtitle: 'Infância e Desenvolvimento Humano',
+                        icon: '👶',
+                        questions: [
+                            {
+                                context: `Todos os seres vivos passam por etapas: <strong>Nascimento → Crescimento → Reprodução → Envelhecimento/Morte</strong>.`,
+                                question: 'Esse conjunto de transformações ao longo da vida é chamado de:',
+                                hint: 'É o ciclo natural de todos os seres vivos.',
+                                options: [
+                                    'Ciclo de Vida.',
+                                    'Ciclo da Água.',
+                                    'Rotação da Terra.'
+                                ],
+                                correct: 0,
+                                explanation: 'Isso aí! O ciclo de vida representa as fases de desenvolvimento dos seres vivos.'
+                            },
+                            {
+                                context: `A fase que vai do nascimento até cerca dos 12 anos de idade, repleta de brincadeiras e aprendizado rápido.`,
+                                question: 'Em qual fase da vida está uma criança de 8 anos do 3º Ano?',
+                                hint: 'É a primeira fase de crescimento.',
+                                options: [
+                                    'Infância',
+                                    'Fase Adulta',
+                                    'Velhice / Terceira Idade'
+                                ],
+                                correct: 0,
+                                explanation: 'Muito bem! Aos 8 anos a criança está na fase da Infância (0 aos 12 anos).'
+                            },
+                            {
+                                context: `Os animais se alimentam e geram filhotes para garantir a continuidade de suas espécies no planeta.`,
+                                question: 'A capacidade dos seres vivos de gerarem novos indivíduos semelhantes é a:',
+                                hint: 'Etapa em que surgem filhotes ou novas plantinhas.',
+                                options: [
+                                    'Reprodução',
+                                    'Erosão',
+                                    'Poluição'
+                                ],
+                                correct: 0,
+                                explanation: 'Perfeito! A reprodução permite que as espécies deem origem a novos descendentes.'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        window.onload = function() {
+            renderArchetypeOptions();
+        };
+
+        function renderArchetypeOptions() {
+            const container = document.getElementById('archetypeContainer');
+            container.innerHTML = archetypes.map((arch, index) => `
+                <div onclick="selectArchetype('${arch.id}')" id="archCard_${arch.id}"
+                    class="archetype-card border-2 ${index === 0 ? 'border-indigo-600 bg-indigo-50/80 shadow-md' : 'border-gray-200 bg-white'} 
+                    p-3 rounded-2xl cursor-pointer hover:border-indigo-400 transition text-center flex flex-col items-center justify-center">
+                    <span class="text-3xl mb-1">${arch.icon}</span>
+                    <strong class="text-xs font-bold text-gray-800 block">${arch.name}</strong>
+                    <span class="text-[10px] text-gray-500 leading-tight mt-0.5">${arch.desc}</span>
+                </div>
+            `).join('');
+        }
+
+        function selectArchetype(id) {
+            parentData.archetype = id;
+            archetypes.forEach(arch => {
+                const card = document.getElementById(`archCard_${arch.id}`);
+                if (arch.id === id) {
+                    card.className = "archetype-card border-2 border-indigo-600 bg-indigo-50/80 shadow-md p-3 rounded-2xl cursor-pointer transition text-center flex flex-col items-center justify-center";
+                } else {
+                    card.className = "archetype-card border-2 border-gray-200 bg-white p-3 rounded-2xl cursor-pointer hover:border-indigo-400 transition text-center flex flex-col items-center justify-center";
+                }
+            });
+            playChirpSound();
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+
+            const parentName = document.getElementById('parentName').value.trim();
+            const parentPhone = document.getElementById('parentPhone').value.trim();
+            const childName = document.getElementById('childName').value.trim();
+            const errorBox = document.getElementById('authErrorMessage');
+
+            if (!parentName || !parentPhone || !childName) {
+                errorBox.classList.remove('hidden');
+                document.getElementById('authErrorText').textContent = "Por favor, preencha o nome do responsável, telefone e o nome da criança para liberar o acesso!";
+                return;
+            }
+
+            errorBox.classList.add('hidden');
+            parentData.parentName = parentName;
+            parentData.phone = parentPhone;
+            parentData.childName = childName;
+
+            document.getElementById('dashChildName').textContent = childName;
+            document.getElementById('childDisplayName').textContent = childName;
+            
+            const arch = archetypes.find(a => a.id === parentData.archetype) || archetypes[0];
+            document.getElementById('userAvatarBadge').textContent = arch.icon;
+            document.getElementById('dashboardHeroAvatar').textContent = arch.icon;
+            document.getElementById('archetypeBadgeLabel').textContent = arch.name;
+
+            document.getElementById('screenAuth').classList.add('hidden');
+            document.getElementById('topUserBar').classList.remove('hidden');
+            showDashboard();
+
+            updateMascotAppearance('walking', `Seja bem-vindo(a), ${childName}! Escolha a matéria para começar!`);
+            playCelebrationSound();
+            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function showDashboard() {
+            document.getElementById('screenAuth').classList.add('hidden');
+            document.getElementById('screenQuiz').classList.add('hidden');
+            document.getElementById('screenResult').classList.add('hidden');
+            document.getElementById('screenDashboard').classList.remove('hidden');
+
+            renderSubjectTabs();
+            renderActiveSubjectMissions();
+            updateUserBar();
+            updateMascotAppearance('sitting', `Qual matéria vamos praticar agora, ${parentData.childName || 'Explorador'}?`);
+        }
+
+        function renderSubjectTabs() {
+            const tabsContainer = document.getElementById('subjectTabs');
+            tabsContainer.innerHTML = subjectsData.map((subj, index) => {
+                const isActive = index === userState.activeSubjectIndex;
+                return `
+                    <button onclick="switchSubject(${index})"
+                        class="px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap transition flex items-center space-x-2 ${
+                            isActive 
+                            ? 'bg-indigo-600 text-white shadow-md scale-105 border-2 border-indigo-400' 
+                            : 'bg-white/90 text-gray-700 hover:bg-indigo-50 border border-gray-200'
+                        }">
+                        <span>${subj.icon}</span>
+                        <span>${subj.name}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function switchSubject(index) {
+            userState.activeSubjectIndex = index;
+            renderSubjectTabs();
+            renderActiveSubjectMissions();
+            playChirpSound();
+            updateMascotAppearance('walking', `Mudando para ${subjectsData[index].name}! 🚀`);
+        }
+
+        function renderActiveSubjectMissions() {
+            const subj = subjectsData[userState.activeSubjectIndex];
+            
+            document.getElementById('subjectExamDate').textContent = `PROVA: ${subj.date}`;
+            document.getElementById('subjectTitleName').textContent = subj.name;
+            document.getElementById('subjectBigIcon').textContent = subj.icon;
+            document.getElementById('subjectHeaderBox').className = `bg-gradient-to-r ${subj.bgGradient} text-white rounded-2xl p-4 md:p-5 shadow-md flex justify-between items-center`;
+
+            const container = document.getElementById('missionsList');
+            container.innerHTML = subj.missions.map((mission, idx) => {
+                const missionKey = `${userState.activeSubjectIndex}_${idx}`;
+                const isCompleted = userState.completedMissions.includes(missionKey);
+
+                return `
+                    <div class="bg-white rounded-2xl p-5 shadow-lg border-2 border-indigo-100 flex flex-col justify-between relative overflow-hidden transition hover:-translate-y-1">
+                        ${isCompleted ? `
+                            <span class="absolute top-3 right-3 bg-emerald-100 text-emerald-700 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full flex items-center border border-emerald-300">
+                                <i class="fa-solid fa-check mr-1"></i> CONCLUÍDA
+                            </span>
+                        ` : ''}
+
+                        <div>
+                            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl shadow-sm mb-3 border border-indigo-100">
+                                ${mission.icon}
+                            </div>
+                            <h4 class="title-font font-bold text-lg text-indigo-950 leading-snug">
+                                ${idx + 1}. ${mission.title}
+                            </h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-4">
+                                ${mission.subtitle} (${mission.questions.length} questões)
+                            </p>
+                        </div>
+
+                        <button onclick="startMission(${idx})" 
+                            class="w-full py-2.5 ${isCompleted ? 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100' : 'bg-indigo-600 text-white hover:bg-indigo-700'} font-bold title-font text-xs rounded-xl transition flex items-center justify-center space-x-1.5 shadow-sm">
+                            <span>${isCompleted ? 'REVISAR MISSÃO' : 'INICIAR MISSÃO'}</span>
+                            <i class="fa-solid fa-play text-[10px]"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateUserBar() {
+            document.getElementById('userPoints').textContent = userState.points;
+        }
+
+        function startMission(missionIndex) {
+            userState.isSimulado = false;
+            userState.currentMissionIndex = missionIndex;
+            userState.currentQuestionIndex = 0;
+            userState.currentMissionScore = 0;
+
+            document.getElementById('screenDashboard').classList.add('hidden');
+            document.getElementById('screenQuiz').classList.remove('hidden');
+
+            updateMascotAppearance('walking', "Entrando na missão! Vamos lá!");
+            loadQuestion();
+        }
+
+        function startSimuladoGeral() {
+            userState.isSimulado = true;
+            userState.currentQuestionIndex = 0;
+            userState.currentMissionScore = 0;
+
+            let allQuestions = [];
+            subjectsData.forEach(subj => {
+                subj.missions.forEach(m => {
+                    m.questions.forEach(q => {
+                        allQuestions.push({
+                            ...q,
+                            subjName: subj.name
+                        });
+                    });
+                });
+            });
+
+            allQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 8);
+            userState.simuladoQuestions = allQuestions;
+
+            document.getElementById('screenDashboard').classList.add('hidden');
+            document.getElementById('screenQuiz').classList.remove('hidden');
+
+            updateMascotAppearance('walking', "Iniciando o Simulado Geral com todas as matérias! 🏆");
+            loadSimuladoQuestion();
+        }
+
+        function loadQuestion() {
+            const subj = subjectsData[userState.activeSubjectIndex];
+            const mission = subj.missions[userState.currentMissionIndex];
+            const q = mission.questions[userState.currentQuestionIndex];
+
+            document.getElementById('quizMissionTitle').textContent = `${subj.name} • ${mission.title}`;
+            document.getElementById('questionCounter').textContent = `${userState.currentQuestionIndex + 1} / ${mission.questions.length}`;
+            
+            const progressPercent = ((userState.currentQuestionIndex + 1) / mission.questions.length) * 100;
+            document.getElementById('quizProgressBar').style.width = `${progressPercent}%`;
+
+            renderQuestionCard(q);
+        }
+
+        function loadSimuladoQuestion() {
+            const questions = userState.simuladoQuestions;
+            const q = questions[userState.currentQuestionIndex];
+
+            document.getElementById('quizMissionTitle').textContent = `Simulado Geral (${q.subjName})`;
+            document.getElementById('questionCounter').textContent = `${userState.currentQuestionIndex + 1} / ${questions.length}`;
+
+            const progressPercent = ((userState.currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('quizProgressBar').style.width = `${progressPercent}%`;
+
+            renderQuestionCard(q);
+        }
+
+        function renderQuestionCard(q) {
+            document.getElementById('hintBox').classList.add('hidden');
+            document.getElementById('feedbackBox').classList.add('hidden');
+            document.getElementById('actionArea').classList.add('hidden');
+
+            const contextCard = document.getElementById('questionContextCard');
+            if (q.context) {
+                contextCard.innerHTML = q.context;
+                contextCard.classList.remove('hidden');
+            } else {
+                contextCard.classList.add('hidden');
+            }
+
+            document.getElementById('questionText').textContent = q.question;
+            document.getElementById('hintContent').textContent = q.hint;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = q.options.map((opt, idx) => `
+                <button onclick="checkAnswer(${idx})" id="optBtn_${idx}"
+                    class="w-full text-left p-4 rounded-2xl border-2 border-gray-200 bg-white hover:border-indigo-400 hover:bg-indigo-50/50 transition font-semibold text-gray-800 text-sm md:text-base flex items-center justify-between group shadow-sm">
+                    <span class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-lg bg-gray-100 group-hover:bg-indigo-200 text-indigo-700 font-bold text-xs flex items-center justify-center shrink-0">
+                            ${String.fromCharCode(65 + idx)}
+                        </span>
+                        <span>${opt}</span>
+                    </span>
+                    <i class="fa-regular fa-circle text-gray-300 group-hover:text-indigo-400"></i>
+                </button>
+            `).join('');
+
+            updateMascotAppearance('sitting', `Leia com calma! Eu confio no seu conhecimento, ${parentData.childName || 'Explorador'}!`);
+        }
+
+        function toggleHint() {
+            const hintBox = document.getElementById('hintBox');
+            hintBox.classList.toggle('hidden');
+            playChirpSound();
+        }
+
+        function confirmExitQuiz() {
+            showDashboard();
+        }
+
+        function checkAnswer(selectedIndex) {
+            let q;
+            if (userState.isSimulado) {
+                q = userState.simuladoQuestions[userState.currentQuestionIndex];
+            } else {
+                q = subjectsData[userState.activeSubjectIndex].missions[userState.currentMissionIndex].questions[userState.currentQuestionIndex];
+            }
+
+            for (let i = 0; i < q.options.length; i++) {
+                const btn = document.getElementById(`optBtn_${i}`);
+                btn.disabled = true;
+                btn.classList.add('cursor-not-allowed', 'opacity-80');
+            }
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackText = document.getElementById('feedbackText');
+            const selectedBtn = document.getElementById(`optBtn_${selectedIndex}`);
+
+            if (selectedIndex === q.correct) {
+                userState.currentMissionScore++;
+                userState.points += 50;
+
+                selectedBtn.className = "w-full text-left p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-sm md:text-base flex items-center justify-between shadow-md";
+                selectedBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-500 text-xl";
+
+                feedbackBox.className = "rounded-2xl p-4 mb-4 border-2 border-emerald-300 bg-emerald-50 text-emerald-950";
+                feedbackIcon.textContent = "🎉";
+                feedbackTitle.textContent = "Parabéns! Resposta Correta!";
+                feedbackText.innerHTML = q.explanation;
+
+                updateMascotAppearance('jumping', `SENSACIONAL! Você mandou super bem, ${parentData.childName || 'Explorador'}! 🌟`);
+
+                playSuccessSound();
+                confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
+            } else {
+                selectedBtn.className = "w-full text-left p-4 rounded-2xl border-2 border-rose-400 bg-rose-50 text-rose-900 font-medium text-sm md:text-base flex items-center justify-between";
+                selectedBtn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-500 text-xl";
+
+                const correctBtn = document.getElementById(`optBtn_${q.correct}`);
+                correctBtn.className = "w-full text-left p-4 rounded-2xl border-2 border-emerald-400 bg-emerald-50/80 text-emerald-900 font-bold text-sm md:text-base flex items-center justify-between";
+
+                feedbackBox.className = "rounded-2xl p-4 mb-4 border-2 border-amber-300 bg-amber-50 text-amber-950";
+                feedbackIcon.textContent = "💡";
+                feedbackTitle.textContent = "Sem problemas! Vamos aprender a regra juntas:";
+                feedbackText.innerHTML = `
+                    <p class="mb-1 font-semibold">A opção correta é: "${q.options[q.correct]}"</p>
+                    <p class="text-xs text-amber-900 leading-relaxed">${q.explanation}</p>
+                `;
+
+                updateMascotAppearance('sitting', `Não faz mal! Cada erro é uma chance de aprender a regra certa! 💪`);
+
+                playErrorSound();
+            }
+
+            feedbackBox.classList.remove('hidden');
+            document.getElementById('actionArea').classList.remove('hidden');
+            updateUserBar();
+        }
+
+        function nextQuestion() {
+            let totalQ;
+            if (userState.isSimulado) {
+                totalQ = userState.simuladoQuestions.length;
+            } else {
+                totalQ = subjectsData[userState.activeSubjectIndex].missions[userState.currentMissionIndex].questions.length;
+            }
+
+            userState.currentQuestionIndex++;
+
+            if (userState.currentQuestionIndex < totalQ) {
+                updateMascotAppearance('walking', "Caminhando para a próxima pergunta! 🚀");
+                if (userState.isSimulado) {
+                    loadSimuladoQuestion();
+                } else {
+                    loadQuestion();
+                }
+            } else {
+                finishMission();
+            }
+        }
+
+        function finishMission() {
+            let totalQ, score = userState.currentMissionScore;
+            if (userState.isSimulado) {
+                totalQ = userState.simuladoQuestions.length;
+            } else {
+                totalQ = subjectsData[userState.activeSubjectIndex].missions[userState.currentMissionIndex].questions.length;
+                const missionKey = `${userState.activeSubjectIndex}_${userState.currentMissionIndex}`;
+                if (!userState.completedMissions.includes(missionKey)) {
+                    userState.completedMissions.push(missionKey);
+                }
+            }
+
+            const xpEarned = score * 50;
+            document.getElementById('resultScoreText').textContent = `${score} / ${totalQ}`;
+            document.getElementById('resultXpText').textContent = `+${xpEarned} pts`;
+
+            const subtitle = document.getElementById('resultSubtitle');
+            const encouragement = document.getElementById('resultEncouragement');
+
+            if (score === totalQ) {
+                subtitle.textContent = "UAU! Pontuação máxima de Mestre!";
+                encouragement.textContent = `Parabéns, ${parentData.childName || 'Explorador'}! Você gabaritou todas as questões! Você está super preparado(a) para a prova! ⭐🌟`;
+            } else if (score >= totalQ / 2) {
+                subtitle.textContent = "Muito bem! Bom desempenho!";
+                encouragement.textContent = `Ótimo trabalho, ${parentData.childName || 'Explorador'}! Você aprendeu bastante. Se quiser, revise os conteúdos em que teve dúvida para acertar tudo na prova! 💪`;
+            } else {
+                subtitle.textContent = "Bom esforço! O aprendizado é um caminho!";
+                encouragement.textContent = `Não desanime, ${parentData.childName || 'Explorador'}! Que tal refazer a missão para fixar ainda mais as regras? Cada tentativa deixa você mais inteligente! 🚀`;
+            }
+
+            document.getElementById('screenQuiz').classList.add('hidden');
+            document.getElementById('screenResult').classList.remove('hidden');
+
+            updateMascotAppearance('jumping', `Parabéns, ${parentData.childName || 'Explorador'}! Missão concluída com sucesso! 🏆`);
+            playCelebrationSound();
+            confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+
+            if (window.saveDataToCloud) {
+                window.saveDataToCloud();
+            }
+        }
+
+        function playChirpSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(450, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(900, ctx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.1);
+            } catch(e) {}
+        }
+
+        function playSuccessSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.07);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.07);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.07 + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + i * 0.07);
+                    osc.stop(ctx.currentTime + i * 0.07 + 0.25);
+                });
+            } catch(e) {}
+        }
+
+        function playErrorSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(450, ctx.currentTime + 0.22);
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.25);
+            } catch(e) {}
+        }
+
+        function playCelebrationSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const arpeggio = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                arpeggio.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.09);
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime + i * 0.09);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.09 + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + i * 0.09);
+                    osc.stop(ctx.currentTime + i * 0.09 + 0.35);
+                });
+            } catch(e) {}
+        }
+
+        function closeRankingModal() {
+            document.getElementById('modalRanking').classList.add('hidden');
+        }
+
+        function openParentModal() {
+            document.getElementById('parentSummaryName').textContent = parentData.parentName || '-';
+            document.getElementById('parentSummaryPhone').textContent = parentData.phone || '-';
+            document.getElementById('childSummaryName').textContent = parentData.childName || '-';
+            document.getElementById('modalParent').classList.remove('hidden');
+        }
+
+        function closeParentModal() {
+            document.getElementById('modalParent').classList.add('hidden');
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'aventura-do-saber-3ano';
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let cloudRankingData = [];
+
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            try {
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                const initAuth = async () => {
+                    try {
+                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                            await signInWithCustomToken(auth, __initial_auth_token);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (err) {
+                        await signInAnonymously(auth);
+                    }
+                };
+
+                onAuthStateChanged(auth, (user) => {
+                    currentUser = user;
+                    if (user) {
+                        listenToCloudRanking();
+                        if (parentData.phone) {
+                            saveDataToCloud();
+                        }
+                    }
+                });
+
+                initAuth();
+            } catch (e) {
+                console.error("Erro ao inicializar servicos em nuvem:", e);
+            }
+        }
+
+        async function saveDataToCloud() {
+            if (!currentUser || !db) return;
+
+            try {
+                const userDocId = currentUser.uid;
+                const arch = archetypes.find(a => a.id === parentData.archetype) || archetypes[0];
+
+                const payload = {
+                    uid: userDocId,
+                    parentName: parentData.parentName || '',
+                    phone: parentData.phone || '',
+                    childName: parentData.childName || 'Explorador',
+                    archetype: parentData.archetype,
+                    archetypeIcon: arch.icon,
+                    archetypeName: arch.name,
+                    points: userState.points,
+                    completedMissions: userState.completedMissions || [],
+                    updatedAt: new Date().toISOString()
+                };
+
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'ranking', userDocId);
+                await setDoc(docRef, payload, { merge: true });
+            } catch (err) {
+                console.error("Erro ao salvar dados na nuvem:", err);
+            }
+        }
+
+        function listenToCloudRanking() {
+            if (!currentUser || !db) return;
+
+            try {
+                const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'ranking');
+                onSnapshot(colRef, (snapshot) => {
+                    const list = [];
+                    snapshot.forEach(docSnap => {
+                        const data = docSnap.data();
+                        if (data && data.childName) {
+                            list.push({
+                                name: data.childName + (data.uid === currentUser.uid ? ' (Você)' : ''),
+                                archetype: data.archetypeIcon || '🧙‍♂️',
+                                points: data.points || 0,
+                                isUser: data.uid === currentUser.uid,
+                                parentName: data.parentName,
+                                phone: data.phone
+                            });
+                        }
+                    });
+
+                    list.sort((a, b) => b.points - a.points);
+                    cloudRankingData = list;
+                }, (error) => {
+                    console.error("Erro na escuta de ranking em nuvem:", error);
+                });
+            } catch (e) {
+                console.error("Erro ao configurar ouvinte do ranking:", e);
+            }
+        }
+
+        window.saveDataToCloud = saveDataToCloud;
+
+        const originalHandleAuthSubmit = window.handleAuthSubmit;
+        window.handleAuthSubmit = function(event) {
+            originalHandleAuthSubmit(event);
+            saveDataToCloud();
+        };
+
+        const originalUpdateUserBar = window.updateUserBar;
+        window.updateUserBar = function() {
+            originalUpdateUserBar();
+            saveDataToCloud();
+        };
+
+        window.openRankingModal = function() {
+            const container = document.getElementById('rankingListContainer');
+            let fullList = [];
+
+            if (cloudRankingData.length > 0) {
+                fullList = [...cloudRankingData];
+            } else {
+                fullList = [...mockLeaderboard];
+                fullList.push({
+                    name: (parentData.childName || 'Você') + ' (Você)',
+                    archetype: (archetypes.find(a => a.id === parentData.archetype) || archetypes[0]).icon,
+                    points: userState.points,
+                    isUser: true
+                });
+                fullList.sort((a, b) => b.points - a.points);
+            }
+
+            container.innerHTML = fullList.map((item, index) => {
+                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`;
+                return `
+                    <div class="flex items-center justify-between p-3 rounded-2xl ${item.isUser ? 'bg-indigo-100 border-2 border-indigo-400 font-bold shadow-sm' : 'bg-gray-50 border border-gray-100'}">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-6 text-center font-bold text-sm text-indigo-900">${medal}</span>
+                            <span class="text-xl">${item.archetype}</span>
+                            <div>
+                                <span class="text-xs md:text-sm text-gray-800 block leading-tight">${item.name}</span>
+                                ${item.parentName ? `<span class="text-[10px] text-gray-400 font-normal">Resp: ${item.parentName}</span>` : ''}
+                            </div>
+                        </div>
+                        <span class="title-font font-bold text-xs text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                            ${item.points} pts
+                        </span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('modalRanking').classList.remove('hidden');
+        };
+    </script>
+</body>
+</html>
