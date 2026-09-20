@@ -464,7 +464,7 @@
             parentName: '',
             phone: '',
             childName: '',
-            archetype: 'mago'
+            archetype: 'maga'
         };
 
         let userState = {
@@ -478,12 +478,62 @@
             simuladoQuestions: []
         };
 
+        // Arquétipos infantis com representatividade feminina e masculina focados em valores, tarefas e respeito
         const archetypes = [
-            { id: 'mago', name: 'Mago dos Saberes', icon: '🧙‍♂️', desc: 'Mestre dos mistérios e descobertas!', sittingIcon: '🧙‍♂️', walkingIcon: '🧙‍♂️', jumpingIcon: '✨🧙‍♂️' },
-            { id: 'astronauta', name: 'Astronauta do Espaço', icon: '🚀', desc: 'Viaja pelo universo do conhecimento!', sittingIcon: '🧑‍🚀', walkingIcon: '🚀', jumpingIcon: '🌟🧑‍🚀' },
-            { id: 'detetive', name: 'Detetive Curioso', icon: '🕵️‍♀️', desc: 'Desvenda charadas e pistas!', sittingIcon: '🕵️‍♀️', walkingIcon: '🔍🕵️‍♀️', jumpingIcon: '💡🕵️‍♀️' },
-            { id: 'explorador', name: 'Explorador de Taquaruçu', icon: '🦁', desc: 'Corajoso para desbravar a natureza!', sittingIcon: '🦁', walkingIcon: '🐾🦁', jumpingIcon: '👑🦁' },
-            { id: 'superheroi', name: 'Super-Herói das Letras', icon: '🦸‍♀️', desc: 'Protege o saber com superpoderes!', sittingIcon: '🦸‍♀️', walkingIcon: '⚡🦸‍♀️', jumpingIcon: '💥🦸‍♀️' }
+            { 
+                id: 'maga', 
+                name: 'Maga das Palavras', 
+                icon: '🧙‍♀️', 
+                desc: 'Respeita os pais, capricha nos deveres de casa e trata todos os amigos com carinho!', 
+                sittingIcon: '🧙‍♀️', 
+                walkingIcon: '🧙‍♀️', 
+                jumpingIcon: '✨🧙‍♀️' 
+            },
+            { 
+                id: 'superheroina', 
+                name: 'Super-Heroína das Letras', 
+                icon: '🦸‍♀️', 
+                desc: 'Exemplo de boa conduta! Ajuda em casa, é gentil na escola e arrasa nas tarefas!', 
+                sittingIcon: '🦸‍♀️', 
+                walkingIcon: '⚡🦸‍♀️', 
+                jumpingIcon: '💥🦸‍♀️' 
+            },
+            { 
+                id: 'cientista', 
+                name: 'Cientista Curiosa', 
+                icon: '👩‍🔬', 
+                desc: 'Super educada e organizada! Estuda com alegria e faz o bem para a turma!', 
+                sittingIcon: '👩‍🔬', 
+                walkingIcon: '🔬👩‍🔬', 
+                jumpingIcon: '🧪👩‍🔬' 
+            },
+            { 
+                id: 'exploradora', 
+                name: 'Exploradora de Taquaruçu', 
+                icon: '👧', 
+                desc: 'Filha carinhosa! Ajuda nas tarefas do lar, protege a natureza e é grande amiga!', 
+                sittingIcon: '👧', 
+                walkingIcon: '🎒👧', 
+                jumpingIcon: '🌟👧' 
+            },
+            { 
+                id: 'mago', 
+                name: 'Mago dos Saberes', 
+                icon: '🧙‍♂️', 
+                desc: 'Mestre do bom comportamento! Respeita a família e faz as lições com dedicação!', 
+                sittingIcon: '🧙‍♂️', 
+                walkingIcon: '🧙‍♂️', 
+                jumpingIcon: '✨🧙‍♂️' 
+            },
+            { 
+                id: 'astronauta', 
+                name: 'Astronauta do Espaço', 
+                icon: '🚀', 
+                desc: 'Focado nos estudos, prestativo em casa e muito respeitoso com os colegas!', 
+                sittingIcon: '🧑‍🚀', 
+                walkingIcon: '🚀', 
+                jumpingIcon: '🌟🧑‍🚀' 
+            }
         ];
 
         /* ================= SISTEMA DO MASCOTE ANIMADO ================= */
@@ -539,10 +589,10 @@
         function triggerMascotTap() {
             playChirpSound();
             const quotes = [
-                `Você é super inteligente, ${parentData.childName || 'Explorador'}!`,
-                "Vamos gabaritar essa prova do 3º Ano! 💪",
-                "Estou aqui torcendo por cada ponto seu!",
-                "Estudar é o maior superpoder do mundo! ✨"
+                `Você é um exemplo de estudante, ${parentData.childName || 'Explorador(a)'}!`,
+                "Respeitar os pais e ser gentil com os amigos é o nosso maior superpoder! ✨",
+                "Fazer os deveres de casa e ajudar a família deixa todos muito orgulhosos! ❤️",
+                "Estudar com dedicação e educação abre todas as portas do futuro! 💪"
             ];
             const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
             updateMascotAppearance('jumping', randomQuote);
