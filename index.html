@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventura do Saber - 3º Ano ETI Almirante Tamandaré</title>
+    <title>Aventura do Saber - Aprender, descobrir e crescer a cada passo</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -112,36 +112,39 @@
                 </div>
                 <div>
                     <h1 class="title-font text-lg md:text-xl font-bold text-indigo-900 leading-none">Aventura do Saber</h1>
-                    <p class="text-xs text-indigo-600 font-bold">ETI Almirante Tamandaré • 3º Ano EF</p>
+                    <p class="text-xs text-indigo-600 font-bold">Aprender, descobrir e crescer a cada passo</p>
                 </div>
             </div>
 
-            <div id="topUserBar" class="hidden flex items-center space-x-2 md:space-x-3">
-                <div id="cloudStatusBadge" class="hidden sm:flex items-center bg-emerald-100 border border-emerald-300 text-emerald-800 px-2.5 py-1 rounded-full text-xs font-bold shadow-sm" title="Dados salvos em tempo real na nuvem">
-                    <i class="fa-solid fa-cloud text-emerald-600 mr-1 animate-pulse"></i>
-                    <span>Nuvem Salva</span>
-                </div>
-
+            <!-- Quick Scheduling Header Button available even before full login -->
+            <div class="flex items-center space-x-2">
                 <button onclick="openAgendamentoModal()" class="flex items-center bg-amber-400 hover:bg-amber-500 text-amber-950 border-2 border-amber-500 px-3 py-1.5 rounded-full font-extrabold text-xs transition shadow-sm animate-bounce">
                     <i class="fa-solid fa-calendar-plus text-indigo-900 mr-1.5"></i>
                     <span>Aula Particular (R$ 30)</span>
                 </button>
 
-                <div class="flex items-center bg-amber-100 border-2 border-amber-400 px-3 py-1 rounded-full text-amber-900 font-bold text-xs md:text-sm shadow-sm">
-                    <i class="fa-solid fa-star text-amber-500 mr-1 pulse-star"></i>
-                    <span id="userPoints">0</span> <span class="ml-1 text-[10px] md:text-xs text-amber-700">pts</span>
-                </div>
-                
-                <button onclick="openRankingModal()" class="flex items-center bg-indigo-100 hover:bg-indigo-200 border-2 border-indigo-300 text-indigo-800 px-3 py-1.5 rounded-full font-bold text-xs md:text-sm transition">
-                    <i class="fa-solid fa-trophy text-amber-500 mr-1.5"></i>
-                    <span class="hidden sm:inline">Ranking</span>
-                </button>
-
-                <div class="flex items-center space-x-2 pl-2 border-l border-gray-200">
-                    <div id="userAvatarBadge" class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center text-lg border-2 border-white shadow">
-                        🧙‍♀️
+                <div id="topUserBar" class="hidden flex items-center space-x-2 md:space-x-3">
+                    <div id="cloudStatusBadge" class="hidden sm:flex items-center bg-emerald-100 border border-emerald-300 text-emerald-800 px-2.5 py-1 rounded-full text-xs font-bold shadow-sm" title="Dados salvos em tempo real na nuvem">
+                        <i class="fa-solid fa-cloud text-emerald-600 mr-1 animate-pulse"></i>
+                        <span>Nuvem Salva</span>
                     </div>
-                    <span id="childDisplayName" class="hidden md:inline font-bold text-indigo-900 text-sm"></span>
+
+                    <div class="flex items-center bg-amber-100 border-2 border-amber-400 px-3 py-1 rounded-full text-amber-900 font-bold text-xs md:text-sm shadow-sm">
+                        <i class="fa-solid fa-star text-amber-500 mr-1 pulse-star"></i>
+                        <span id="userPoints">0</span> <span class="ml-1 text-[10px] md:text-xs text-amber-700">pts</span>
+                    </div>
+                    
+                    <button onclick="openRankingModal()" class="flex items-center bg-indigo-100 hover:bg-indigo-200 border-2 border-indigo-300 text-indigo-800 px-3 py-1.5 rounded-full font-bold text-xs md:text-sm transition">
+                        <i class="fa-solid fa-trophy text-amber-500 mr-1.5"></i>
+                        <span class="hidden sm:inline">Ranking</span>
+                    </button>
+
+                    <div class="flex items-center space-x-2 pl-2 border-l border-gray-200">
+                        <div id="userAvatarBadge" class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center text-lg border-2 border-white shadow">
+                            🧙‍♀️
+                        </div>
+                        <span id="childDisplayName" class="hidden md:inline font-bold text-indigo-900 text-sm"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,64 +152,148 @@
 
     <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
 
-        <section id="screenAuth" class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-indigo-300 max-w-2xl mx-auto w-full my-4">
-            <div class="text-center mb-6">
-                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 font-bold rounded-full text-xs uppercase tracking-wider mb-2">
-                    <i class="fa-solid fa-shield-halved mr-1"></i> Acesso Supervisionado pelos Pais
-                </span>
-                <h2 class="title-font text-2xl md:text-3xl font-extrabold text-indigo-900">
-                    Maratona do 3º Bimestre (21/09 a 25/09)
-                </h2>
-                <p class="text-gray-600 text-sm mt-1">
-                    Preencha os dados do responsável para liberar o acesso gamificado de todas as matérias para a criança!
-                </p>
+        <!-- Authorization Screen (Landing View) -->
+        <section id="screenAuth" class="max-w-3xl mx-auto w-full my-2 space-y-4">
+            
+            <!-- Top Hero Banner Image -->
+            <div class="w-full overflow-hidden rounded-3xl shadow-2xl border-4 border-amber-300 bg-white">
+                <img src="banner_topo_aventuras_saber.png" 
+                     alt="Aventura do Saber Banner - Aqui aprender é uma aventura!" 
+                     class="w-full h-auto object-cover max-h-[260px] md:max-h-[320px] transition transform hover:scale-[1.01]"
+                     onerror="this.style.display='none'">
             </div>
 
-            <div id="authErrorMessage" class="hidden bg-rose-100 border-2 border-rose-300 text-rose-800 p-3 rounded-xl text-xs font-bold mb-4 flex items-center space-x-2">
-                <i class="fa-solid fa-circle-exclamation text-rose-600 text-base"></i>
-                <span id="authErrorText">Por favor, preencha os campos com os dados do responsável e do estudante.</span>
-            </div>
-
-            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-5">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">
-                            <i class="fa-solid fa-user-tie text-indigo-500 mr-1"></i> Nome do Pai / Mãe / Responsável:
-                        </label>
-                        <input type="text" id="parentName" required placeholder="Ex: Carlos Silva"
-                            class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition text-sm">
+            <!-- Direct Booking Callout Card for Parents -->
+            <div class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 rounded-3xl p-4 md:p-5 shadow-xl border-4 border-amber-500 flex flex-col sm:flex-row items-center justify-between gap-4 text-amber-950">
+                <div class="flex items-center space-x-3 text-center sm:text-left">
+                    <div class="w-12 h-12 bg-indigo-900 text-amber-300 rounded-2xl flex items-center justify-center text-2xl shadow-md shrink-0">
+                        <i class="fa-solid fa-calendar-check animate-bounce"></i>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">
-                            <i class="fa-solid fa-phone text-indigo-500 mr-1"></i> Telefone / WhatsApp de Contato:
-                        </label>
-                        <input type="tel" id="parentPhone" required placeholder="(63) 98120-2076"
-                            class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition text-sm">
+                        <h3 class="title-font text-lg md:text-xl font-black text-indigo-950 leading-tight">
+                            Quer apenas Agendar uma Aula Particular?
+                        </h3>
+                        <p class="text-xs font-extrabold text-indigo-900">
+                            Atendimento individual por R$ 30,00 com professores qualificados!
+                        </p>
                     </div>
                 </div>
-
-                <div class="pt-2 border-t border-gray-100">
-                    <label class="block text-sm font-bold text-indigo-900 mb-1">
-                        <i class="fa-solid fa-child text-pink-500 mr-1"></i> Como a criança gosta de ser chamada?
-                    </label>
-                    <input type="text" id="childName" required placeholder="Ex: Aninha, Pedrinho, Sofia..."
-                        class="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:outline-none transition text-base font-semibold text-indigo-900 bg-indigo-50/50">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-800 mb-2">
-                        <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1"></i> Escolha o Arquétipo Guia do Aluno Exemplar:
-                    </label>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="archetypeContainer">
-                    </div>
-                </div>
-
-                <button type="submit" 
-                    class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white title-font font-bold text-lg rounded-2xl shadow-game-green transition transform active:translate-y-1 flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-rocket text-xl"></i>
-                    <span>AUTORIZAR E INICIAR A AVENTURA!</span>
+                <button onclick="openAgendamentoModal()" class="w-full sm:w-auto px-5 py-3 bg-indigo-900 hover:bg-indigo-950 text-amber-300 title-font font-extrabold text-sm rounded-2xl shadow-lg border-2 border-amber-400 transition transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2 shrink-0">
+                    <i class="fa-solid fa-bolt text-amber-400"></i>
+                    <span>AGENDAR DIRETO SEM CADASTRAR</span>
                 </button>
-            </form>
+            </div>
+
+            <!-- Form Card -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-indigo-300 w-full">
+                <div class="text-center mb-6">
+                    <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 font-bold rounded-full text-xs uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-shield-halved mr-1"></i> Acesso Gamificado Supervisionado pelos Pais
+                    </span>
+                    <h2 class="title-font text-2xl md:text-3xl font-extrabold text-indigo-900">
+                        Maratona do 3º Bimestre (21/09 a 25/09)
+                    </h2>
+                    <p class="text-gray-600 text-sm mt-1">
+                        Preencha os dados do responsável para liberar os quizzes e desafios para a criança!
+                    </p>
+                </div>
+
+                <div id="authErrorMessage" class="hidden bg-rose-100 border-2 border-rose-300 text-rose-800 p-3 rounded-xl text-xs font-bold mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-exclamation text-rose-600 text-base"></i>
+                    <span id="authErrorText">Por favor, preencha os campos com os dados do responsável e do estudante.</span>
+                </div>
+
+                <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">
+                                <i class="fa-solid fa-user-tie text-indigo-500 mr-1"></i> Nome do Pai / Mãe / Responsável:
+                            </label>
+                            <input type="text" id="parentName" required placeholder="Ex: Carlos Silva"
+                                class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">
+                                <i class="fa-solid fa-phone text-indigo-500 mr-1"></i> Telefone / WhatsApp de Contato:
+                            </label>
+                            <input type="tel" id="parentPhone" required placeholder="(63) 98120-2076"
+                                class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Seleção do Ano Escolar - Ensino Fundamental I -->
+                    <div class="pt-2 border-t border-gray-100">
+                        <label class="block text-sm font-bold text-indigo-900 mb-2">
+                            <i class="fa-solid fa-graduation-cap text-indigo-600 mr-1"></i> Selecione o Ano Escolar (Ensino Fundamental I):
+                        </label>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5" id="gradeSelectionContainer">
+                            <!-- 1º Ano -->
+                            <div onclick="showEmBreveModal('1º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
+                                <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🌱</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold">1º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold">Fundamental I</span>
+                            </div>
+
+                            <!-- 2º Ano -->
+                            <div onclick="showEmBreveModal('2º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
+                                <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🌿</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold">2º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold">Fundamental I</span>
+                            </div>
+
+                            <!-- 3º Ano (Ativo / Selecionado) -->
+                            <div id="gradeCard_3ano" onclick="selectGrade('3ano')" class="cursor-pointer relative bg-emerald-50 border-4 border-emerald-500 rounded-2xl p-2.5 text-center shadow-md transition group">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-emerald-600 text-white font-black px-1.5 py-0.5 rounded-md animate-pulse">DISPONÍVEL</span>
+                                <div class="text-2xl mb-1 group-hover:scale-110 transition">⭐</div>
+                                <strong class="title-font text-xs text-emerald-950 block font-extrabold">3º Ano</strong>
+                                <span class="text-[9px] text-emerald-700 font-bold">Plataforma Ativa</span>
+                                <input type="radio" name="gradeChoice" id="gradeRadio_3ano" value="3ano" checked class="hidden">
+                            </div>
+
+                            <!-- 4º Ano -->
+                            <div onclick="showEmBreveModal('4º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
+                                <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🚀</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold">4º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold">Fundamental I</span>
+                            </div>
+
+                            <!-- 5º Ano -->
+                            <div onclick="showEmBreveModal('5º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
+                                <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🏆</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold">5º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold">Fundamental I</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-gray-100">
+                        <label class="block text-sm font-bold text-indigo-900 mb-1">
+                            <i class="fa-solid fa-child text-pink-500 mr-1"></i> Como a criança gosta de ser chamada?
+                        </label>
+                        <input type="text" id="childName" required placeholder="Ex: Aninha, Pedrinho, Sofia..."
+                            class="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:outline-none transition text-base font-semibold text-indigo-900 bg-indigo-50/50">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-800 mb-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1"></i> Escolha o Arquétipo Guia do Aluno Exemplar:
+                        </label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="archetypeContainer">
+                        </div>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white title-font font-bold text-lg rounded-2xl shadow-game-green transition transform active:translate-y-1 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rocket text-xl"></i>
+                        <span>AUTORIZAR E INICIAR A AVENTURA!</span>
+                    </button>
+                </form>
+            </div>
         </section>
 
         <section id="screenDashboard" class="hidden space-y-6">
@@ -225,7 +312,7 @@
                             </span>
                         </div>
                         <p class="text-gray-600 text-xs md:text-sm mt-0.5">
-                            Cronograma Oficial de Avaliações ETI Almirante Tamandaré: <strong class="text-indigo-700">21/09 a 25/09</strong>.
+                            Aprender, descobrir e crescer a cada passo • Cronograma de Avaliações: <strong class="text-indigo-700">21/09 a 25/09</strong>.
                         </p>
                     </div>
                 </div>
@@ -312,6 +399,87 @@
         </section>
     </main>
 
+    <footer class="mt-auto bg-white/90 backdrop-blur border-t-4 border-indigo-300 py-6 px-4">
+        <div class="max-w-6xl mx-auto space-y-4">
+            <div class="text-center">
+                <h3 class="title-font text-lg md:text-xl font-bold text-indigo-950">
+                    <i class="fa-solid fa-sparkles text-amber-500 mr-1.5"></i> Conheça os 6 Arquétipos do Saber
+                </h3>
+                <p class="text-xs text-indigo-700 font-semibold">
+                    Clique em qualquer arquétipo abaixo para ler a sua história e aceitar o desafio!
+                </p>
+            </div>
+
+            <!-- Side-by-side 6 Archetypes Grid with Clickable Story Event -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                <div onclick="openArchetypeStory('maga')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
+                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🧙‍♀️</span>
+                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Maga das Palavras</strong>
+                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Língua Portuguesa</span>
+                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
+                        <i class="fa-solid fa-book-open text-[8px]"></i>
+                        <span>Ver História</span>
+                    </span>
+                </div>
+
+                <div onclick="openArchetypeStory('mago')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
+                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🧙‍♂️</span>
+                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Mago dos Saberes</strong>
+                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Conhecimento Geral</span>
+                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
+                        <i class="fa-solid fa-book-open text-[8px]"></i>
+                        <span>Ver História</span>
+                    </span>
+                </div>
+
+                <div onclick="openArchetypeStory('heroin')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
+                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🦸‍♀️</span>
+                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Super-Heroína</strong>
+                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Boas Atitudes</span>
+                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
+                        <i class="fa-solid fa-book-open text-[8px]"></i>
+                        <span>Ver História</span>
+                    </span>
+                </div>
+
+                <div onclick="openArchetypeStory('hero')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
+                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🦸‍♂️</span>
+                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Super-Herói</strong>
+                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Matemática & Lógica</span>
+                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
+                        <i class="fa-solid fa-book-open text-[8px]"></i>
+                        <span>Ver História</span>
+                    </span>
+                </div>
+
+                <div onclick="openArchetypeStory('scientist')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
+                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">👩‍🔬</span>
+                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Cientista Curiosa</strong>
+                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Ciências Naturais</span>
+                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
+                        <i class="fa-solid fa-book-open text-[8px]"></i>
+                        <span>Ver História</span>
+                    </span>
+                </div>
+
+                <div onclick="openArchetypeStory('explorer_girl')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
+                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">👧</span>
+                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Exploradora</strong>
+                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">História & Geografia</span>
+                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
+                        <i class="fa-solid fa-book-open text-[8px]"></i>
+                        <span>Ver História</span>
+                    </span>
+                </div>
+            </div>
+
+            <p class="text-center text-[11px] text-indigo-800 font-bold pt-2 border-t border-indigo-100">
+                Aventura do Saber • Aprender, descobrir e crescer a cada passo • Suporte WhatsApp: (63) 98120-2076
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Support Button -->
     <a href="https://wa.me/5563981202076?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20e%20suporte%20da%20Plataforma%20Aventura%20do%20Saber." 
        target="_blank" 
        class="fixed bottom-4 left-4 z-50 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-3.5 py-2.5 rounded-full shadow-2xl flex items-center space-x-2 text-xs border-2 border-white transition transform hover:scale-105">
@@ -473,6 +641,7 @@
         </div>
     </div>
 
+    <!-- Parents Panel Modal -->
     <div id="modalParent" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border-4 border-indigo-400 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeParentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
@@ -485,7 +654,7 @@
                 </div>
                 <div>
                     <h3 class="title-font text-lg font-bold text-indigo-950">Painel do Responsável & Agenda</h3>
-                    <p class="text-xs text-gray-500">ETI Almirante Tamandaré • Cronograma Oficial</p>
+                    <p class="text-xs text-gray-500">Aprender, descobrir e crescer a cada passo • Cronograma Oficial</p>
                 </div>
             </div>
 
@@ -540,6 +709,7 @@
         </div>
     </div>
 
+    <!-- Ranking Modal -->
     <div id="modalRanking" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border-4 border-indigo-400 relative">
             <button onclick="closeRankingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
@@ -563,6 +733,92 @@
         </div>
     </div>
 
+    <!-- Archetype Story Modal -->
+    <div id="modalArchetypeStory" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border-4 border-indigo-400 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeArchetypeStoryModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold z-10">
+                ✕
+            </button>
+
+            <div class="text-center mb-4">
+                <div id="modalStoryIcon" class="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-2 shadow-md border-2 border-white">
+                    🧙‍♀️
+                </div>
+                <h3 id="modalStoryTitle" class="title-font text-2xl font-extrabold text-indigo-950">
+                    Maga das Palavras
+                </h3>
+                <span id="modalStorySubtitle" class="inline-block mt-1 px-3 py-1 bg-indigo-100 text-indigo-800 font-bold text-xs rounded-full border border-indigo-300">
+                    Língua Portuguesa
+                </span>
+            </div>
+
+            <div class="bg-amber-50 border-2 border-amber-300 p-3.5 rounded-2xl mb-4 text-xs text-amber-950 space-y-1">
+                <strong class="font-bold flex items-center text-amber-900">
+                    <i class="fa-solid fa-star text-amber-500 mr-1.5"></i> Sua Missão Especial:
+                </strong>
+                <p id="modalStoryMissionText" class="font-semibold text-amber-900 leading-snug">
+                    Desvendar os mistérios das palavras, pontuações e histórias mágicas.
+                </p>
+            </div>
+
+            <div id="modalStoryParagraphs" class="space-y-3 text-xs md:text-sm text-gray-700 font-medium mb-6">
+            </div>
+
+            <div class="space-y-2">
+                <button onclick="confirmArchetypeChoice()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white title-font font-bold text-sm rounded-2xl shadow-game-green transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-lg"></i>
+                    <span>✨ ACEITAR O DESAFIO E ESCOLHER ESTE ARQUÉTIPO!</span>
+                </button>
+
+                <button onclick="closeArchetypeStoryModal()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-xl transition">
+                    Fechar História
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Em Breve Modal -->
+    <div id="modalEmBreve" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border-4 border-amber-400 relative text-center">
+            <button onclick="closeEmBreveModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
+                ✕
+            </button>
+
+            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3 border-2 border-amber-300 shadow-inner">
+                <i class="fa-solid fa-rocket animate-bounce"></i>
+            </div>
+
+            <span class="inline-block px-3 py-1 bg-amber-100 text-amber-900 font-black text-xs rounded-full uppercase tracking-wider mb-2">
+                Em Produção Acelerada 🛠️
+            </span>
+
+            <h3 id="emBreveGradeTitle" class="title-font text-2xl font-extrabold text-indigo-950 mb-2">
+                1º Ano EF
+            </h3>
+
+            <p class="text-xs text-gray-600 leading-relaxed mb-5">
+                Nossa equipe de professores já está preparando as maratonas e desafios interativos para esta série! Em breve estará disponível para todos os alunos.
+            </p>
+
+            <div class="bg-indigo-50 border-2 border-indigo-200 p-3.5 rounded-2xl text-xs text-indigo-950 mb-5 text-left space-y-1.5">
+                <strong class="font-bold flex items-center text-indigo-900">
+                    <i class="fa-solid fa-star text-amber-500 mr-1.5"></i> Enquanto isso:
+                </strong>
+                <p>• Você pode explorar a maratona completa e jogos do <strong>3º Ano do Ensino Fundamental I</strong>!</p>
+            </div>
+
+            <div class="space-y-2">
+                <button onclick="closeEmBreveModal(); selectGrade('3ano');" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white title-font font-bold text-sm rounded-xl shadow-game-green transition">
+                    🚀 NAVEGAR NO 3º ANO (ATIVO)
+                </button>
+                <button onclick="closeEmBreveModal()" class="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-xl transition">
+                    Fechar Aviso
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mascot Floating Widget -->
     <div id="mascotWidget" class="hidden fixed bottom-3 right-3 md:bottom-5 md:right-5 z-40 flex items-end space-x-2 pointer-events-none">
         <div id="mascotSpeechBubble" class="bg-white border-2 border-indigo-400 rounded-2xl p-3 shadow-xl max-w-[200px] text-xs font-bold text-indigo-950 pointer-events-auto transform transition-all duration-300 scale-100 opacity-100 relative mb-2">
             <span id="mascotSpeechText">Olá! Vamos aprender juntos? 🚀</span>
@@ -582,7 +838,8 @@
             parentName: '',
             phone: '',
             childName: '',
-            archetype: 'maga'
+            archetype: 'maga',
+            grade: '3ano'
         };
 
         let userState = {
@@ -595,14 +852,105 @@
         };
 
         let lastBookingData = null;
+        let selectedArchetypeForStory = 'maga';
+
+        function selectGrade(gradeId) {
+            parentData.grade = gradeId;
+            const radio = document.getElementById('gradeRadio_3ano');
+            if (radio) radio.checked = true;
+        }
+
+        function showEmBreveModal(gradeName) {
+            const titleEl = document.getElementById('emBreveGradeTitle');
+            if (titleEl) titleEl.textContent = `${gradeName} - Ensino Fundamental I`;
+            const modal = document.getElementById('modalEmBreve');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeEmBreveModal() {
+            const modal = document.getElementById('modalEmBreve');
+            if (modal) modal.classList.add('hidden');
+        }
 
         const archetypes = [
-            { id: 'maga', name: 'Maga das Palavras', icon: '🧙‍♀️', desc: 'Respeita seus pais, faz os deveres no capricho e é carinhosa com os amigos!' },
-            { id: 'mago', name: 'Mago dos Saberes', icon: '🧙‍♂️', desc: 'Educado, ajuda nas tarefas de casa e compartilha conhecimento com alegria!' },
-            { id: 'heroin', name: 'Super-Heroína das Letras', icon: '🦸‍♀️', desc: 'Protege a boa convivência na escola, obedece à família e sempre faz a lição!' },
-            { id: 'hero', name: 'Super-Herói do Saber', icon: '🦸‍♂️', desc: 'Corajoso nas provas, respeita os professores e é um filho exemplar!' },
-            { id: 'scientist', name: 'Cientista Curiosa', icon: '👩‍🔬', desc: 'Ama aprender coisas novas, cuida do meio ambiente e é gentil com todos!' },
-            { id: 'explorer_girl', name: 'Exploradora de Taquaruçu', icon: '👧', desc: 'Conhece as riquezas do Tocantins, ama a natureza e ajuda os pais com carinho!' }
+            { 
+                id: 'maga', 
+                name: 'Maga das Palavras', 
+                icon: '🧙‍♀️', 
+                desc: 'Respeita seus pais, faz os deveres no capricho e é carinhosa com os amigos!',
+                role: 'Guia de Língua Portuguesa',
+                mission: 'Desvendar os mistérios das palavras, pontuações e histórias mágicas.',
+                storyParagraphs: [
+                    'Era uma vez um reino mágico onde cada letra de um livro tinha o poder de ganhar vida! Como Maga das Palavras, você carrega uma varinha brilhante de sabedoria e um grande livro de encantamentos. Seu superpoder é transformar frases em aventuras inesquecíveis, desvendando acentos misteriosos, pontuações mágicas e rimas encantadas.',
+                    'Pelo caminho, você vai encontrar desafios onde as palavras precisam ser organizadas com carinho e atenção. Quando você lê com foco e escreve com capricho, a mágica acontece: portas secretas se abrem e histórias incríveis começam a fluir como rios de luz!',
+                    'A jornada está prestes a começar! Pegue o seu livro mágico, vista a sua capa de estudante e venha ser a grande guardiã das palavras. Vamos juntos escrever um capítulo cheio de vitórias no seu caderno?'
+                ]
+            },
+            { 
+                id: 'mago', 
+                name: 'Mago dos Saberes', 
+                icon: '🧙‍♂️', 
+                desc: 'Educado, ajuda nas tarefas de casa e compartilha conhecimento com alegria!',
+                role: 'Mestre do Conhecimento Geral',
+                mission: 'Aprender de tudo um pouco, respeitar a família e espalhar sabedoria.',
+                storyParagraphs: [
+                    'No topo da Montanha do Conhecimento vive o Mago dos Saberes, o grande mestre dos mistérios do universo! Com sua capa azul estrelada e um cajado reluzente, ele sabe que perguntar "por quê?" e "como?" é o primeiro passo para se tornar um verdadeiro sábio.',
+                    'Este Mago ensina que a verdadeira força vem de respeitar os pais, ajudar os colegas e ter curiosidade todos os dias. Cada novo aprendizado é como uma joia preciosa que você guarda no seu coração para transformar o mundo à sua volta em um lugar melhor.',
+                    'O grande livro dos segredos do mundo se abriu para você! Aceite o convite, vista o chapéu da sabedoria e venha desvendar os maiores mistérios da nossa jornada do saber. Você está pronto para essa missão?'
+                ]
+            },
+            { 
+                id: 'heroin', 
+                name: 'Super-Heroína das Letras', 
+                icon: '🦸‍♀️', 
+                desc: 'Protege a boa convivência na escola, obedece à família e sempre faz a lição!',
+                role: 'Defensora das Boas Atitudes',
+                mission: 'Proteger a gentileza, a amizade e o capricho nos deveres de casa.',
+                storyParagraphs: [
+                    'Com um escudo reluzente de gentileza e uma capa que brilha como o sol, a Super-Heroína das Letras protege a nossa escola de qualquer desânimo! Seu superpoder especial é espalhar palavras mágicas como "por favor", "com licença" e "obrigado", tornando todos ao seu redor mais felizes.',
+                    'Ela nunca deixa um amigo para trás e faz todas as tarefas de casa com dedicação e supervelocidade! Para ela, obedecer aos pais e ouvir os professores é a receita secreta para ter uma supermente invencível e cheia de luz.',
+                    'O sinal da justiça e do saber acendeu no céu! Ajuste sua capa, prepare seu sorriso superpoderoso e venha espalhar boas atitudes e notas altas por onde você passar. Vamos salvar o dia com estudo e carinho!'
+                ]
+            },
+            { 
+                id: 'hero', 
+                name: 'Super-Herói do Saber', 
+                icon: '🦸‍♂️', 
+                desc: 'Corajoso nas provas, respeita os professores e é um filho exemplar!',
+                role: 'Campeão da Matemática & Lógica',
+                mission: 'Resolver enigmas matemáticos e ser um filho e aluno exemplar.',
+                storyParagraphs: [
+                    'Equipado com o Escudo dos Números e a Visão do Raciocínio Lógico, o Super-Herói do Saber consegue resolver qualquer enigma matemático em um piscar de olhos! Somas, subtrações e desafios gigantescos não metem medo neste jovem campeão.',
+                    'Ele sabe que a coragem de verdade é tentar de novo quando algo parece difícil e comemorar cada acerto com alegria. Além disso, ele é um filho exemplar, sempre pronto para ajudar em casa antes de partir para suas supermissões escolares.',
+                    'Um novo enigma de números surgiu e precisa do seu super-raciocínio! Coloque sua máscara da coragem, junte suas forças matemáticas e venha vencer cada desafio desta grande maratona!'
+                ]
+            },
+            { 
+                id: 'scientist', 
+                name: 'Cientista Curiosa', 
+                icon: '👩‍🔬', 
+                desc: 'Ama aprender coisas novas, cuida do meio ambiente e é gentil com todos!',
+                role: 'Exploradora de Ciências Naturais',
+                mission: 'Explorar a natureza, cuidar do planeta e descobrir a ciência no dia a dia.',
+                storyParagraphs: [
+                    'Com suas lentes de aumento mágicas e um jaleco branquinho, a Cientista Curiosa enxerga o mundo como um grande laboratório de maravilhas! Ela ama investigar como as plantas crescem, por que o céu muda de cor e como a natureza funciona em perfeita harmonia.',
+                    'Toda Grande Cientista protege os animais, cuida dos rios e sabe que a água e o solo são tesouros do nosso planeta. Ela não tem medo de fazer perguntas e testar novas ideias até encontrar a resposta certa para cada mistério da vida.',
+                    'O laboratório das descobertas está com as portas abertas esperando por você! Ajuste os óculos da curiosidade, pegue sua lupa e venha explorar a ciência da vida. Vamos fazer descobertas fantásticas juntos!'
+                ]
+            },
+            { 
+                id: 'explorer_girl', 
+                name: 'Exploradora de Taquaruçu', 
+                icon: '👧', 
+                desc: 'Conhece as riquezas do Tocantins, ama a natureza e ajuda os pais com carinho!',
+                role: 'Guia de História & Geografia',
+                mission: 'Desbravar as paisagens do Tocantins, respeitar a cultura e guiar a turma.',
+                storyParagraphs: [
+                    'Com um mapa antigo do Tocantins nas mãos e uma bússola de ouro no peito, a Exploradora de Taquaruçu percorre as serras, cachoeiras e praças históricas com entusiasmo sem fim! Ela conhece as riquezas da nossa terra e ama nossa cultura.',
+                    'Ela ensina que conhecer nossa história nos ajuda a valorizar nossa família, nossa cidade e nossas raízes. Onde quer que ela vá, ela preserva a natureza, respeita os mais velhos e guia seus amigos com paciência e alegria de aprender.',
+                    'A bússola já está apontando para uma nova e emocionante expedição! Coloque sua mochila nas costas, amarre bem os tênis e venha desbravar cada canto da história e geografia da nossa região!'
+                ]
+            }
         ];
 
         const subjectsData = {
@@ -818,15 +1166,81 @@
             if (!container) return;
 
             container.innerHTML = archetypes.map((a, idx) => `
-                <label class="cursor-pointer">
-                    <input type="radio" name="archetypeChoice" value="${a.id}" ${idx === 0 ? 'checked' : ''} class="peer hidden">
-                    <div class="p-3 rounded-2xl border-2 border-gray-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50/70 transition flex flex-col items-center text-center h-full shadow-sm">
-                        <span class="text-3xl mb-1">${a.icon}</span>
+                <div class="relative cursor-pointer group">
+                    <input type="radio" id="arch_radio_${a.id}" name="archetypeChoice" value="${a.id}" ${idx === 0 ? 'checked' : ''} class="peer hidden">
+                    <label for="arch_radio_${a.id}" class="cursor-pointer block p-3 rounded-2xl border-2 border-gray-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50/70 transition flex flex-col items-center text-center h-full shadow-sm hover:border-indigo-300">
+                        <span class="text-3xl mb-1 transform group-hover:scale-105 transition">${a.icon}</span>
                         <strong class="text-xs text-indigo-950 font-bold block">${a.name}</strong>
-                        <p class="text-[10px] text-gray-500 mt-1 leading-tight">${a.desc}</p>
-                    </div>
-                </label>
+                        <p class="text-[10px] text-gray-500 mt-1 leading-tight mb-2">${a.desc}</p>
+                        <button type="button" onclick="openArchetypeStory('${a.id}')" class="mt-auto px-2.5 py-1 bg-indigo-100 hover:bg-indigo-600 hover:text-white text-indigo-800 font-bold text-[10px] rounded-lg transition border border-indigo-200 flex items-center space-x-1">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>📖 Ler História</span>
+                        </button>
+                    </label>
+                </div>
             `).join('');
+        }
+
+        function openArchetypeStory(archId) {
+            const arch = archetypes.find(a => a.id === archId) || archetypes[0];
+            selectedArchetypeForStory = arch.id;
+
+            const iconEl = document.getElementById('modalStoryIcon');
+            const titleEl = document.getElementById('modalStoryTitle');
+            const subtitleEl = document.getElementById('modalStorySubtitle');
+            const missionEl = document.getElementById('modalStoryMissionText');
+            const paragraphsEl = document.getElementById('modalStoryParagraphs');
+
+            if (iconEl) iconEl.textContent = arch.icon;
+            if (titleEl) titleEl.textContent = arch.name;
+            if (subtitleEl) subtitleEl.textContent = arch.role;
+            if (missionEl) missionEl.textContent = arch.mission;
+
+            if (paragraphsEl) {
+                if (Array.isArray(arch.storyParagraphs)) {
+                    paragraphsEl.innerHTML = arch.storyParagraphs.map(p => `
+                        <div class="bg-indigo-50/70 border-l-4 border-indigo-500 p-3.5 rounded-r-2xl text-indigo-950 font-semibold leading-relaxed shadow-sm">
+                            ${p}
+                        </div>
+                    `).join('');
+                } else if (arch.story) {
+                    paragraphsEl.innerHTML = `
+                        <div class="bg-indigo-50/70 border-l-4 border-indigo-500 p-3.5 rounded-r-2xl text-indigo-950 font-semibold leading-relaxed shadow-sm">
+                            ${arch.story}
+                        </div>
+                    `;
+                }
+            }
+
+            const modal = document.getElementById('modalArchetypeStory');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeArchetypeStoryModal() {
+            const modal = document.getElementById('modalArchetypeStory');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function confirmArchetypeChoice() {
+            if (!selectedArchetypeForStory) return;
+
+            const radio = document.getElementById(`arch_radio_${selectedArchetypeForStory}`) || 
+                          document.querySelector(`input[name="archetypeChoice"][value="${selectedArchetypeForStory}"]`);
+            if (radio) {
+                radio.checked = true;
+            }
+
+            parentData.archetype = selectedArchetypeForStory;
+            updateUserBar();
+            updateMascotDisplay();
+
+            if (window.saveUserDataToCloud) {
+                window.saveUserDataToCloud();
+            }
+
+            closeArchetypeStoryModal();
+            playCelebrationSound();
+            confetti({ particleCount: 45, spread: 60, origin: { y: 0.7 } });
         }
 
         function handleAuthSubmit(event) {
@@ -908,6 +1322,7 @@
         function setMascotState(state) {
             const container = document.getElementById('mascotAvatarContainer');
             const badge = document.getElementById('mascotPostureBadge');
+            if (!container || !badge) return;
             
             container.classList.remove('mascot-state-sitting', 'mascot-state-walking', 'mascot-state-jumping');
             
@@ -1020,7 +1435,7 @@
                 feedbackIcon.className = 'fa-solid fa-circle-check text-emerald-600 text-xl';
                 feedbackTitle.textContent = 'Sensacional! Resposta Correta! (+100 pts)';
                 feedbackText.textContent = q.explanation;
-                document.getElementById('mascotSpeechText').textContent = `Incrível, ${parentData.childName}! Você é muito inteligente! 🌟`;
+                document.getElementById('mascotSpeechText').textContent = `Incrível, ${parentData.childName || 'Explorador'}! Você é muito inteligente! 🌟`;
 
                 if (window.saveUserDataToCloud) {
                     window.saveUserDataToCloud();
@@ -1112,8 +1527,10 @@
             document.body.removeChild(input);
 
             const bubble = document.getElementById('mascotSpeechBubble');
-            document.getElementById('mascotSpeechText').textContent = 'Chave PIX (financeiro@edupam.com.br) copiada! 📋';
-            bubble.classList.remove('hidden');
+            if (bubble) {
+                document.getElementById('mascotSpeechText').textContent = 'Chave PIX (financeiro@edupam.com.br) copiada! 📋';
+                bubble.classList.remove('hidden');
+            }
             setTimeout(() => triggerMascotTap(), 500);
         }
 
@@ -1219,7 +1636,7 @@
             const icsContent = 
 `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Aventura do Saber//ETI Almirante Tamandare//PT
+PRODID:-//Aventura do Saber//Aprender descobrir e crescer a cada passo//PT
 BEGIN:VEVENT
 SUMMARY:Aula Particular (${lastBookingData.teacher}) - ${lastBookingData.childName}
 DESCRIPTION:Aula Particular de ${lastBookingData.subject} via Google Meet.\nProfessor: ${lastBookingData.teacher}\nAluno: ${lastBookingData.childName}\nResponsavel: ${lastBookingData.parentName}
@@ -1264,22 +1681,18 @@ END:VCALENDAR`;
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // =========================================================================
-        // 🔴 PASTE AQUI O SEU BLOCO DE CÓDIGO DO FIREBASE (firebaseConfig)
-        // =========================================================================
         const firebaseConfig = {
-  		apiKey: "AIzaSyDskXV-HqDqBAFKpuxyT7VCXww1x2zVIvc",
-		authDomain: "calendarioaulas-7a975.firebaseapp.com",
-		projectId: "calendarioaulas-7a975",
-		storageBucket: "calendarioaulas-7a975.firebasestorage.app",
-		messagingSenderId: "185198610766",
-		appId: "1:185198610766:web:2b9a2f626cb850f891b61f",
-		measurementId: "G-9R9ZP0E8W6"
-	};
-
+            apiKey: "AIzaSyDskXV-HqDqBAFKpuxyT7VCXww1x2zVIvc",
+            authDomain: "calendarioaulas-7a975.firebaseapp.com",
+            projectId: "calendarioaulas-7a975",
+            storageBucket: "calendarioaulas-7a975.firebasestorage.app",
+            messagingSenderId: "185198610766",
+            appId: "1:185198610766:web:2b9a2f626cb850f891b61f",
+            measurementId: "G-9R9ZP0E8W6"
+        };
 
         const appId = 'aventura-saber-3ano';
         let db = null;
@@ -1327,6 +1740,7 @@ END:VCALENDAR`;
                     parentName: parentData.parentName,
                     phone: parentData.phone,
                     archetype: parentData.archetype,
+                    grade: parentData.grade || '3ano',
                     points: userState.points,
                     updatedAt: new Date().toISOString()
                 }, { merge: true });
@@ -1400,8 +1814,7 @@ END:VCALENDAR`;
             }
         }
 
-        window.loadCloudRanking = function() {
-        };
+        window.loadCloudRanking = function() {};
 
         window.loadCloudBookingsList = function() {
             if (!db) return;
