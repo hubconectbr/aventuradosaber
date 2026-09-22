@@ -402,75 +402,16 @@
     <footer class="mt-auto bg-white/90 backdrop-blur border-t-4 border-indigo-300 py-6 px-4">
         <div class="max-w-6xl mx-auto space-y-4">
             <div class="text-center">
-                <h3 class="title-font text-lg md:text-xl font-bold text-indigo-950">
+                <h3 class="title-font text-xl md:text-2xl font-bold text-indigo-950">
                     <i class="fa-solid fa-sparkles text-amber-500 mr-1.5"></i> Conheça os 6 Arquétipos do Saber
                 </h3>
-                <p class="text-xs text-indigo-700 font-semibold">
+                <p class="text-xs md:text-sm text-indigo-700 font-semibold">
                     Clique em qualquer arquétipo abaixo para ler a sua história e aceitar o desafio!
                 </p>
             </div>
 
-            <!-- Side-by-side 6 Archetypes Grid with Clickable Story Event -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-                <div onclick="openArchetypeStory('maga')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
-                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🧙‍♀️</span>
-                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Maga das Palavras</strong>
-                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Língua Portuguesa</span>
-                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
-                        <i class="fa-solid fa-book-open text-[8px]"></i>
-                        <span>Ver História</span>
-                    </span>
-                </div>
-
-                <div onclick="openArchetypeStory('mago')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
-                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🧙‍♂️</span>
-                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Mago dos Saberes</strong>
-                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Conhecimento Geral</span>
-                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
-                        <i class="fa-solid fa-book-open text-[8px]"></i>
-                        <span>Ver História</span>
-                    </span>
-                </div>
-
-                <div onclick="openArchetypeStory('heroin')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
-                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🦸‍♀️</span>
-                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Super-Heroína</strong>
-                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Boas Atitudes</span>
-                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
-                        <i class="fa-solid fa-book-open text-[8px]"></i>
-                        <span>Ver História</span>
-                    </span>
-                </div>
-
-                <div onclick="openArchetypeStory('hero')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
-                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">🦸‍♂️</span>
-                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Super-Herói</strong>
-                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Matemática & Lógica</span>
-                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
-                        <i class="fa-solid fa-book-open text-[8px]"></i>
-                        <span>Ver História</span>
-                    </span>
-                </div>
-
-                <div onclick="openArchetypeStory('scientist')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
-                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">👩‍🔬</span>
-                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Cientista Curiosa</strong>
-                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">Ciências Naturais</span>
-                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
-                        <i class="fa-solid fa-book-open text-[8px]"></i>
-                        <span>Ver História</span>
-                    </span>
-                </div>
-
-                <div onclick="openArchetypeStory('explorer_girl')" class="cursor-pointer bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-500 rounded-2xl p-3 text-center flex flex-col items-center hover:bg-indigo-100/80 transition shadow-sm group">
-                    <span class="text-4xl mb-1 transform group-hover:scale-110 transition">👧</span>
-                    <strong class="title-font text-xs text-indigo-950 block leading-tight font-bold">Exploradora</strong>
-                    <span class="text-[10px] text-indigo-600 font-extrabold mt-0.5">História & Geografia</span>
-                    <span class="mt-1.5 text-[9px] bg-indigo-200 text-indigo-900 font-extrabold px-2 py-0.5 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition flex items-center space-x-1">
-                        <i class="fa-solid fa-book-open text-[8px]"></i>
-                        <span>Ver História</span>
-                    </span>
-                </div>
+            <!-- Side-by-side 6 Archetypes Grid with Images -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5" id="footerArchetypesGrid">
             </div>
 
             <p class="text-center text-[11px] text-indigo-800 font-bold pt-2 border-t border-indigo-100">
@@ -741,7 +682,7 @@
             </button>
 
             <div class="text-center mb-4">
-                <div id="modalStoryIcon" class="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-2 shadow-md border-2 border-white">
+                <div id="modalStoryIcon" class="w-20 h-20 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-2 shadow-md border-2 border-white overflow-hidden">
                     🧙‍♀️
                 </div>
                 <h3 id="modalStoryTitle" class="title-font text-2xl font-extrabold text-indigo-950">
@@ -842,6 +783,59 @@
             grade: '3ano'
         };
 
+        function playCelebrationSound() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const now = ctx.currentTime;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.15, now + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.25);
+                });
+            } catch (e) { console.log(e); }
+        }
+
+        function playErrorSound() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const now = ctx.currentTime;
+                const notes = [392.00, 293.66];
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.12, now + idx * 0.12);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.12);
+                    osc.stop(now + idx * 0.12 + 0.3);
+                });
+            } catch (e) { console.log(e); }
+        }
+
+        function handleImageError(imgEl, archId) {
+            if (!imgEl) return;
+            imgEl.onerror = null;
+            const arch = archetypes.find(a => a.id === archId);
+            const icon = arch ? arch.icon : '🧙‍♀️';
+            const name = arch ? arch.name : '';
+            imgEl.parentElement.innerHTML = `<div class="flex flex-col items-center justify-center h-full p-2 bg-gradient-to-br from-indigo-50 to-purple-100 text-indigo-900"><span class="text-4xl mb-1">${icon}</span>${name ? `<span class="text-[10px] font-bold text-center">${name}</span>` : ''}</div>`;
+        }
+
         let userState = {
             points: 0,
             completedMissions: [],
@@ -854,31 +848,15 @@
         let lastBookingData = null;
         let selectedArchetypeForStory = 'maga';
 
-        function selectGrade(gradeId) {
-            parentData.grade = gradeId;
-            const radio = document.getElementById('gradeRadio_3ano');
-            if (radio) radio.checked = true;
-        }
-
-        function showEmBreveModal(gradeName) {
-            const titleEl = document.getElementById('emBreveGradeTitle');
-            if (titleEl) titleEl.textContent = `${gradeName} - Ensino Fundamental I`;
-            const modal = document.getElementById('modalEmBreve');
-            if (modal) modal.classList.remove('hidden');
-        }
-
-        function closeEmBreveModal() {
-            const modal = document.getElementById('modalEmBreve');
-            if (modal) modal.classList.add('hidden');
-        }
-
         const archetypes = [
             { 
                 id: 'maga', 
                 name: 'Maga das Palavras', 
-                icon: '🧙‍♀️', 
+                icon: '🧙‍♀️',
+                characterImage: 'images/arquetipo_personagem_maga_das_palavras.png',
+                cardImage: 'images/arquetipo_maga_das_palavras.jpg',
                 desc: 'Respeita seus pais, faz os deveres no capricho e é carinhosa com os amigos!',
-                role: 'Guia de Língua Portuguesa',
+                role: 'Língua Portuguesa',
                 mission: 'Desvendar os mistérios das palavras, pontuações e histórias mágicas.',
                 storyParagraphs: [
                     'Era uma vez um reino mágico onde cada letra de um livro tinha o poder de ganhar vida! Como Maga das Palavras, você carrega uma varinha brilhante de sabedoria e um grande livro de encantamentos. Seu superpoder é transformar frases em aventuras inesquecíveis, desvendando acentos misteriosos, pontuações mágicas e rimas encantadas.',
@@ -889,9 +867,11 @@
             { 
                 id: 'mago', 
                 name: 'Mago dos Saberes', 
-                icon: '🧙‍♂️', 
+                icon: '🧙‍♂️',
+                characterImage: 'images/arquetipo_personagem_mago_dos_saberes.png',
+                cardImage: 'images/arquetipo_mago_dos_saberes.jpg',
                 desc: 'Educado, ajuda nas tarefas de casa e compartilha conhecimento com alegria!',
-                role: 'Mestre do Conhecimento Geral',
+                role: 'Conhecimento Geral',
                 mission: 'Aprender de tudo um pouco, respeitar a família e espalhar sabedoria.',
                 storyParagraphs: [
                     'No topo da Montanha do Conhecimento vive o Mago dos Saberes, o grande mestre dos mistérios do universo! Com sua capa azul estrelada e um cajado reluzente, ele sabe que perguntar "por quê?" e "como?" é o primeiro passo para se tornar um verdadeiro sábio.',
@@ -901,26 +881,30 @@
             },
             { 
                 id: 'heroin', 
-                name: 'Super-Heroína das Letras', 
-                icon: '🦸‍♀️', 
+                name: 'Poder da Empatia', 
+                icon: '🦸‍♀️',
+                characterImage: 'images/arquetipo_personagem_poder_empatia.png',
+                cardImage: 'images/arquetipo_poder_da_empatia.jpg',
                 desc: 'Protege a boa convivência na escola, obedece à família e sempre faz a lição!',
-                role: 'Defensora das Boas Atitudes',
+                role: 'Boas Atitudes',
                 mission: 'Proteger a gentileza, a amizade e o capricho nos deveres de casa.',
                 storyParagraphs: [
-                    'Com um escudo reluzente de gentileza e uma capa que brilha como o sol, a Super-Heroína das Letras protege a nossa escola de qualquer desânimo! Seu superpoder especial é espalhar palavras mágicas como "por favor", "com licença" e "obrigado", tornando todos ao seu redor mais felizes.',
-                    'Ela nunca deixa um amigo para trás e faz todas as tarefas de casa com dedicação e supervelocidade! Para ela, obedecer aos pais e ouvir os professores é a receita secreta para ter uma supermente invencível e cheia de luz.',
-                    'O sinal da justiça e do saber acendeu no céu! Ajuste sua capa, prepare seu sorriso superpoderoso e venha espalhar boas atitudes e notas altas por onde você passar. Vamos salvar o dia com estudo e carinho!'
+                    'Com um escudo reluzente de gentileza e uma capa que brilha como o sol, a guardiã do Poder da Empatia protege a nossa escola de qualquer desânimo! Seu superpoder especial é espalhar palavras mágicas como "por favor", "com licença" e "obrigado", tornando todos ao seu redor mais felizes.',
+                    'Ela nunca deixa um amigo para trás e faz todas as tarefas de casa com dedicação e carinho! Para ela, obedecer aos pais e ouvir os professores é a receita secreta para ter uma mente invencível e cheia de luz.',
+                    'A corrente do bem acendeu no coração da turma! Ajuste sua capa, prepare seu sorriso carinhoso e venha espalhar boas atitudes e notas altas por onde você passar!'
                 ]
             },
             { 
                 id: 'hero', 
-                name: 'Super-Herói do Saber', 
-                icon: '🦸‍♂️', 
+                name: 'Super-Herói da Lógica', 
+                icon: '🦸‍♂️',
+                characterImage: 'images/arquetipo_personagem_super_heroi_logica.png',
+                cardImage: 'images/arquetipo_super_heroi_da_logica.jpg',
                 desc: 'Corajoso nas provas, respeita os professores e é um filho exemplar!',
-                role: 'Campeão da Matemática & Lógica',
+                role: 'Matemática & Lógica',
                 mission: 'Resolver enigmas matemáticos e ser um filho e aluno exemplar.',
                 storyParagraphs: [
-                    'Equipado com o Escudo dos Números e a Visão do Raciocínio Lógico, o Super-Herói do Saber consegue resolver qualquer enigma matemático em um piscar de olhos! Somas, subtrações e desafios gigantescos não metem medo neste jovem campeão.',
+                    'Equipado com o Escudo dos Números e a Visão do Raciocínio Lógico, o Super-Herói da Lógica consegue resolver qualquer enigma matemático em um piscar de olhos! Somas, subtrações e desafios gigantescos não metem medo neste jovem campeão.',
                     'Ele sabe que a coragem de verdade é tentar de novo quando algo parece difícil e comemorar cada acerto com alegria. Além disso, ele é um filho exemplar, sempre pronto para ajudar em casa antes de partir para suas supermissões escolares.',
                     'Um novo enigma de números surgiu e precisa do seu super-raciocínio! Coloque sua máscara da coragem, junte suas forças matemáticas e venha vencer cada desafio desta grande maratona!'
                 ]
@@ -928,9 +912,11 @@
             { 
                 id: 'scientist', 
                 name: 'Cientista Curiosa', 
-                icon: '👩‍🔬', 
+                icon: '👩‍🔬',
+                characterImage: 'images/arquetipo_personagem_cientista_curiosa.png',
+                cardImage: 'images/arquetipo_cientista_curiosa.jpg',
                 desc: 'Ama aprender coisas novas, cuida do meio ambiente e é gentil com todos!',
-                role: 'Exploradora de Ciências Naturais',
+                role: 'Ciências Naturais',
                 mission: 'Explorar a natureza, cuidar do planeta e descobrir a ciência no dia a dia.',
                 storyParagraphs: [
                     'Com suas lentes de aumento mágicas e um jaleco branquinho, a Cientista Curiosa enxerga o mundo como um grande laboratório de maravilhas! Ela ama investigar como as plantas crescem, por que o céu muda de cor e como a natureza funciona em perfeita harmonia.',
@@ -940,15 +926,17 @@
             },
             { 
                 id: 'explorer_girl', 
-                name: 'Exploradora de Taquaruçu', 
-                icon: '👧', 
+                name: 'Explorador da História', 
+                icon: '👦',
+                characterImage: 'images/arquetipo_personagem_explorador_historia.png',
+                cardImage: 'images/arquetipo_explorador_historia.jpg',
                 desc: 'Conhece as riquezas do Tocantins, ama a natureza e ajuda os pais com carinho!',
-                role: 'Guia de História & Geografia',
+                role: 'História & Geografia',
                 mission: 'Desbravar as paisagens do Tocantins, respeitar a cultura e guiar a turma.',
                 storyParagraphs: [
-                    'Com um mapa antigo do Tocantins nas mãos e uma bússola de ouro no peito, a Exploradora de Taquaruçu percorre as serras, cachoeiras e praças históricas com entusiasmo sem fim! Ela conhece as riquezas da nossa terra e ama nossa cultura.',
-                    'Ela ensina que conhecer nossa história nos ajuda a valorizar nossa família, nossa cidade e nossas raízes. Onde quer que ela vá, ela preserva a natureza, respeita os mais velhos e guia seus amigos com paciência e alegria de aprender.',
-                    'A bússola já está apontando para uma nova e emocionante expedição! Coloque sua mochila nas costas, amarre bem os tênis e venha desbravar cada canto da história e geografia da nossa região!'
+                    'Com um mapa antigo do Tocantins nas mãos e uma bússola de ouro no peito, o Explorador da História percorre as serras, cachoeiras e praças históricas com entusiasmo sem fim! Ele conhece as riquezas da nossa terra e ama nossa cultura.',
+                    'Ele ensina que conhecer nossa história nos ajuda a valorizar nossa família, nossa cidade e nossas raízes. Onde quer que vá, ele preserva a natureza, respeita os mais velhos e guia seus amigos com paciência e alegria de aprender.',
+                    'A bússola já está apontando para uma nova e emocionante expedição! Coloque sua mochila nas costas, amarre bem os tênis e venha desbravando cada canto da história e geografia da nossa região!'
                 ]
             }
         ];
@@ -1113,52 +1101,9 @@
             }
         };
 
-        function playCelebrationSound() {
-            try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!AudioCtx) return;
-                const ctx = new AudioCtx();
-                const now = ctx.currentTime;
-                const notes = [523.25, 659.25, 783.99, 1046.50];
-                notes.forEach((freq, idx) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0.15, now + idx * 0.08);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.25);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(now + idx * 0.08);
-                    osc.stop(now + idx * 0.08 + 0.25);
-                });
-            } catch (e) { console.log(e); }
-        }
-
-        function playErrorSound() {
-            try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!AudioCtx) return;
-                const ctx = new AudioCtx();
-                const now = ctx.currentTime;
-                const notes = [392.00, 293.66];
-                notes.forEach((freq, idx) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0.12, now + idx * 0.12);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.3);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(now + idx * 0.12);
-                    osc.stop(now + idx * 0.12 + 0.3);
-                });
-            } catch (e) { console.log(e); }
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
             renderArchetypeSelector();
+            renderFooterArchetypes();
         });
 
         function renderArchetypeSelector() {
@@ -1168,15 +1113,37 @@
             container.innerHTML = archetypes.map((a, idx) => `
                 <div class="relative cursor-pointer group">
                     <input type="radio" id="arch_radio_${a.id}" name="archetypeChoice" value="${a.id}" ${idx === 0 ? 'checked' : ''} class="peer hidden">
-                    <label for="arch_radio_${a.id}" class="cursor-pointer block p-3 rounded-2xl border-2 border-gray-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50/70 transition flex flex-col items-center text-center h-full shadow-sm hover:border-indigo-300">
-                        <span class="text-3xl mb-1 transform group-hover:scale-105 transition">${a.icon}</span>
-                        <strong class="text-xs text-indigo-950 font-bold block">${a.name}</strong>
+                    <label for="arch_radio_${a.id}" class="cursor-pointer block p-3 rounded-3xl border-2 border-indigo-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50/80 transition flex flex-col items-center text-center h-full shadow-sm hover:border-indigo-400">
+                        <div class="w-full aspect-square rounded-2xl overflow-hidden mb-2.5 border border-indigo-100 bg-indigo-50 flex items-center justify-center shadow-inner">
+                            <img src="${a.characterImage}" alt="${a.name}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" onerror="handleImageError(this, '${a.id}')">
+                        </div>
+                        <strong class="title-font text-xs md:text-sm text-indigo-950 font-bold block leading-snug">${a.name}</strong>
+                        <span class="text-[10px] text-indigo-600 font-extrabold block mt-0.5">${a.role}</span>
                         <p class="text-[10px] text-gray-500 mt-1 leading-tight mb-2">${a.desc}</p>
-                        <button type="button" onclick="openArchetypeStory('${a.id}')" class="mt-auto px-2.5 py-1 bg-indigo-100 hover:bg-indigo-600 hover:text-white text-indigo-800 font-bold text-[10px] rounded-lg transition border border-indigo-200 flex items-center space-x-1">
-                            <i class="fa-solid fa-book-open"></i>
+                        <button type="button" onclick="openArchetypeStory('${a.id}')" class="mt-auto px-3 py-1.5 bg-indigo-100 hover:bg-indigo-600 hover:text-white text-indigo-900 font-extrabold text-[11px] rounded-full transition border border-indigo-200 flex items-center justify-center space-x-1.5 w-full">
+                            <i class="fa-solid fa-book-open text-xs"></i>
                             <span>📖 Ler História</span>
                         </button>
                     </label>
+                </div>
+            `).join('');
+        }
+
+        function renderFooterArchetypes() {
+            const grid = document.getElementById('footerArchetypesGrid');
+            if (!grid) return;
+
+            grid.innerHTML = archetypes.map(a => `
+                <div onclick="openArchetypeStory('${a.id}')" class="cursor-pointer bg-white border-2 border-indigo-200 hover:border-indigo-500 rounded-3xl p-3 text-center flex flex-col items-center justify-between hover:bg-indigo-50/50 transition duration-200 shadow-sm hover:shadow-md group">
+                    <div class="w-full aspect-[3/4] rounded-2xl overflow-hidden mb-2.5 border border-indigo-100 bg-indigo-50 flex items-center justify-center shadow-inner">
+                        <img src="${a.cardImage}" alt="${a.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="handleImageError(this, '${a.id}')">
+                    </div>
+                    <strong class="title-font text-xs sm:text-sm text-indigo-950 block leading-tight font-bold">${a.name}</strong>
+                    <span class="text-[11px] text-indigo-600 font-bold block mt-0.5">${a.role}</span>
+                    <button type="button" onclick="openArchetypeStory('${a.id}'); event.stopPropagation();" class="mt-3 w-full py-1.5 px-3 bg-indigo-100 group-hover:bg-indigo-600 group-hover:text-white text-indigo-900 font-extrabold text-xs rounded-full transition-colors flex items-center justify-center space-x-1.5 shadow-sm border border-indigo-200">
+                        <i class="fa-solid fa-book-open text-xs"></i>
+                        <span>Ver História</span>
+                    </button>
                 </div>
             `).join('');
         }
@@ -1191,7 +1158,13 @@
             const missionEl = document.getElementById('modalStoryMissionText');
             const paragraphsEl = document.getElementById('modalStoryParagraphs');
 
-            if (iconEl) iconEl.textContent = arch.icon;
+            if (iconEl) {
+                if (arch.characterImage) {
+                    iconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-contain rounded-2xl" onerror="handleImageError(this, '${arch.id}')">`;
+                } else {
+                    iconEl.textContent = arch.icon;
+                }
+            }
             if (titleEl) titleEl.textContent = arch.name;
             if (subtitleEl) subtitleEl.textContent = arch.role;
             if (missionEl) missionEl.textContent = arch.mission;
@@ -1203,12 +1176,6 @@
                             ${p}
                         </div>
                     `).join('');
-                } else if (arch.story) {
-                    paragraphsEl.innerHTML = `
-                        <div class="bg-indigo-50/70 border-l-4 border-indigo-500 p-3.5 rounded-r-2xl text-indigo-950 font-semibold leading-relaxed shadow-sm">
-                            ${arch.story}
-                        </div>
-                    `;
                 }
             }
 
