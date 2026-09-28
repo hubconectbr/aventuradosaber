@@ -42,10 +42,11 @@
             }
         }
     </script>
+    
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, rgba(43, 88, 118, 0.3) 0%, rgba(78, 67, 118, 0.3) 100%), url('images/backround_primeiro.jpg') no-repeat center center fixed;
+            background: linear-gradient(135deg, rgba(43, 88, 118, 0.5) 0%, rgba(78, 67, 118, 0.5) 100%), url('images/backround_primeiro.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             user-select: none;
@@ -117,11 +118,11 @@
                 </div>
             </div>
 
-            <!-- Quick Scheduling Header Button available even before full login -->
             <div class="flex items-center space-x-2">
                 <button onclick="openAgendamentoModal()" class="flex items-center bg-amber-400 hover:bg-amber-500 text-amber-950 border-2 border-amber-500 px-3 py-1.5 rounded-full font-extrabold text-xs transition shadow-sm animate-bounce">
                     <i class="fa-solid fa-calendar-plus text-indigo-900 mr-1.5"></i>
-                    <span>Aula Particular (R$ 30)</span>
+                    <span class="hidden sm:inline">Aula Particular (R$ 30)</span>
+                    <span class="sm:hidden">Agendar</span>
                 </button>
 
                 <div id="topUserBar" class="hidden flex items-center space-x-2 md:space-x-3">
@@ -141,8 +142,8 @@
                     </button>
 
                     <div class="flex items-center space-x-2 pl-2 border-l border-gray-200">
-                        <div id="userAvatarBadge" class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center text-lg border-2 border-white shadow">
-                            🧙‍♀️
+                        <div id="userAvatarBadge" class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center text-lg border-2 border-white shadow overflow-hidden">
+                            <span id="userAvatarIcon">🧙‍♀️</span>
                         </div>
                         <span id="childDisplayName" class="hidden md:inline font-bold text-indigo-900 text-sm"></span>
                     </div>
@@ -153,18 +154,15 @@
 
     <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
 
-        <!-- Authorization Screen (Landing View) -->
         <section id="screenAuth" class="max-w-3xl mx-auto w-full my-2 space-y-4">
             
-            <!-- Top Hero Banner Image -->
             <div class="w-full overflow-hidden rounded-3xl shadow-2xl border-4 border-amber-300 bg-white">
-                <img src="banner_topo_aventuras_saber.png" 
+                <img src="images/banner_topo_aventuras_saber_2.png" 
                      alt="Aventura do Saber Banner - Aqui aprender é uma aventura!" 
                      class="w-full h-auto object-cover max-h-[260px] md:max-h-[320px] transition transform hover:scale-[1.01]"
                      onerror="this.style.display='none'">
             </div>
 
-            <!-- Direct Booking Callout Card for Parents -->
             <div class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 rounded-3xl p-4 md:p-5 shadow-xl border-4 border-amber-500 flex flex-col sm:flex-row items-center justify-between gap-4 text-amber-950">
                 <div class="flex items-center space-x-3 text-center sm:text-left">
                     <div class="w-12 h-12 bg-indigo-900 text-amber-300 rounded-2xl flex items-center justify-center text-2xl shadow-md shrink-0">
@@ -185,14 +183,13 @@
                 </button>
             </div>
 
-            <!-- Form Card -->
             <div class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-indigo-300 w-full">
                 <div class="text-center mb-6">
                     <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 font-bold rounded-full text-xs uppercase tracking-wider mb-2">
                         <i class="fa-solid fa-shield-halved mr-1"></i> Acesso Gamificado Supervisionado pelos Pais
                     </span>
                     <h2 class="title-font text-2xl md:text-3xl font-extrabold text-indigo-900">
-                        Maratona do 3º Bimestre (21/09 a 25/09)
+                        Maratona de Conhecimento
                     </h2>
                     <p class="text-gray-600 text-sm mt-1">
                         Preencha os dados do responsável para liberar os quizzes e desafios para a criança!
@@ -222,14 +219,12 @@
                         </div>
                     </div>
 
-                    <!-- Seleção do Ano Escolar - Ensino Fundamental I -->
                     <div class="pt-2 border-t border-gray-100">
                         <label class="block text-sm font-bold text-indigo-900 mb-2">
                             <i class="fa-solid fa-graduation-cap text-indigo-600 mr-1"></i> Selecione o Ano Escolar (Ensino Fundamental I):
                         </label>
 
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5" id="gradeSelectionContainer">
-                            <!-- 1º Ano -->
                             <div onclick="showEmBreveModal('1º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
                                 <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
                                 <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🌱</div>
@@ -237,7 +232,6 @@
                                 <span class="text-[9px] text-slate-500 font-semibold">Fundamental I</span>
                             </div>
 
-                            <!-- 2º Ano -->
                             <div onclick="showEmBreveModal('2º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
                                 <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
                                 <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🌿</div>
@@ -245,16 +239,14 @@
                                 <span class="text-[9px] text-slate-500 font-semibold">Fundamental I</span>
                             </div>
 
-                            <!-- 3º Ano (Ativo / Selecionado) -->
-                            <div id="gradeCard_3ano" onclick="selectGrade('3ano')" class="cursor-pointer relative bg-emerald-50 border-4 border-emerald-500 rounded-2xl p-2.5 text-center shadow-md transition group">
-                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-emerald-600 text-white font-black px-1.5 py-0.5 rounded-md animate-pulse">DISPONÍVEL</span>
+                            <div id="gradeCard_3ano" onclick="selectGrade('3ano')" class="grade-card cursor-pointer relative bg-emerald-50 border-4 border-emerald-500 rounded-2xl p-2.5 text-center shadow-md transition group">
+                                <span class="grade-badge absolute top-1.5 right-1.5 text-[9px] bg-emerald-600 text-white font-black px-1.5 py-0.5 rounded-md animate-pulse">SELECIONADO</span>
                                 <div class="text-2xl mb-1 group-hover:scale-110 transition">⭐</div>
-                                <strong class="title-font text-xs text-emerald-950 block font-extrabold">3º Ano</strong>
-                                <span class="text-[9px] text-emerald-700 font-bold">Plataforma Ativa</span>
+                                <strong class="title-font text-xs text-emerald-950 block font-extrabold grade-title">3º Ano</strong>
+                                <span class="text-[9px] text-emerald-700 font-bold grade-subtitle">Fundamental I</span>
                                 <input type="radio" name="gradeChoice" id="gradeRadio_3ano" value="3ano" checked class="hidden">
                             </div>
 
-                            <!-- 4º Ano -->
                             <div onclick="showEmBreveModal('4º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
                                 <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
                                 <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🚀</div>
@@ -262,7 +254,6 @@
                                 <span class="text-[9px] text-slate-500 font-semibold">Fundamental I</span>
                             </div>
 
-                            <!-- 5º Ano -->
                             <div onclick="showEmBreveModal('5º Ano EF')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
                                 <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
                                 <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🏆</div>
@@ -271,9 +262,46 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="pt-3 border-t border-gray-100">
+                        <label class="block text-sm font-bold text-indigo-900 mb-2">
+                            <i class="fa-solid fa-user-graduate text-indigo-600 mr-1"></i> Ensino Fundamental II:
+                        </label>
 
-                    <div class="pt-2 border-t border-gray-100">
-                        <label class="block text-sm font-bold text-indigo-900 mb-1">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="gradeSelectionContainerEF2">
+                            <div onclick="showEmBreveModal('6º Ano EF II')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
+                                <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🔬</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold">6º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold">Fundamental II</span>
+                            </div>
+                            
+                            <div onclick="showEmBreveModal('7º Ano EF II')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
+                                <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🌍</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold">7º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold">Fundamental II</span>
+                            </div>
+
+                            <div id="gradeCard_8ano" onclick="selectGrade('8ano')" class="grade-card cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-emerald-500 rounded-2xl p-2.5 text-center transition group">
+                                <span class="grade-badge absolute top-1.5 right-1.5 text-[9px] bg-indigo-500 text-white font-black px-1.5 py-0.5 rounded-md shadow-sm">DISPONÍVEL</span>
+                                <div class="text-2xl mb-1 group-hover:scale-110 transition">💡</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold grade-title">8º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold grade-subtitle">Fundamental II</span>
+                                <input type="radio" name="gradeChoice" id="gradeRadio_8ano" value="8ano" class="hidden">
+                            </div>
+
+                            <div onclick="showEmBreveModal('9º Ano EF II')" class="cursor-pointer relative bg-slate-50 border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-2.5 text-center transition group opacity-85 hover:opacity-100">
+                                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.5 rounded-md shadow-sm">EM BREVE</span>
+                                <div class="text-2xl mb-1 text-slate-400 group-hover:scale-110 transition">🎓</div>
+                                <strong class="title-font text-xs text-slate-700 block font-bold">9º Ano</strong>
+                                <span class="text-[9px] text-slate-500 font-semibold">Fundamental II</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-gray-100 mt-4">
+                        <label id="studentNameLabel" class="block text-sm font-bold text-indigo-900 mb-1">
                             <i class="fa-solid fa-child text-pink-500 mr-1"></i> Como a criança gosta de ser chamada?
                         </label>
                         <input type="text" id="childName" required placeholder="Ex: Aninha, Pedrinho, Sofia..."
@@ -285,6 +313,7 @@
                             <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1"></i> Escolha o Arquétipo Guia do Aluno Exemplar:
                         </label>
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="archetypeContainer">
+                            <!-- Injetado via JS -->
                         </div>
                     </div>
 
@@ -300,8 +329,8 @@
         <section id="screenDashboard" class="hidden space-y-6">
             <div class="bg-white/95 backdrop-blur rounded-3xl p-5 md:p-6 shadow-xl border-4 border-indigo-200 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex items-center space-x-4">
-                    <div id="dashboardHeroAvatar" class="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-4xl shadow-md border-2 border-white shrink-0">
-                        🧙‍♀️
+                    <div id="dashboardHeroAvatar" class="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-4xl shadow-md border-2 border-white shrink-0 overflow-hidden">
+                        <span id="dashboardHeroIcon">🧙‍♀️</span>
                     </div>
                     <div>
                         <div class="flex items-center space-x-2">
@@ -313,7 +342,7 @@
                             </span>
                         </div>
                         <p class="text-gray-600 text-xs md:text-sm mt-0.5">
-                            Aprender, descobrir e crescer a cada passo • Cronograma de Avaliações: <strong class="text-indigo-700">21/09 a 25/09</strong>.
+                            Aprender, descobrir e crescer a cada passo • <strong class="text-indigo-700" id="dashGradeLabel">Série</strong>.
                         </p>
                     </div>
                 </div>
@@ -332,6 +361,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="subjectsGrid">
+                <!-- Injetado via JS -->
             </div>
         </section>
 
@@ -356,7 +386,7 @@
                     <span id="quizTopicTag" class="text-[11px] font-extrabold uppercase tracking-wider text-indigo-500 block mb-1">
                         Tópico do Roteiro de Estudos
                     </span>
-                    <h3 id="quizQuestionTitle" class="title-font text-xl md:text-2xl font-bold text-indigo-950 leading-snug">
+                    <h3 id="quizQuestionTitle" class="title-font text-xl md:text-2xl font-bold text-indigo-950 leading-snug whitespace-pre-line">
                         Título da Pergunta
                     </h3>
                 </div>
@@ -365,6 +395,7 @@
                 </div>
 
                 <div id="quizOptionsContainer" class="space-y-3 mb-6">
+                    <!-- Opções injetadas via JS -->
                 </div>
 
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-gray-100">
@@ -411,8 +442,8 @@
                 </p>
             </div>
 
-            <!-- Side-by-side 6 Archetypes Grid with Images -->
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5" id="footerArchetypesGrid">
+                <!-- Injetado via JS -->
             </div>
 
             <p class="text-center text-[11px] text-indigo-800 font-bold pt-2 border-t border-indigo-100">
@@ -421,7 +452,6 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Support Button -->
     <a href="https://wa.me/5563981202076?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20e%20suporte%20da%20Plataforma%20Aventura%20do%20Saber." 
        target="_blank" 
        class="fixed bottom-4 left-4 z-50 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-3.5 py-2.5 rounded-full shadow-2xl flex items-center space-x-2 text-xs border-2 border-white transition transform hover:scale-105">
@@ -467,6 +497,7 @@
                         <option value="geografia">Geografia (Profª Elayne Duarte)</option>
                         <option value="matematica">Matemática (Prof. Benedito Palheta)</option>
                         <option value="ciencias">Ciências (Prof. Benedito Palheta)</option>
+                        <option value="ingles">Língua Inglesa (Prof. Benedito Palheta)</option>
                     </select>
                 </div>
 
@@ -583,7 +614,6 @@
         </div>
     </div>
 
-    <!-- Parents Panel Modal -->
     <div id="modalParent" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border-4 border-indigo-400 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeParentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
@@ -596,7 +626,7 @@
                 </div>
                 <div>
                     <h3 class="title-font text-lg font-bold text-indigo-950">Painel do Responsável & Agenda</h3>
-                    <p class="text-xs text-gray-500">Aprender, descobrir e crescer a cada passo • Cronograma Oficial</p>
+                    <p class="text-xs text-gray-500">Aprender, descobrir e crescer a cada passo</p>
                 </div>
             </div>
 
@@ -604,7 +634,7 @@
                 <div class="bg-amber-50 p-3 rounded-xl border border-amber-300 flex items-center justify-between">
                     <div>
                         <strong class="text-amber-950 block font-bold">Aulas Particulares (R$ 30/h):</strong>
-                        <span class="text-[11px] text-amber-800">Profª Elayne (Port/Hist/Geo) e Prof. Benedito (Mat/Ciências)</span>
+                        <span class="text-[11px] text-amber-800">Profª Elayne (Port/Hist/Geo) e Prof. Benedito (Mat/Ciências/Inglês)</span>
                     </div>
                     <button onclick="closeParentModal(); openAgendamentoModal();" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-[11px] rounded-lg shadow transition">
                         Agendar
@@ -632,17 +662,6 @@
                         <p class="text-gray-500 italic">Carregando agendamentos...</p>
                     </div>
                 </div>
-
-                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                    <strong class="text-slate-800 block mb-1">Calendário de Provas do 3º Bimestre:</strong>
-                    <ul class="list-disc list-inside space-y-1 text-slate-700 text-[11px]">
-                        <li><strong>21/09:</strong> Língua Portuguesa</li>
-                        <li><strong>22/09:</strong> SAEP Bimestral III</li>
-                        <li><strong>23/09:</strong> Matemática</li>
-                        <li><strong>24/09:</strong> História e Geografia</li>
-                        <li><strong>25/09:</strong> Ciências</li>
-                    </ul>
-                </div>
             </div>
 
             <button onclick="closeParentModal()" class="w-full py-2.5 bg-gray-800 text-white font-bold rounded-xl hover:bg-gray-900 transition">
@@ -651,7 +670,6 @@
         </div>
     </div>
 
-    <!-- Ranking Modal -->
     <div id="modalRanking" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border-4 border-indigo-400 relative">
             <button onclick="closeRankingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
@@ -683,7 +701,7 @@
             </button>
 
             <div class="text-center mb-4">
-                <div id="modalStoryIcon" class="w-20 h-20 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-2 shadow-md border-2 border-white overflow-hidden">
+                <div id="modalStoryIcon" class="w-40 aspect-[3/4] bg-gradient-to-tr from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-3 shadow-md border-2 border-indigo-200 overflow-hidden">
                     🧙‍♀️
                 </div>
                 <h3 id="modalStoryTitle" class="title-font text-2xl font-extrabold text-indigo-950">
@@ -744,16 +762,20 @@
 
             <div class="bg-indigo-50 border-2 border-indigo-200 p-3.5 rounded-2xl text-xs text-indigo-950 mb-5 text-left space-y-1.5">
                 <strong class="font-bold flex items-center text-indigo-900">
-                    <i class="fa-solid fa-star text-amber-500 mr-1.5"></i> Enquanto isso:
+                    <i class="fa-solid fa-star text-amber-500 mr-1.5"></i> Enquanto isso, você pode explorar as maratonas do:
                 </strong>
-                <p>• Você pode explorar a maratona completa e jogos do <strong>3º Ano do Ensino Fundamental I</strong>!</p>
+                <p>• <strong>3º Ano do Ensino Fundamental I</strong></p>
+                <p>• <strong>8º Ano do Ensino Fundamental II</strong></p>
             </div>
 
             <div class="space-y-2">
-                <button onclick="closeEmBreveModal(); selectGrade('3ano');" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white title-font font-bold text-sm rounded-xl shadow-game-green transition">
-                    🚀 NAVEGAR NO 3º ANO (ATIVO)
+                <button onclick="closeEmBreveModal(); selectGrade('3ano');" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white title-font font-bold text-sm rounded-xl shadow-game-green transition mb-1">
+                    🚀 NAVEGAR NO 3º ANO
                 </button>
-                <button onclick="closeEmBreveModal()" class="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-xl transition">
+                <button onclick="closeEmBreveModal(); selectGrade('8ano');" class="w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white title-font font-bold text-sm rounded-xl shadow-game-btn transition">
+                    💡 NAVEGAR NO 8º ANO
+                </button>
+                <button onclick="closeEmBreveModal()" class="w-full mt-2 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-xl transition">
                     Fechar Aviso
                 </button>
             </div>
@@ -767,9 +789,9 @@
             <div class="absolute -right-2 bottom-3 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-indigo-400 border-b-[6px] border-b-transparent"></div>
         </div>
 
-        <div id="mascotAvatarContainer" onclick="triggerMascotTap()" class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-indigo-100 to-purple-100 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center text-4xl md:text-5xl cursor-pointer pointer-events-auto transition hover:scale-105 relative select-none mascot-state-sitting">
+        <div id="mascotAvatarContainer" onclick="triggerMascotTap()" class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-indigo-100 to-purple-100 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center text-4xl md:text-5xl cursor-pointer pointer-events-auto transition hover:scale-105 relative select-none mascot-state-sitting overflow-hidden bg-white">
             <span id="mascotGraphic">🧙‍♀️</span>
-            <div id="mascotPostureBadge" class="absolute -bottom-1 bg-indigo-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white">
+            <div id="mascotPostureBadge" class="absolute -bottom-1 bg-indigo-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white z-10">
                 Lendo
             </div>
         </div>
@@ -782,6 +804,403 @@
             childName: '',
             archetype: 'maga',
             grade: '3ano'
+        };
+
+        let userState = {
+            points: 0,
+            completedMissions: [],
+            currentSubject: null,
+            currentQuestionIndex: 0,
+            quizQuestions: [],
+            isSimulado: false
+        };
+
+        let lastBookingData = null;
+        let selectedArchetypeForStory = 'maga';
+
+        // Arquétipos e suas Histórias
+        const archetypes = [
+            { 
+                id: 'maga', 
+                name: 'Maga das Palavras', 
+                icon: '🧙‍♀️',
+                characterImage: 'images/arquetipo_personagem_maga_das_palavras.png',
+                cardImage: 'images/arquetipo_maga_das_palavras.jpg',
+                desc: 'Respeita seus pais, faz os deveres no capricho e é carinhosa com os amigos!',
+                role: 'Língua Portuguesa',
+                mission: 'Desvendar os mistérios das palavras, pontuações e histórias mágicas.',
+                storyParagraphs: [
+                    'Era uma vez um reino mágico onde cada letra de um livro tinha o poder de ganhar vida! Como Maga das Palavras, você carrega uma varinha brilhante de sabedoria e um grande livro de encantamentos. Seu superpoder é transformar frases em aventuras inesquecíveis, desvendando acentos misteriosos, pontuações mágicas e rimas encantadas.',
+                    'Pelo caminho, você vai encontrar desafios onde as palavras precisam ser organizadas com carinho e atenção. Quando você lê com foco e escreve com capricho, a mágica acontece: portas secretas se abrem e histórias incríveis começam a fluir como rios de luz!',
+                    'A jornada está prestes a começar! Pegue o seu livro mágico, vista a sua capa de estudante e venha ser a grande guardiã das palavras. Vamos juntos escrever um capítulo cheio de vitórias no seu caderno?'
+                ]
+            },
+            { 
+                id: 'mago', 
+                name: 'Mago dos Saberes', 
+                icon: '🧙‍♂️',
+                characterImage: 'images/arquetipo_personagem_mago_dos_saberes.png',
+                cardImage: 'images/arquetipo_mago_dos_saberes.jpg',
+                desc: 'Educado, ajuda nas tarefas de casa e compartilha conhecimento com alegria!',
+                role: 'Conhecimento Geral',
+                mission: 'Aprender de tudo um pouco, respeitar a família e espalhar sabedoria.',
+                storyParagraphs: [
+                    'No topo da Montanha do Conhecimento vive o Mago dos Saberes, o grande mestre dos mistérios do universo! Com sua capa azul estrelada e um cajado reluzente, ele sabe que perguntar "por quê?" e "como?" é o primeiro passo para se tornar um verdadeiro sábio.',
+                    'Este Mago ensina que a verdadeira força vem de respeitar os pais, ajudar os colegas e ter curiosidade todos os dias. Cada novo aprendizado é como uma joia preciosa que você guarda no seu coração para transformar o mundo à sua volta em um lugar melhor.',
+                    'O grande livro dos segredos do mundo se abriu para você! Aceite o convite, vista o chapéu da sabedoria e venha desvendar os maiores mistérios da nossa jornada do saber. Você está pronto para essa missão?'
+                ]
+            },
+            { 
+                id: 'heroin', 
+                name: 'Super-Heroína', 
+                icon: '🦸‍♀️',
+                characterImage: 'images/arquetipo_personagem_poder_empatia.png',
+                cardImage: 'images/arquetipo_poder_da_empatia.jpg',
+                desc: 'Protege a boa convivência na escola, obedece à família e sempre faz a lição!',
+                role: 'Boas Atitudes',
+                mission: 'Proteger a gentileza, a amizade e o capricho nos deveres de casa.',
+                storyParagraphs: [
+                    'Com um escudo reluzente de gentileza e uma capa que brilha como o sol, a guardiã do Poder da Empatia protege a nossa escola de qualquer desânimo! Seu superpoder especial é espalhar palavras mágicas como "por favor", "com licença" e "obrigado", tornando todos ao seu redor mais felizes.',
+                    'Ela nunca deixa um amigo para trás e faz todas as tarefas de casa com dedicação e carinho! Para ela, obedecer aos pais e ouvir os professores é a receita secreta para ter uma mente invencível e cheia de luz.',
+                    'A corrente do bem acendeu no coração da turma! Ajuste sua capa, prepare seu sorriso carinhoso e venha espalhar boas atitudes e notas altas por onde você passar!'
+                ]
+            },
+            { 
+                id: 'hero', 
+                name: 'Super-Herói', 
+                icon: '🦸‍♂️',
+                characterImage: 'images/arquetipo_personagem_super_heroi_logica.png',
+                cardImage: 'images/arquetipo_super_heroi_da_logica.jpg',
+                desc: 'Corajoso nas provas, respeita os professores e é um filho exemplar!',
+                role: 'Matemática & Lógica',
+                mission: 'Resolver enigmas matemáticos e ser um filho e aluno exemplar.',
+                storyParagraphs: [
+                    'Equipado com o Escudo dos Números e a Visão do Raciocínio Lógico, o Super-Herói da Lógica consegue resolver qualquer enigma matemático em um piscar de olhos! Somas, subtrações e desafios gigantescos não metem medo neste jovem campeão.',
+                    'Ele sabe que a coragem de verdade é tentar de novo quando algo parece difícil e comemorar cada acerto com alegria. Além disso, ele é um filho exemplar, sempre pronto para ajudar em casa antes de partir para suas supermissões escolares.',
+                    'Um novo enigma de números surgiu e precisa do seu super-raciocínio! Coloque sua máscara da coragem, junte suas forças matemáticas e venha vencer cada desafio desta grande maratona!'
+                ]
+            },
+            { 
+                id: 'scientist', 
+                name: 'Cientista Curiosa', 
+                icon: '👩‍🔬',
+                characterImage: 'images/arquetipo_personagem_cientista_curiosa.png',
+                cardImage: 'images/arquetipo_cientista_curiosa.jpg',
+                desc: 'Ama aprender coisas novas, cuida do meio ambiente e é gentil com todos!',
+                role: 'Ciências Naturais',
+                mission: 'Explorar a natureza, cuidar do planeta e descobrir a ciência no dia a dia.',
+                storyParagraphs: [
+                    'Com suas lentes de aumento mágicas e um jaleco branquinho, a Cientista Curiosa enxerga o mundo como um grande laboratório de maravilhas! Ela ama investigar como as plantas crescem, por que o céu muda de cor e como a natureza funciona em perfeita harmonia.',
+                    'Toda Grande Cientista protege os animais, cuida dos rios e sabe que a água e o solo são tesouros do nosso planeta. Ela não tem medo de fazer perguntas e testar novas ideias até encontrar a resposta certa para cada mistério da vida.',
+                    'O laboratório das descobertas está com as portas abertas esperando por você! Ajuste os óculos da curiosidade, pegue sua lupa e venha explorar a ciência da vida. Vamos fazer descobertas fantásticas juntos!'
+                ]
+            },
+            { 
+                id: 'explorer_girl', 
+                name: 'Exploradora', 
+                icon: '👦',
+                characterImage: 'images/arquetipo_personagem_explorador_historia.png',
+                cardImage: 'images/arquetipo_explorador_historia.jpg',
+                desc: 'Conhece as riquezas da terra, ama a natureza e ajuda os pais com carinho!',
+                role: 'História & Geografia',
+                mission: 'Desbravar as paisagens, respeitar a cultura e guiar a turma.',
+                storyParagraphs: [
+                    'Com um mapa antigo nas mãos e uma bússola de ouro no peito, o Explorador da História percorre as serras, cachoeiras e praças históricas com entusiasmo sem fim! Ele conhece as riquezas da nossa terra e ama nossa cultura.',
+                    'Ele ensina que conhecer nossa história nos ajuda a valorizar nossa família, nossa cidade e nossas raízes. Onde quer que vá, ele preserva a natureza, respeita os mais velhos e guia seus amigos com paciência e alegria de aprender.',
+                    'A bússola já está apontando para uma nova e emocionante expedição! Coloque sua mochila nas costas, amarre bem os tênis e venha desbravando cada canto da história e geografia da nossa região!'
+                ]
+            }
+        ];
+
+        let subjectsData = {};
+
+        // Banco de Dados Dinâmico de Questões por Série
+        const allGradesData = {
+            '3ano': {
+                portugues: {
+                    title: 'Língua Portuguesa',
+                    date: '21/09 (Segunda-feira)',
+                    color: 'from-purple-500 to-indigo-600',
+                    icon: 'fa-book-open',
+                    questions: [
+                        {
+                            topic: 'Textos Injuntivos (Receitas e Manuais)',
+                            title: 'Qual é a função principal de uma receita culinária?',
+                            context: 'Receita de Bolo de Cenoura: Ingredientes e Modo de Preparo (Bata tudo e asse por 40 min).',
+                            options: ['Contar uma piada divertida.', 'Instruir e ensinar o passo a passo de como fazer uma refeição.', 'Expressar a opinião sobre um filme.', 'Mostrar um mapa do tesouro.'],
+                            correct: 1,
+                            hint: 'Textos injuntivos dão ordens ou orientações para realizar uma tarefa!',
+                            explanation: 'Correto! Receitas e manuais de montagem são textos injuntivos que ensinam o leitor a realizar algo passo a passo.'
+                        },
+                        {
+                            topic: 'Histórias em Quadrinhos e Onomatopeias',
+                            title: 'Na historinha em quadrinhos, o que significa a palavra "POW!"?',
+                            context: 'Tirinha: O personagem tromba na árvore e aparece a palavra POW! escrita em amarelo.',
+                            options: ['O barulho de alguém dormindo.', 'A representação sonora de uma batida ou golpe (onomatopeia).', 'O som da chuva caindo.', 'O canto de um passarinho.'],
+                            correct: 1,
+                            hint: 'Onomatopeias imitam os sons da vida real em forma de palavra!',
+                            explanation: 'Muito bem! "POW!", "BOOM!" e "SPLASH!" são onomatopeias que representam barulhos nas tirinhas.'
+                        },
+                        {
+                            topic: 'Classificação de Sílabas e Acentuação',
+                            title: 'Como classificamos a palavra "TAMANDARÉ" quanto ao número de sílabas?',
+                            context: 'Separação silábica: TA - MAN - DA - RÉ (4 sílabas).',
+                            options: ['Monossílaba (1 sílaba).', 'Dissílaba (2 sílabas).', 'Trissílaba (3 sílabas).', 'Polissílaba (4 ou mais sílabas).'],
+                            correct: 3,
+                            hint: 'Conte as sílabas: TA (1) - MAN (2) - DA (3) - RÉ (4).',
+                            explanation: 'Exato! A palavra "Tamandaré" possui 4 sílabas, por isso é Polissílaba.'
+                        },
+                        {
+                            topic: 'Morfologia: Substantivos e Verbos',
+                            title: 'Na frase "A menina estudiosa correu no parque", qual palavra é um VERBO?',
+                            context: 'Lembre-se: Verbo é a palavra que indica uma ação, estado ou fenômeno.',
+                            options: ['estudiosa', 'parque', 'correu', 'menina'],
+                            correct: 2,
+                            hint: 'Qual das palavras mostra a AÇÃO realizada pela menina?',
+                            explanation: 'Perfeito! "Correu" indica a ação do sujeito, portanto é um verbo.'
+                        }
+                    ]
+                },
+                matematica: {
+                    title: 'Matemática',
+                    date: '23/09 (Quarta-feira)',
+                    color: 'from-blue-500 to-cyan-600',
+                    icon: 'fa-calculator',
+                    questions: [
+                        {
+                            topic: 'Procedimentos de Cálculo e Adição',
+                            title: 'Sofia fez 145 pontos na 1ª rodada e 130 pontos na 2ª rodada. Quantos pontos ela fez ao todo?',
+                            context: 'Cálculo escrito ou mental: 145 + 130.',
+                            options: ['265 pontos.', '275 pontos.', '280 pontos.', '300 pontos.'],
+                            correct: 1,
+                            hint: 'Some as centenas (100+100=200) e dezenas (45+30=75).',
+                            explanation: 'Excelente! 145 + 130 = 275 pontos no total.'
+                        },
+                        {
+                            topic: 'Problemas de Divisão e Repartição',
+                            title: 'O professor Benedito quer distribuir 24 lápis igualmente entre 4 alunos. Quantos lápis cada um recebe?',
+                            context: 'Repartir em partes iguais: 24 ÷ 4.',
+                            options: ['4 lápis.', '5 lápis.', '6 lápis.', '8 lápis.'],
+                            correct: 2,
+                            hint: 'Qual número multiplicado por 4 resulta em 24?',
+                            explanation: 'Correto! 24 dividido por 4 é igual a 6 (pois 6 x 4 = 24).'
+                        },
+                        {
+                            topic: 'Medidas de Tempo: Leitura de Horas',
+                            title: 'Se o ponteiro menor aponta para o 7 e o ponteiro grande aponta para o 12, que horas são?',
+                            context: 'Relógio analógico.',
+                            options: ['7 horas em ponto.', '12 horas e 7 minutos.', '6 horas e meia.', '5 horas.'],
+                            correct: 0,
+                            hint: 'O ponteiro pequeno indica as horas e o grande indica os minutos!',
+                            explanation: 'Parabéns! Ponteiro pequeno no 7 e grande no 12 indicam exatas 7 horas.'
+                        }
+                    ]
+                },
+                historia: {
+                    title: 'História',
+                    date: '24/09 (Quinta-feira)',
+                    color: 'from-amber-500 to-orange-600',
+                    icon: 'fa-landmark',
+                    questions: [
+                        {
+                            topic: 'Espaços Públicos e Privados',
+                            title: 'A Praça central da cidade é um exemplo de qual tipo de espaço?',
+                            context: 'Espaços públicos pertencem a toda a população e são administrados pelo governo.',
+                            options: ['Espaço Privado e Fechado.', 'Espaço Público de uso comum de todos.', 'Uma propriedade particular.', 'Um shopping center.'],
+                            correct: 1,
+                            hint: 'Locais que todos podem visitar livremente para passear são espaços...',
+                            explanation: 'Certíssimo! As praças são espaços públicos abertos de lazer para a comunidade.'
+                        },
+                        {
+                            topic: 'Unidades de Conservação e Meio Ambiente',
+                            title: 'Qual das opções abaixo representa uma área de conservação ambiental?',
+                            context: 'Preservação da natureza, florestas e cachoeiras.',
+                            options: ['Um grande parque natural de mata nativa.', 'Um estacionamento de carros.', 'Um supermercado do bairro.', 'Uma fábrica de refrigerantes.'],
+                            correct: 0,
+                            hint: 'Proteger cachoeiras e florestas nativas é a função das unidades de conservação!',
+                            explanation: 'Muito bem! Parques de mata nativa são áreas de conservação para proteger o meio ambiente.'
+                        }
+                    ]
+                },
+                geografia: {
+                    title: 'Geografia',
+                    date: '24/09 (Quinta-feira)',
+                    color: 'from-emerald-500 to-teal-600',
+                    icon: 'fa-earth-americas',
+                    questions: [
+                        {
+                            topic: 'Pontos de Vista: Visão Vertical e Planta Baixa',
+                            title: 'Quando olhamos um mapa ou sala de aula exatamente DE CIMA PARA BAIXO, temos a:',
+                            context: 'Representações cartográficas.',
+                            options: ['Visão Frontal.', 'Visão Oblíqua.', 'Visão Vertical (de cima para baixo).', 'Visão Lateral.'],
+                            correct: 2,
+                            hint: 'Imagine a visão de um pássaro voando por cima do prédio!',
+                            explanation: 'Correto! A visão vertical observa as coisas de cima diretamente para baixo.'
+                        },
+                        {
+                            topic: 'Imagens Bidimensionais vs Tridimensionais',
+                            title: 'Uma MAQUETE de uma escola que tem largura, comprimento e altura é uma representação:',
+                            context: 'Modelos tridimensionais (3D).',
+                            options: ['Bidimensional (2D).', 'Tridimensional (3D).', 'Invisível.', 'Desenho no papel.'],
+                            correct: 1,
+                            hint: 'Maquetes têm volume e 3 dimensões!',
+                            explanation: 'Exato! As maquetes são construções tridimensionais (3D).'
+                        }
+                    ]
+                },
+                ciencias: {
+                    title: 'Ciências',
+                    date: '25/09 (Sexta-feira)',
+                    color: 'from-rose-500 to-pink-600',
+                    icon: 'fa-flask',
+                    questions: [
+                        {
+                            topic: 'Tipos de Solo e Recursos Naturais',
+                            title: 'Qual tipo de solo é escuro, rico em matéria orgânica e perfeito para plantações?',
+                            context: 'Tipos de solo: Arenoso, Argiloso e Humoso.',
+                            options: ['Solo Arenoso.', 'Solo Humoso (rico em húmus).', 'Solo Argiloso.', 'Solo Pedregoso.'],
+                            correct: 1,
+                            hint: 'É o solo das hortas e florestas!',
+                            explanation: 'Perfeito! O solo humoso é muito fértil e excelente para as plantas.'
+                        },
+                        {
+                            topic: 'Som e Poluição Sonora',
+                            title: 'Qual atitude previne a POLUIÇÃO SONORA e protege a nossa audição?',
+                            context: 'Cuidados com a saúde auditiva.',
+                            options: ['Ouvir som no volume máximo.', 'Gritar alto na sala.', 'Manter o volume moderado nos eletrônicos.', 'Usar furadeira de madrugada.'],
+                            correct: 2,
+                            hint: 'Sons moderados não prejudicam nossa audição nem causam incômodo!',
+                            explanation: 'Excelente! Usar volumes moderados previne a poluição sonora e cuida da audição.'
+                        }
+                    ]
+                }
+            },
+            '8ano': {
+                portugues: {
+                    title: 'Língua Portuguesa (8º Ano)',
+                    date: '21/09 (Segunda-feira)',
+                    color: 'from-purple-500 to-indigo-600',
+                    icon: 'fa-book-open',
+                    questions: [
+                        {
+                            topic: 'Gêneros Textuais: Anedota',
+                            title: '— Por que o livro de matemática ficou triste? \n— Porque tinha muitos problemas.\nO efeito de humor da anedota ocorre porque a palavra “problemas”:',
+                            context: 'Anedotas utilizam duplo sentido para gerar humor rápido.',
+                            options: ['indica que o livro foi perdido.', 'pode se referir tanto a exercícios quanto a dificuldades da vida.', 'mostra que matemática é uma matéria fácil.', 'significa que o livro estava rasgado.'],
+                            correct: 1,
+                            hint: 'Lembre-se: Na escola, problemas são cálculos; na vida, são dificuldades!',
+                            explanation: 'Excelente! A palavra "problemas" tem dois sentidos na frase, o que cria a brincadeira e o humor.'
+                        },
+                        {
+                            topic: 'Gêneros Textuais: Anúncio Publicitário',
+                            title: 'Traga sua garrafa reutilizável! Pequenas atitudes ajudam a reduzir o lixo na escola.\nQual é a principal finalidade desse anúncio?',
+                            context: 'Anúncios procuram convencer o público a tomar uma atitude.',
+                            options: ['Narrar um acontecimento passado.', 'Explicar como fabricar uma garrafa.', 'Convencer os leitores a participar de uma ação.', 'Apresentar personagens de uma história.'],
+                            correct: 2,
+                            hint: 'O texto pede para você "trazer" algo e ajudar em uma causa!',
+                            explanation: 'Correto! O anúncio tem o objetivo de convencer os leitores a participarem da campanha de redução de lixo.'
+                        },
+                        {
+                            topic: 'Sinais de Pontuação',
+                            title: 'Qual pontuação completa corretamente a fala abaixo?\nAna perguntou___ “Você terminou o trabalho___”',
+                            context: 'A pontuação organiza as falas e expressa o tom da mensagem.',
+                            options: ['vírgula e ponto-final.', 'dois-pontos e ponto de interrogação.', 'ponto-final e ponto de exclamação.', 'ponto e vírgula e vírgula.'],
+                            correct: 1,
+                            hint: 'Antes de uma citação direta usamos dois-pontos, e para uma pergunta usamos interrogação!',
+                            explanation: 'Perfeito! Os dois-pontos introduzem a fala, e o ponto de interrogação indica a pergunta direta.'
+                        },
+                        {
+                            topic: 'Ortografia: Terminações em -ção',
+                            title: 'Complete corretamente: “A turma preparou uma apresenta___ para a feira cultural.”',
+                            context: 'Substantivos derivados de verbos terminados em -tar (apresentar) seguem uma regra.',
+                            options: ['apresentasão', 'apresentação', 'apresentassão', 'apresentazão'],
+                            correct: 1,
+                            hint: 'A palavra deriva de "apresentar", logo usamos o C com cedilha.',
+                            explanation: 'Muito bem! A grafia correta da palavra é "apresentação".'
+                        },
+                        {
+                            topic: 'Regras de Acentuação (Proparoxítonas)',
+                            title: 'Por que a palavra “médico” recebe acento gráfico?',
+                            context: 'A classificação depende da posição da sílaba tônica (mais forte).',
+                            options: ['Porque todas as palavras terminadas em “o” são acentuadas.', 'Porque é uma proparoxítona, e todas as proparoxítonas são acentuadas.', 'Porque é uma oxítona terminada em “o”.', 'Porque possui três sílabas e todas as palavras de três sílabas são acentuadas.'],
+                            correct: 1,
+                            hint: 'A sílaba mais forte de "médico" é a antepenúltima (MÉ-di-co).',
+                            explanation: 'Exato! Em português, todas as palavras proparoxítonas (antepenúltima sílaba tônica) recebem acento gráfico.'
+                        },
+                        {
+                            topic: 'Figuras de Linguagem: Metáfora',
+                            title: 'Na frase “A sala virou um forno durante a tarde”, a expressão “virou um forno” é uma:',
+                            context: 'Figuras de linguagem dão um sentido diferente do literal (real).',
+                            options: ['metáfora para indicar calor intenso.', 'informação de que instalaram um forno na sala.', 'personificação da sala.', 'pergunta indireta.'],
+                            correct: 0,
+                            hint: 'A sala não é um forno de verdade, ela apenas ficou muito quente (comparação implícita).',
+                            explanation: 'Certíssimo! A metáfora compara a sala a um forno de forma indireta para destacar o forte calor.'
+                        }
+                    ]
+                },
+                ingles: {
+                    title: 'Língua Inglesa (8º Ano)',
+                    date: '23/09 (Quarta-feira)',
+                    color: 'from-blue-500 to-indigo-600',
+                    icon: 'fa-language',
+                    questions: [
+                        {
+                            topic: 'Adjetivos Possessivos (Possessive Adjectives)',
+                            title: 'Complete a frase: “We study at Green School. ___ school has a big library.”',
+                            context: 'Os adjetivos possessivos indicam posse (my, your, his, her, its, our, their).',
+                            options: ['Your', 'Our', 'Their', 'His'],
+                            correct: 1,
+                            hint: 'Se "nós" (We) estudamos na escola, então a escola é "nossa".',
+                            explanation: 'Correto! O adjetivo possessivo correspondente ao pronome "we" (nós) é "our" (nosso/nossa).'
+                        },
+                        {
+                            topic: 'Adjetivos Possessivos (Possessive Adjectives)',
+                            title: 'Complete a frase: “Ana is my friend. ___ favorite sport is volleyball.”',
+                            context: 'A frase fala sobre o esporte favorito de Ana (uma menina).',
+                            options: ['His', 'Her', 'Our', 'Its'],
+                            correct: 1,
+                            hint: 'Para indicar algo que pertence a "ela" (she), usamos "her".',
+                            explanation: 'Perfeito! "Her" indica que o esporte favorito pertence a Ana (dela).'
+                        },
+                        {
+                            topic: 'Vocabulário: Rotina Escolar',
+                            title: 'A frase “I do my homework after school” significa:',
+                            context: 'Homework = Lição de casa. After = Depois.',
+                            options: ['Eu faço a lição de casa depois da escola.', 'Eu vou à escola depois do almoço.', 'Eu faço exercícios na escola.', 'Eu durmo depois da escola.'],
+                            correct: 0,
+                            hint: 'A palavra "homework" refere-se à tarefa que levamos da escola para casa.',
+                            explanation: 'Exato! "I do my homework" significa literalmente "Eu faço a minha lição de casa".'
+                        },
+                        {
+                            topic: 'Interpretação Textual (Reading)',
+                            title: 'No trecho: "My favorite subject is Science because I like learning about animals and plants." Por que a matéria favorita é Ciências?',
+                            context: 'Subject = Matéria escolar. Because = Porque.',
+                            options: ['Porque não precisa fazer tarefas.', 'Porque gosta de aprender sobre animais e plantas.', 'Porque pode andar de bicicleta na aula.', 'Porque sua família estuda junto.'],
+                            correct: 1,
+                            hint: 'Procure o significado das palavras "animals" e "plants" na frase em inglês.',
+                            explanation: 'Muito bem! "learning about animals and plants" significa aprender sobre animais e plantas.'
+                        },
+                        {
+                            topic: 'Inglês no Cotidiano (Daily English)',
+                            title: 'Em um aplicativo ou computador, o botão “SAVE” costuma servir para:',
+                            context: 'Termos comuns do inglês são muito usados na tecnologia do dia a dia.',
+                            options: ['apagar o arquivo.', 'imprimir a página.', 'salvar o documento.', 'compartilhar a foto.'],
+                            correct: 2,
+                            hint: 'Sabe quando você não quer perder o progresso de um jogo? Você dá "SAVE".',
+                            explanation: 'Correto! A palavra "Save" no ambiente tecnológico significa "Salvar" ou preservar o documento.'
+                        },
+                        {
+                            topic: 'Estratégias de Autonomia Leitora',
+                            title: 'Um estudante encontra a palavra desconhecida “teammate” na frase: “My teammate plays on the same soccer team as I do.” Pelo contexto, “teammate” significa:',
+                            context: 'Observe as palavras ao redor: "same soccer team" (mesmo time de futebol).',
+                            options: ['colega de equipe.', 'professor de inglês.', 'torcedor adversário.', 'treinador.'],
+                            correct: 0,
+                            hint: 'Se a pessoa joga no mesmo time (same team), ela é do seu grupo ou equipe.',
+                            explanation: 'Excelente! Pelo contexto da frase, a junção de Team (time) + Mate (colega) refere-se a um "colega de equipe".'
+                        }
+                    ]
+                }
+            }
         };
 
         function playCelebrationSound() {
@@ -828,6 +1247,7 @@
             } catch (e) { console.log(e); }
         }
 
+        // Helper para carregamento seguro de imagens
         function handleImageError(imgEl, archId) {
             if (!imgEl) return;
             imgEl.onerror = null;
@@ -836,271 +1256,6 @@
             const name = arch ? arch.name : '';
             imgEl.parentElement.innerHTML = `<div class="flex flex-col items-center justify-center h-full p-2 bg-gradient-to-br from-indigo-50 to-purple-100 text-indigo-900"><span class="text-4xl mb-1">${icon}</span>${name ? `<span class="text-[10px] font-bold text-center">${name}</span>` : ''}</div>`;
         }
-
-        let userState = {
-            points: 0,
-            completedMissions: [],
-            currentSubject: null,
-            currentQuestionIndex: 0,
-            quizQuestions: [],
-            isSimulado: false
-        };
-
-        let lastBookingData = null;
-        let selectedArchetypeForStory = 'maga';
-
-        const archetypes = [
-            { 
-                id: 'maga', 
-                name: 'Maga das Palavras', 
-                icon: '🧙‍♀️',
-                characterImage: 'images/arquetipo_personagem_maga_das_palavras.png',
-                cardImage: 'images/arquetipo_maga_das_palavras.jpg',
-                desc: 'Respeita seus pais, faz os deveres no capricho e é carinhosa com os amigos!',
-                role: 'Língua Portuguesa',
-                mission: 'Desvendar os mistérios das palavras, pontuações e histórias mágicas.',
-                storyParagraphs: [
-                    'Era uma vez um reino mágico onde cada letra de um livro tinha o poder de ganhar vida! Como Maga das Palavras, você carrega uma varinha brilhante de sabedoria e um grande livro de encantamentos. Seu superpoder é transformar frases em aventuras inesquecíveis, desvendando acentos misteriosos, pontuações mágicas e rimas encantadas.',
-                    'Pelo caminho, você vai encontrar desafios onde as palavras precisam ser organizadas com carinho e atenção. Quando você lê com foco e escreve com capricho, a mágica acontece: portas secretas se abrem e histórias incríveis começam a fluir como rios de luz!',
-                    'A jornada está prestes a começar! Pegue o seu livro mágico, vista a sua capa de estudante e venha ser a grande guardiã das palavras. Vamos juntos escrever um capítulo cheio de vitórias no seu caderno?'
-                ]
-            },
-            { 
-                id: 'mago', 
-                name: 'Mago dos Saberes', 
-                icon: '🧙‍♂️',
-                characterImage: 'images/arquetipo_personagem_mago_dos_saberes.png',
-                cardImage: 'images/arquetipo_mago_dos_saberes.jpg',
-                desc: 'Educado, ajuda nas tarefas de casa e compartilha conhecimento com alegria!',
-                role: 'Conhecimento Geral',
-                mission: 'Aprender de tudo um pouco, respeitar a família e espalhar sabedoria.',
-                storyParagraphs: [
-                    'No topo da Montanha do Conhecimento vive o Mago dos Saberes, o grande mestre dos mistérios do universo! Com sua capa azul estrelada e um cajado reluzente, ele sabe que perguntar "por quê?" e "como?" é o primeiro passo para se tornar um verdadeiro sábio.',
-                    'Este Mago ensina que a verdadeira força vem de respeitar os pais, ajudar os colegas e ter curiosidade todos os dias. Cada novo aprendizado é como uma joia preciosa que você guarda no seu coração para transformar o mundo à sua volta em um lugar melhor.',
-                    'O grande livro dos segredos do mundo se abriu para você! Aceite o convite, vista o chapéu da sabedoria e venha desvendar os maiores mistérios da nossa jornada do saber. Você está pronto para essa missão?'
-                ]
-            },
-            { 
-                id: 'heroin', 
-                name: 'Poder da Empatia', 
-                icon: '🦸‍♀️',
-                characterImage: 'images/arquetipo_personagem_poder_empatia.png',
-                cardImage: 'images/arquetipo_poder_da_empatia.jpg',
-                desc: 'Protege a boa convivência na escola, obedece à família e sempre faz a lição!',
-                role: 'Boas Atitudes',
-                mission: 'Proteger a gentileza, a amizade e o capricho nos deveres de casa.',
-                storyParagraphs: [
-                    'Com um escudo reluzente de gentileza e uma capa que brilha como o sol, a guardiã do Poder da Empatia protege a nossa escola de qualquer desânimo! Seu superpoder especial é espalhar palavras mágicas como "por favor", "com licença" e "obrigado", tornando todos ao seu redor mais felizes.',
-                    'Ela nunca deixa um amigo para trás e faz todas as tarefas de casa com dedicação e carinho! Para ela, obedecer aos pais e ouvir os professores é a receita secreta para ter uma mente invencível e cheia de luz.',
-                    'A corrente do bem acendeu no coração da turma! Ajuste sua capa, prepare seu sorriso carinhoso e venha espalhar boas atitudes e notas altas por onde você passar!'
-                ]
-            },
-            { 
-                id: 'hero', 
-                name: 'Super-Herói da Lógica', 
-                icon: '🦸‍♂️',
-                characterImage: 'images/arquetipo_personagem_super_heroi_logica.png',
-                cardImage: 'images/arquetipo_super_heroi_da_logica.jpg',
-                desc: 'Corajoso nas provas, respeita os professores e é um filho exemplar!',
-                role: 'Matemática & Lógica',
-                mission: 'Resolver enigmas matemáticos e ser um filho e aluno exemplar.',
-                storyParagraphs: [
-                    'Equipado com o Escudo dos Números e a Visão do Raciocínio Lógico, o Super-Herói da Lógica consegue resolver qualquer enigma matemático em um piscar de olhos! Somas, subtrações e desafios gigantescos não metem medo neste jovem campeão.',
-                    'Ele sabe que a coragem de verdade é tentar de novo quando algo parece difícil e comemorar cada acerto com alegria. Além disso, ele é um filho exemplar, sempre pronto para ajudar em casa antes de partir para suas supermissões escolares.',
-                    'Um novo enigma de números surgiu e precisa do seu super-raciocínio! Coloque sua máscara da coragem, junte suas forças matemáticas e venha vencer cada desafio desta grande maratona!'
-                ]
-            },
-            { 
-                id: 'scientist', 
-                name: 'Cientista Curiosa', 
-                icon: '👩‍🔬',
-                characterImage: 'images/arquetipo_personagem_cientista_curiosa.png',
-                cardImage: 'images/arquetipo_cientista_curiosa.jpg',
-                desc: 'Ama aprender coisas novas, cuida do meio ambiente e é gentil com todos!',
-                role: 'Ciências Naturais',
-                mission: 'Explorar a natureza, cuidar do planeta e descobrir a ciência no dia a dia.',
-                storyParagraphs: [
-                    'Com suas lentes de aumento mágicas e um jaleco branquinho, a Cientista Curiosa enxerga o mundo como um grande laboratório de maravilhas! Ela ama investigar como as plantas crescem, por que o céu muda de cor e como a natureza funciona em perfeita harmonia.',
-                    'Toda Grande Cientista protege os animais, cuida dos rios e sabe que a água e o solo são tesouros do nosso planeta. Ela não tem medo de fazer perguntas e testar novas ideias até encontrar a resposta certa para cada mistério da vida.',
-                    'O laboratório das descobertas está com as portas abertas esperando por você! Ajuste os óculos da curiosidade, pegue sua lupa e venha explorar a ciência da vida. Vamos fazer descobertas fantásticas juntos!'
-                ]
-            },
-            { 
-                id: 'explorer_girl', 
-                name: 'Explorador da História', 
-                icon: '👦',
-                characterImage: 'images/arquetipo_personagem_explorador_historia.png',
-                cardImage: 'images/arquetipo_explorador_historia.jpg',
-                desc: 'Conhece as riquezas do Tocantins, ama a natureza e ajuda os pais com carinho!',
-                role: 'História & Geografia',
-                mission: 'Desbravar as paisagens do Tocantins, respeitar a cultura e guiar a turma.',
-                storyParagraphs: [
-                    'Com um mapa antigo do Tocantins nas mãos e uma bússola de ouro no peito, o Explorador da História percorre as serras, cachoeiras e praças históricas com entusiasmo sem fim! Ele conhece as riquezas da nossa terra e ama nossa cultura.',
-                    'Ele ensina que conhecer nossa história nos ajuda a valorizar nossa família, nossa cidade e nossas raízes. Onde quer que vá, ele preserva a natureza, respeita os mais velhos e guia seus amigos com paciência e alegria de aprender.',
-                    'A bússola já está apontando para uma nova e emocionante expedição! Coloque sua mochila nas costas, amarre bem os tênis e venha desbravando cada canto da história e geografia da nossa região!'
-                ]
-            }
-        ];
-
-        const subjectsData = {
-            portugues: {
-                title: 'Língua Portuguesa',
-                date: '21/09 (Segunda-feira)',
-                color: 'from-purple-500 to-indigo-600',
-                icon: 'fa-book-open',
-                questions: [
-                    {
-                        topic: 'Textos Injuntivos (Receitas e Manuais)',
-                        title: 'Qual é a função principal de uma receita culinária?',
-                        context: 'Receita de Bolo de Cenoura: Ingredientes e Modo de Preparo (Bata tudo e asse por 40 min).',
-                        options: ['Contar uma piada divertida.', 'Instruir e ensinar o passo a passo de como fazer uma refeição.', 'Expressar a opinião sobre um filme.', 'Mostrar um mapa do tesouro.'],
-                        correct: 1,
-                        hint: 'Textos injuntivos dão ordens ou orientações para realizar uma tarefa!',
-                        explanation: 'Correto! Receitas e manuais de montagem são textos injuntivos que ensinam o leitor a realizar algo passo a passo.'
-                    },
-                    {
-                        topic: 'Histórias em Quadrinhos e Onomatopeias',
-                        title: 'Na historinha em quadrinhos, o que significa a palavra "POW!"?',
-                        context: 'Tirinha: O personagem tromba na árvore e aparece a palavra POW! escrita em amarelo.',
-                        options: ['O barulho de alguém dormindo.', 'A representação sonora de uma batida ou golpe (onomatopeia).', 'O som da chuva caindo.', 'O canto de um passarinho.'],
-                        correct: 1,
-                        hint: 'Onomatopeias imitam os sons da vida real em forma de palavra!',
-                        explanation: 'Muito bem! "POW!", "BOOM!" e "SPLASH!" são onomatopeias que representam barulhos nas tirinhas.'
-                    },
-                    {
-                        topic: 'Classificação de Sílabas e Acentuação',
-                        title: 'Como classificamos a palavra "TAMANDARÉ" quanto ao número de sílabas?',
-                        context: 'Separação silábica: TA - MAN - DA - RÉ (4 sílabas).',
-                        options: ['Monossílaba (1 sílaba).', 'Dissílaba (2 sílabas).', 'Trissílaba (3 sílabas).', 'Polissílaba (4 ou mais sílabas).'],
-                        correct: 3,
-                        hint: 'Conte as sílabas: TA (1) - MAN (2) - DA (3) - RÉ (4).',
-                        explanation: 'Exato! A palavra "Tamandaré" possui 4 sílabas, por isso é Polissílaba.'
-                    },
-                    {
-                        topic: 'Morfologia: Substantivos e Verbos',
-                        title: 'Na frase "A menina estudiosa correu no parque", qual palavra é um VERBO?',
-                        context: 'Lembre-se: Verbo é a palavra que indica uma ação, estado ou fenômeno.',
-                        options: ['estudiosa', 'parque', 'correu', 'menina'],
-                        correct: 2,
-                        hint: 'Qual das palavras mostra a AÇÃO realizada pela menina?',
-                        explanation: 'Perfeito! "Correu" indica a ação do sujeito, portanto é um verbo.'
-                    }
-                ]
-            },
-            matematica: {
-                title: 'Matemática',
-                date: '23/09 (Quarta-feira)',
-                color: 'from-blue-500 to-cyan-600',
-                icon: 'fa-calculator',
-                questions: [
-                    {
-                        topic: 'Procedimentos de Cálculo e Adição',
-                        title: 'Sofia fez 145 pontos na 1ª rodada e 130 pontos na 2ª rodada. Quantos pontos ela fez ao todo?',
-                        context: 'Cálculo escrito ou mental: 145 + 130.',
-                        options: ['265 pontos.', '275 pontos.', '280 pontos.', '300 pontos.'],
-                        correct: 1,
-                        hint: 'Some as centenas (100+100=200) e dezenas (45+30=75).',
-                        explanation: 'Excelente! 145 + 130 = 275 pontos no total.'
-                    },
-                    {
-                        topic: 'Problemas de Divisão e Repartição',
-                        title: 'O professor Benedito quer distribuir 24 lápis igualmente entre 4 alunos. Quantos lápis cada um recebe?',
-                        context: 'Repartir em partes iguais: 24 ÷ 4.',
-                        options: ['4 lápis.', '5 lápis.', '6 lápis.', '8 lápis.'],
-                        correct: 2,
-                        hint: 'Qual número multiplicado por 4 resulta em 24?',
-                        explanation: 'Correto! 24 dividido por 4 é igual a 6 (pois 6 x 4 = 24).'
-                    },
-                    {
-                        topic: 'Medidas de Tempo: Leitura de Horas',
-                        title: 'Se o ponteiro menor aponta para o 7 e o ponteiro grande aponta para o 12, que horas são?',
-                        context: 'Relógio analógico.',
-                        options: ['7 horas em ponto.', '12 horas e 7 minutos.', '6 horas e meia.', '5 horas.'],
-                        correct: 0,
-                        hint: 'O ponteiro pequeno indica as horas e o grande indica os minutos!',
-                        explanation: 'Parabéns! Ponteiro pequeno no 7 e grande no 12 indicam exatas 7 horas.'
-                    }
-                ]
-            },
-            historia: {
-                title: 'História',
-                date: '24/09 (Quinta-feira)',
-                color: 'from-amber-500 to-orange-600',
-                icon: 'fa-landmark',
-                questions: [
-                    {
-                        topic: 'Espaços Públicos e Privados',
-                        title: 'A Praça dos Girassóis em Palmas é um exemplo de qual tipo de espaço?',
-                        context: 'Espaços públicos pertencem a toda a população e são administrados pelo governo.',
-                        options: ['Espaço Privado e Fechado.', 'Espaço Público de uso comum de todos.', 'Uma propriedade particular.', 'Um shopping center.'],
-                        correct: 1,
-                        hint: 'Locais que todos podem visitar livremente para passear são espaços...',
-                        explanation: 'Certíssimo! A Praça dos Girassóis é um espaço público aberto de lazer para a comunidade.'
-                    },
-                    {
-                        topic: 'Unidades de Conservação em Tocantins',
-                        title: 'Qual das opções abaixo é uma área de conservação ambiental em Tocantins?',
-                        context: 'Preservação da natureza e cachoeiras.',
-                        options: ['Distrito de Taquaruçu e Ilha do Bananal.', 'Um estacionamento de carros.', 'Um supermercado do bairro.', 'Uma fábrica de refrigerantes.'],
-                        correct: 0,
-                        hint: 'Proteger cachoeiras e florestas nativas é a função das unidades de conservação!',
-                        explanation: 'Muito bem! Taquaruçu e a Ilha do Bananal possuem áreas de conservação para proteger o meio ambiente.'
-                    }
-                ]
-            },
-            geografia: {
-                title: 'Geografia',
-                date: '24/09 (Quinta-feira)',
-                color: 'from-emerald-500 to-teal-600',
-                icon: 'fa-earth-americas',
-                questions: [
-                    {
-                        topic: 'Pontos de Vista: Visão Vertical e Planta Baixa',
-                        title: 'Quando olhamos um mapa ou sala de aula exatamente DE CIMA PARA BAIXO, temos a:',
-                        context: 'Representações cartográficas.',
-                        options: ['Visão Frontal.', 'Visão Oblíqua.', 'Visão Vertical (de cima para baixo).', 'Visão Lateral.'],
-                        correct: 2,
-                        hint: 'Imagine a visão de um pássaro voando por cima do prédio!',
-                        explanation: 'Correto! A visão vertical observa as coisas de cima diretamente para baixo.'
-                    },
-                    {
-                        topic: 'Imagens Bidimensionais vs Tridimensionais',
-                        title: 'Uma MAQUETE de uma escola que tem largura, comprimento e altura é uma representação:',
-                        context: 'Modelos tridimensionais (3D).',
-                        options: ['Bidimensional (2D).', 'Tridimensional (3D).', 'Invisível.', 'Desenho no papel.'],
-                        correct: 1,
-                        hint: 'Maquetes têm volume e 3 dimensões!',
-                        explanation: 'Exato! As maquetes são construções tridimensionais (3D).'
-                    }
-                ]
-            },
-            ciencias: {
-                title: 'Ciências',
-                date: '25/09 (Sexta-feira)',
-                color: 'from-rose-500 to-pink-600',
-                icon: 'fa-flask',
-                questions: [
-                    {
-                        topic: 'Tipos de Solo e Recursos Naturais',
-                        title: 'Qual tipo de solo é escuro, rico em matéria orgânica e perfeito para plantações?',
-                        context: 'Tipos de solo: Arenoso, Argiloso e Humoso.',
-                        options: ['Solo Arenoso.', 'Solo Humoso (rico em húmus).', 'Solo Argiloso.', 'Solo Pedregoso.'],
-                        correct: 1,
-                        hint: 'É o solo das hortas e florestas!',
-                        explanation: 'Perfeito! O solo humoso é muito fértil e excelente para as plantas.'
-                    },
-                    {
-                        topic: 'Som e Poluição Sonora',
-                        title: 'Qual atitude previne a POLUIÇÃO SONORA e protege a nossa audição?',
-                        context: 'Cuidados com a saúde auditiva.',
-                        options: ['Ouvir som no volume máximo.', 'Gritar alto na sala.', 'Manter o volume moderado nos eletrônicos.', 'Usar furadeira de madrugada.'],
-                        correct: 2,
-                        hint: 'Sons moderados não prejudicam nossa audição nem causam incômodo!',
-                        explanation: 'Excelente! Usar volumes moderados previne a poluição sonora e cuida da audição.'
-                    }
-                ]
-            }
-        };
 
         window.addEventListener('DOMContentLoaded', () => {
             renderArchetypeSelector();
@@ -1115,8 +1270,8 @@
                 <div class="relative cursor-pointer group">
                     <input type="radio" id="arch_radio_${a.id}" name="archetypeChoice" value="${a.id}" ${idx === 0 ? 'checked' : ''} class="peer hidden">
                     <label for="arch_radio_${a.id}" class="cursor-pointer block p-3 rounded-3xl border-2 border-indigo-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50/80 transition flex flex-col items-center text-center h-full shadow-sm hover:border-indigo-400">
-                        <div class="w-full aspect-square rounded-2xl overflow-hidden mb-2.5 border border-indigo-100 bg-indigo-50 flex items-center justify-center shadow-inner">
-                            <img src="${a.characterImage}" alt="${a.name}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" onerror="handleImageError(this, '${a.id}')">
+                        <div class="w-full aspect-[3/4] rounded-2xl overflow-hidden mb-2.5 border border-indigo-100 bg-indigo-50 flex items-center justify-center shadow-inner">
+                            <img src="${a.characterImage}" alt="${a.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="handleImageError(this, '${a.id}')">
                         </div>
                         <strong class="title-font text-xs md:text-sm text-indigo-950 font-bold block leading-snug">${a.name}</strong>
                         <span class="text-[10px] text-indigo-600 font-extrabold block mt-0.5">${a.role}</span>
@@ -1141,7 +1296,7 @@
                     </div>
                     <strong class="title-font text-xs sm:text-sm text-indigo-950 block leading-tight font-bold">${a.name}</strong>
                     <span class="text-[11px] text-indigo-600 font-bold block mt-0.5">${a.role}</span>
-                    <button type="button" onclick="openArchetypeStory('${a.id}'); event.stopPropagation();" class="mt-3 w-full py-1.5 px-3 bg-indigo-100 group-hover:bg-indigo-600 group-hover:text-white text-indigo-900 font-extrabold text-xs rounded-full transition-colors flex items-center justify-center space-x-1.5 shadow-sm border border-indigo-200">
+                    <button type="button" class="mt-3 w-full py-1.5 px-3 bg-indigo-100 group-hover:bg-indigo-600 group-hover:text-white text-indigo-900 font-extrabold text-xs rounded-full transition-colors flex items-center justify-center space-x-1.5 shadow-sm border border-indigo-200">
                         <i class="fa-solid fa-book-open text-xs"></i>
                         <span>Ver História</span>
                     </button>
@@ -1160,8 +1315,8 @@
             const paragraphsEl = document.getElementById('modalStoryParagraphs');
 
             if (iconEl) {
-                if (arch.characterImage) {
-                    iconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-contain rounded-2xl" onerror="handleImageError(this, '${arch.id}')">`;
+                if (arch.cardImage) {
+                    iconEl.innerHTML = `<img src="${arch.cardImage}" alt="${arch.name}" class="w-full h-full object-cover" onerror="handleImageError(this, '${arch.id}')">`;
                 } else {
                     iconEl.textContent = arch.icon;
                 }
@@ -1211,19 +1366,101 @@
             confetti({ particleCount: 45, spread: 60, origin: { y: 0.7 } });
         }
 
+        function showEmBreveModal(gradeTitle) {
+            const titleEl = document.getElementById('emBreveGradeTitle');
+            if (titleEl) titleEl.textContent = gradeTitle;
+            
+            const modal = document.getElementById('modalEmBreve');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeEmBreveModal() {
+            const modal = document.getElementById('modalEmBreve');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function selectGrade(gradeId) {
+            const allCards = document.querySelectorAll('.grade-card');
+            allCards.forEach(card => {
+                card.classList.remove('bg-emerald-50', 'border-emerald-500', 'shadow-md');
+                card.classList.add('bg-slate-50', 'border-slate-200');
+                
+                const badge = card.querySelector('.grade-badge');
+                if (badge) {
+                    badge.classList.remove('bg-emerald-600', 'animate-pulse');
+                    badge.classList.add('bg-indigo-500');
+                    badge.textContent = 'DISPONÍVEL';
+                }
+                const title = card.querySelector('.grade-title');
+                if (title) {
+                    title.classList.remove('text-emerald-950');
+                    title.classList.add('text-slate-700');
+                }
+                const subtitle = card.querySelector('.grade-subtitle');
+                if (subtitle) {
+                    subtitle.classList.remove('text-emerald-700');
+                    subtitle.classList.add('text-slate-500');
+                }
+            });
+
+            const selectedCard = document.getElementById(`gradeCard_${gradeId}`);
+            if (selectedCard) {
+                selectedCard.classList.remove('bg-slate-50', 'border-slate-200');
+                selectedCard.classList.add('bg-emerald-50', 'border-emerald-500', 'shadow-md');
+                
+                const badge = selectedCard.querySelector('.grade-badge');
+                if (badge) {
+                    badge.classList.remove('bg-indigo-500');
+                    badge.classList.add('bg-emerald-600', 'animate-pulse');
+                    badge.textContent = 'SELECIONADO';
+                }
+                const title = selectedCard.querySelector('.grade-title');
+                if (title) {
+                    title.classList.remove('text-slate-700');
+                    title.classList.add('text-emerald-950');
+                }
+                const subtitle = selectedCard.querySelector('.grade-subtitle');
+                if (subtitle) {
+                    subtitle.classList.remove('text-slate-500');
+                    subtitle.classList.add('text-emerald-700');
+                }
+            }
+
+            const radio = document.getElementById(`gradeRadio_${gradeId}`);
+            if (radio) {
+                radio.checked = true;
+            }
+
+            // Atualiza a nomenclatura de acordo com a série (Fundamental I = Criança, Fundamental II = Jovem)
+            const labelEl = document.getElementById('studentNameLabel');
+            const inputEl = document.getElementById('childName');
+            
+            if (labelEl && inputEl) {
+                if (gradeId === '6ano' || gradeId === '7ano' || gradeId === '8ano' || gradeId === '9ano') {
+                    labelEl.innerHTML = '<i class="fa-solid fa-user-graduate text-purple-500 mr-1"></i> Como o(a) jovem gosta de ser chamado(a)?';
+                    inputEl.placeholder = 'Ex: Nome ou Apelido (Pedro, Sofia, Leo...)';
+                } else {
+                    labelEl.innerHTML = '<i class="fa-solid fa-child text-pink-500 mr-1"></i> Como a criança gosta de ser chamada?';
+                    inputEl.placeholder = 'Ex: Aninha, Pedrinho, Sofia...';
+                }
+            }
+        }
+
         function handleAuthSubmit(event) {
             event.preventDefault();
             const parentName = document.getElementById('parentName').value.trim();
             const phone = document.getElementById('parentPhone').value.trim();
             const childName = document.getElementById('childName').value.trim();
             const selectedArch = document.querySelector('input[name="archetypeChoice"]:checked')?.value || 'maga';
+            const selectedGrade = document.querySelector('input[name="gradeChoice"]:checked')?.value || '3ano';
 
             if (!parentName || !phone || !childName) {
                 document.getElementById('authErrorMessage').classList.remove('hidden');
                 return;
             }
 
-            parentData = { parentName, phone, childName, archetype: selectedArch };
+            parentData = { parentName, phone, childName, archetype: selectedArch, grade: selectedGrade };
+            subjectsData = allGradesData[selectedGrade] || allGradesData['3ano'];
 
             document.getElementById('screenAuth').classList.add('hidden');
             document.getElementById('screenDashboard').classList.remove('hidden');
@@ -1241,16 +1478,28 @@
 
         function updateUserBar() {
             const arch = archetypes.find(a => a.id === parentData.archetype) || archetypes[0];
+            const gradeLabel = parentData.grade === '8ano' ? '8º Ano EF II' : '3º Ano EF I';
+
             document.getElementById('dashChildName').textContent = parentData.childName;
             document.getElementById('childDisplayName').textContent = parentData.childName;
-            document.getElementById('userAvatarBadge').textContent = arch.icon;
-            document.getElementById('dashboardHeroAvatar').textContent = arch.icon;
+            document.getElementById('dashGradeLabel').textContent = gradeLabel;
             document.getElementById('archetypeBadgeLabel').textContent = arch.name;
             document.getElementById('userPoints').textContent = userState.points;
 
             document.getElementById('parentSummaryName').textContent = parentData.parentName;
             document.getElementById('parentSummaryPhone').textContent = parentData.phone;
             document.getElementById('childSummaryName').textContent = parentData.childName;
+
+            const userIconEl = document.getElementById('userAvatarIcon');
+            const dashIconEl = document.getElementById('dashboardHeroIcon');
+            
+            if (arch.characterImage) {
+                userIconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover">`;
+                dashIconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover">`;
+            } else {
+                userIconEl.textContent = arch.icon;
+                dashIconEl.textContent = arch.icon;
+            }
         }
 
         function renderDashboardSubjects() {
@@ -1260,7 +1509,7 @@
             grid.innerHTML = Object.keys(subjectsData).map(key => {
                 const sub = subjectsData[key];
                 return `
-                    <div onclick="startSubjectQuiz('${key}')" class="bg-white rounded-3xl p-5 shadow-lg border-2 border-indigo-100 hover:border-indigo-400 transition transform hover:-translate-y-1 cursor-pointer flex flex-col justify-between">
+                    <div onclick="startSubjectQuiz('${key}')" class="bg-white/95 backdrop-blur rounded-3xl p-5 shadow-lg border-2 border-indigo-100 hover:border-indigo-400 transition transform hover:-translate-y-1 cursor-pointer flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-xs font-bold px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-200">
@@ -1273,7 +1522,7 @@
                             <h3 class="title-font text-xl font-bold text-indigo-950 mb-1">${sub.title}</h3>
                             <p class="text-xs text-gray-500 mb-4">${sub.questions.length} Questões com Dicas & Explicações</p>
                         </div>
-                        <button class="w-full py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold rounded-xl text-xs flex items-center justify-center transition">
+                        <button class="w-full py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold rounded-xl text-xs flex items-center justify-center transition border border-indigo-200">
                             <span>INICIAR DESAFIOS</span>
                             <i class="fa-solid fa-play ml-2 text-xs"></i>
                         </button>
@@ -1284,7 +1533,12 @@
 
         function updateMascotDisplay() {
             const arch = archetypes.find(a => a.id === parentData.archetype) || archetypes[0];
-            document.getElementById('mascotGraphic').textContent = arch.icon;
+            const mascotGraphic = document.getElementById('mascotGraphic');
+            if (arch.characterImage) {
+                mascotGraphic.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover">`;
+            } else {
+                mascotGraphic.textContent = arch.icon;
+            }
         }
 
         function setMascotState(state) {
@@ -1309,7 +1563,7 @@
         function triggerMascotTap() {
             setMascotState('jumping');
             const speeches = [
-                `Lembre-se: respeitar os pais e estudar com amor constrói um futuro brilhante! ⭐`,
+                `Lembre-se: respeitar a família e estudar com amor constrói um futuro brilhante! ⭐`,
                 `Você é muito capaz, ${parentData.childName || 'Explorador'}! Vamos acertar tudo! 🚀`,
                 `Sempre faça os deveres com capricho e ajude seus amigos com educação! ❤️`,
                 `Você é o orgulho da sua família! Continue estudando! 🌟`
@@ -1403,7 +1657,7 @@
                 feedbackIcon.className = 'fa-solid fa-circle-check text-emerald-600 text-xl';
                 feedbackTitle.textContent = 'Sensacional! Resposta Correta! (+100 pts)';
                 feedbackText.textContent = q.explanation;
-                document.getElementById('mascotSpeechText').textContent = `Incrível, ${parentData.childName || 'Explorador'}! Você é muito inteligente! 🌟`;
+                document.getElementById('mascotSpeechText').textContent = `Incrível, ${parentData.childName || 'Explorador'}! Você mandou muito bem! 🌟`;
 
                 if (window.saveUserDataToCloud) {
                     window.saveUserDataToCloud();
@@ -1416,7 +1670,7 @@
                 feedbackIcon.className = 'fa-solid fa-circle-xmark text-rose-600 text-xl';
                 feedbackTitle.textContent = 'Não foi dessa vez, mas estamos aprendendo juntos!';
                 feedbackText.textContent = `A resposta certa era: "${q.options[q.correct]}". ${q.explanation}`;
-                document.getElementById('mascotSpeechText').textContent = `Não se preocupe! Errar faz parte do aprendizado. Vamos aprender! 💪`;
+                document.getElementById('mascotSpeechText').textContent = `Não se preocupe! Errar faz parte do aprendizado. Vamos em frente! 💪`;
             }
         }
 
@@ -1464,7 +1718,7 @@
             if (['portugues', 'historia', 'geografia'].includes(subject)) {
                 document.getElementById('teacherAvatar').textContent = '👩‍🏫';
                 document.getElementById('teacherName').textContent = 'Profª Elayne Duarte';
-                document.getElementById('teacherSubjects').textContent = 'Responsável por Língua Portuguesa, História e Geografia.';
+                document.getElementById('teacherSubjects').textContent = 'Especialista em Língua Portuguesa, História e Geografia.';
                 document.getElementById('teacherHoursBadge').textContent = 'Horários disponíveis (Tarde): 15:00, 16:00, 17:00, 18:00';
                 
                 timeSelect.innerHTML = `
@@ -1476,7 +1730,7 @@
             } else {
                 document.getElementById('teacherAvatar').textContent = '👨‍🏫';
                 document.getElementById('teacherName').textContent = 'Prof. Benedito Palheta';
-                document.getElementById('teacherSubjects').textContent = 'Responsável por Matemática e Ciências.';
+                document.getElementById('teacherSubjects').textContent = 'Especialista em Matemática, Ciências e Inglês.';
                 document.getElementById('teacherHoursBadge').textContent = 'Horários disponíveis (Noite): 19:00 e 20:00';
                 
                 timeSelect.innerHTML = `
