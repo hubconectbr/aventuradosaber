@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aventura do Saber - Aprender, descobrir e crescer a cada passo</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -62,6 +63,7 @@
             50% { transform: scale(1.15); }
         }
 
+        /* Animações do Mascote */
         @keyframes mascotBreathe {
             0%, 100% { transform: translateY(0) scale(1); }
             50% { transform: translateY(-4px) scale(1.02); }
@@ -91,6 +93,7 @@
             animation: mascotJump 0.8s ease-out;
         }
 
+        /* Estilização da barra de rolagem */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -192,7 +195,7 @@
                         Maratona de Conhecimento
                     </h2>
                     <p class="text-gray-600 text-sm mt-1">
-                        Preencha os dados do responsável para liberar os quizzes e desafios para a criança!
+                        Preencha os dados do responsável para liberar os quizzes e desafios para o(a) aluno(a)!
                     </p>
                 </div>
 
@@ -219,6 +222,7 @@
                         </div>
                     </div>
 
+                    <!-- Seleção do Ano Escolar - Ensino Fundamental I -->
                     <div class="pt-2 border-t border-gray-100">
                         <label class="block text-sm font-bold text-indigo-900 mb-2">
                             <i class="fa-solid fa-graduation-cap text-indigo-600 mr-1"></i> Selecione o Ano Escolar (Ensino Fundamental I):
@@ -263,6 +267,7 @@
                         </div>
                     </div>
                     
+                    <!-- Seleção do Ano Escolar - Ensino Fundamental II -->
                     <div class="pt-3 border-t border-gray-100">
                         <label class="block text-sm font-bold text-indigo-900 mb-2">
                             <i class="fa-solid fa-user-graduate text-indigo-600 mr-1"></i> Ensino Fundamental II:
@@ -300,6 +305,7 @@
                         </div>
                     </div>
 
+                    <!-- Nome dinâmico (criança vs jovem) -->
                     <div class="pt-2 border-t border-gray-100 mt-4">
                         <label id="studentNameLabel" class="block text-sm font-bold text-indigo-900 mb-1">
                             <i class="fa-solid fa-child text-pink-500 mr-1"></i> Como a criança gosta de ser chamada?
@@ -459,6 +465,22 @@
         <span class="hidden sm:inline">Suporte WhatsApp (63) 98120-2076</span>
     </a>
 
+    <!-- Mascot Floating Widget -->
+    <div id="mascotWidget" class="hidden fixed bottom-3 right-3 md:bottom-5 md:right-5 z-40 flex items-end space-x-2 pointer-events-none">
+        <div id="mascotSpeechBubble" class="bg-white border-2 border-indigo-400 rounded-2xl p-3 shadow-xl max-w-[200px] text-xs font-bold text-indigo-950 pointer-events-auto transform transition-all duration-300 scale-100 opacity-100 relative mb-2">
+            <span id="mascotSpeechText">Olá! Vamos aprender juntos? 🚀</span>
+            <div class="absolute -right-2 bottom-3 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-indigo-400 border-b-[6px] border-b-transparent"></div>
+        </div>
+
+        <div id="mascotAvatarContainer" onclick="triggerMascotTap()" class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-indigo-100 to-purple-100 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center text-4xl md:text-5xl cursor-pointer pointer-events-auto transition hover:scale-105 relative select-none mascot-state-sitting overflow-hidden bg-white">
+            <span id="mascotGraphic">🧙‍♀️</span>
+            <div id="mascotPostureBadge" class="absolute -bottom-1 bg-indigo-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white z-10">
+                Lendo
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Agendamento -->
     <div id="modalAgendamento" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-xl w-full shadow-2xl border-4 border-indigo-400 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeAgendamentoModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold z-10">
@@ -485,7 +507,6 @@
             </div>
 
             <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-4 text-xs">
-                
                 <div>
                     <label class="block font-bold text-gray-800 uppercase mb-1">
                         <i class="fa-solid fa-book-bookmark text-indigo-500 mr-1"></i> Selecione a Matéria Desejada:
@@ -498,6 +519,7 @@
                         <option value="matematica">Matemática (Prof. Benedito Palheta)</option>
                         <option value="ciencias">Ciências (Prof. Benedito Palheta)</option>
                         <option value="ingles">Língua Inglesa (Prof. Benedito Palheta)</option>
+                        <option value="artes">Artes (Prof. Benedito Palheta)</option>
                     </select>
                 </div>
 
@@ -535,7 +557,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-gray-100">
                     <div>
                         <label class="block font-bold text-gray-700 uppercase mb-1">
-                            <i class="fa-solid fa-envelope text-indigo-500 mr-1"></i> E-mail do Responsável (para o convite do Meet):
+                            <i class="fa-solid fa-envelope text-indigo-500 mr-1"></i> E-mail do Responsável (convite Meet):
                         </label>
                         <input type="email" id="bookingEmail" required placeholder="seuemail@gmail.com"
                             class="w-full px-3 py-2.5 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none text-sm">
@@ -610,10 +632,10 @@
                     VOLTAR À PLATAFORMA
                 </button>
             </div>
-
         </div>
     </div>
 
+    <!-- Modal Painel do Responsável -->
     <div id="modalParent" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border-4 border-indigo-400 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeParentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
@@ -634,7 +656,7 @@
                 <div class="bg-amber-50 p-3 rounded-xl border border-amber-300 flex items-center justify-between">
                     <div>
                         <strong class="text-amber-950 block font-bold">Aulas Particulares (R$ 30/h):</strong>
-                        <span class="text-[11px] text-amber-800">Profª Elayne (Port/Hist/Geo) e Prof. Benedito (Mat/Ciências/Inglês)</span>
+                        <span class="text-[11px] text-amber-800">Profª Elayne (Port/Hist/Geo) e Prof. Benedito (Mat/Ciências/Inglês/Artes)</span>
                     </div>
                     <button onclick="closeParentModal(); openAgendamentoModal();" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-[11px] rounded-lg shadow transition">
                         Agendar
@@ -670,6 +692,7 @@
         </div>
     </div>
 
+    <!-- Modal Ranking -->
     <div id="modalRanking" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border-4 border-indigo-400 relative">
             <button onclick="closeRankingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold">
@@ -693,7 +716,7 @@
         </div>
     </div>
 
-    <!-- Archetype Story Modal -->
+    <!-- Modal Archetype Story -->
     <div id="modalArchetypeStory" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border-4 border-indigo-400 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeArchetypeStoryModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold z-10">
@@ -782,22 +805,8 @@
         </div>
     </div>
 
-    <!-- Mascot Floating Widget -->
-    <div id="mascotWidget" class="hidden fixed bottom-3 right-3 md:bottom-5 md:right-5 z-40 flex items-end space-x-2 pointer-events-none">
-        <div id="mascotSpeechBubble" class="bg-white border-2 border-indigo-400 rounded-2xl p-3 shadow-xl max-w-[200px] text-xs font-bold text-indigo-950 pointer-events-auto transform transition-all duration-300 scale-100 opacity-100 relative mb-2">
-            <span id="mascotSpeechText">Olá! Vamos aprender juntos? 🚀</span>
-            <div class="absolute -right-2 bottom-3 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-indigo-400 border-b-[6px] border-b-transparent"></div>
-        </div>
-
-        <div id="mascotAvatarContainer" onclick="triggerMascotTap()" class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-indigo-100 to-purple-100 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center text-4xl md:text-5xl cursor-pointer pointer-events-auto transition hover:scale-105 relative select-none mascot-state-sitting overflow-hidden bg-white">
-            <span id="mascotGraphic">🧙‍♀️</span>
-            <div id="mascotPostureBadge" class="absolute -bottom-1 bg-indigo-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow border border-white z-10">
-                Lendo
-            </div>
-        </div>
-    </div>
-
     <script>
+        // Estrutura de Estado e Dados Principais
         let parentData = {
             parentName: '',
             phone: '',
@@ -818,7 +827,7 @@
         let lastBookingData = null;
         let selectedArchetypeForStory = 'maga';
 
-        // Arquétipos e suas Histórias
+        // Tabela de Arquétipos
         const archetypes = [
             { 
                 id: 'maga', 
@@ -884,7 +893,7 @@
                 id: 'scientist', 
                 name: 'Cientista Curiosa', 
                 icon: '👩‍🔬',
-                characterImage: 'images/arquetipo_personagem_cientista_curiosa.png',
+                characterImage: 'images/arquetipo_personagem_cientista_Curiosa.png',
                 cardImage: 'images/arquetipo_cientista_curiosa.jpg',
                 desc: 'Ama aprender coisas novas, cuida do meio ambiente e é gentil com todos!',
                 role: 'Ciências Naturais',
@@ -899,7 +908,7 @@
                 id: 'explorer_girl', 
                 name: 'Exploradora', 
                 icon: '👦',
-                characterImage: 'images/arquetipo_personagem_explorador_historia.png',
+                characterImage: 'images/arquetipo_personagem_Explorador_historia.png',
                 cardImage: 'images/arquetipo_explorador_historia.jpg',
                 desc: 'Conhece as riquezas da terra, ama a natureza e ajuda os pais com carinho!',
                 role: 'História & Geografia',
@@ -912,9 +921,6 @@
             }
         ];
 
-        let subjectsData = {};
-
-        // Banco de Dados Dinâmico de Questões por Série
         const allGradesData = {
             '3ano': {
                 portugues: {
@@ -1004,21 +1010,21 @@
                     questions: [
                         {
                             topic: 'Espaços Públicos e Privados',
-                            title: 'A Praça central da cidade é um exemplo de qual tipo de espaço?',
+                            title: 'A Praça dos Girassóis em Palmas é um exemplo de qual tipo de espaço?',
                             context: 'Espaços públicos pertencem a toda a população e são administrados pelo governo.',
                             options: ['Espaço Privado e Fechado.', 'Espaço Público de uso comum de todos.', 'Uma propriedade particular.', 'Um shopping center.'],
                             correct: 1,
                             hint: 'Locais que todos podem visitar livremente para passear são espaços...',
-                            explanation: 'Certíssimo! As praças são espaços públicos abertos de lazer para a comunidade.'
+                            explanation: 'Certíssimo! A Praça dos Girassóis é um espaço público aberto de lazer para a comunidade.'
                         },
                         {
-                            topic: 'Unidades de Conservação e Meio Ambiente',
-                            title: 'Qual das opções abaixo representa uma área de conservação ambiental?',
-                            context: 'Preservação da natureza, florestas e cachoeiras.',
-                            options: ['Um grande parque natural de mata nativa.', 'Um estacionamento de carros.', 'Um supermercado do bairro.', 'Uma fábrica de refrigerantes.'],
+                            topic: 'Unidades de Conservação em Tocantins',
+                            title: 'Qual das opções abaixo é uma área de conservação ambiental em Tocantins?',
+                            context: 'Preservação da natureza e cachoeiras.',
+                            options: ['Distrito de Taquaruçu e Ilha do Bananal.', 'Um estacionamento de carros.', 'Um supermercado do bairro.', 'Uma fábrica de refrigerantes.'],
                             correct: 0,
                             hint: 'Proteger cachoeiras e florestas nativas é a função das unidades de conservação!',
-                            explanation: 'Muito bem! Parques de mata nativa são áreas de conservação para proteger o meio ambiente.'
+                            explanation: 'Muito bem! Taquaruçu e a Ilha do Bananal possuem áreas de conservação para proteger o meio ambiente.'
                         }
                     ]
                 },
@@ -1199,9 +1205,289 @@
                             explanation: 'Excelente! Pelo contexto da frase, a junção de Team (time) + Mate (colega) refere-se a um "colega de equipe".'
                         }
                     ]
+                },
+                artes: {
+                    title: 'Arte (8º Ano)',
+                    date: '25/09 (Sexta-feira)',
+                    color: 'from-pink-500 to-rose-600',
+                    icon: 'fa-palette',
+                    questions: [
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Uma peça se passa em uma casa abandonada. Portas antigas, móveis cobertos de poeira e paredes desgastadas ajudam o público a reconhecer o lugar. Qual elemento foi descrito?',
+                            context: 'Identificação de composições artísticas na construção de um espetáculo teatral.',
+                            options: ['Coreografia', 'Cenário', 'Trilha sonora', 'Divulgação'],
+                            correct: 1,
+                            hint: 'Pense nos elementos visuais físicos que compõem o espaço do palco.',
+                            explanation: 'Correto! O cenário compõe visualmente o espaço onde a ação acontece.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Para mostrar que uma personagem é uma rainha, a equipe escolhe suas roupas, tecidos e acessórios. Esse trabalho está ligado principalmente ao:',
+                            context: 'Identificação de composições artísticas na construção de um espetáculo teatral.',
+                            options: ['Figurino', 'Roteiro de divulgação', 'Preço dos ingressos', 'Posicionamento da plateia'],
+                            correct: 0,
+                            hint: 'É a área responsável por desenhar e escolher as roupas das personagens.',
+                            explanation: 'Muito bem! O figurino ajuda a construir a aparência e a identidade da personagem.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Durante uma cena de suspense, a luz diminui e ilumina apenas o rosto da personagem. O efeito principal dessa escolha é:',
+                            context: 'A iluminação é fundamental para dar o tom e o clima à obra.',
+                            options: ['Informar a duração da peça.', 'Direcionar o olhar do público e criar uma atmosfera.', 'Substituir todas as falas.', 'Mostrar que a apresentação terminou.'],
+                            correct: 1,
+                            hint: 'Onde há luz, o público foca a sua atenção.',
+                            explanation: 'Perfeito! A iluminação pode destacar elementos e provocar sensações intensas.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Antes de uma personagem entrar, ouve-se o som de passos no corredor. Nesse caso, o som:',
+                            context: 'Sonoplastia e Trilha Sonora.',
+                            options: ['Contribui para a ação da cena.', 'Serve apenas para preencher o silêncio.', 'É uma peça do figurino.', 'Impede o público de compreender a história.'],
+                            correct: 0,
+                            hint: 'O som serve como uma pista do que está por vir.',
+                            explanation: 'Exato! O efeito sonoro sugere uma ação que o público ainda não vê, criando expectativa.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Em uma apresentação, cinco artistas realizam movimentos combinados no mesmo ritmo. Essa sequência planejada é uma:',
+                            context: 'Organização de movimentos rítmicos.',
+                            options: ['Maquiagem.', 'Cenografia.', 'Coreografia.', 'Exposição.'],
+                            correct: 2,
+                            hint: 'É a arte de compor sequências de dança ou movimentos ensaiados.',
+                            explanation: 'Certíssimo! Coreografia é a organização de movimentos em uma dança ou cena.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Uma turma vai encenar uma história que acontece durante uma tempestade. Qual conjunto de escolhas comunica melhor essa situação?',
+                            context: 'A harmonia entre os elementos cênicos.',
+                            options: ['Luz de sol forte, som de pássaros e roupas de praia.', 'Som de chuva e trovões, luz que sugere relâmpagos e movimentos de proteção.', 'Silêncio, luz uniforme e personagens imóveis durante toda a peça.', 'Cartazes de divulgação colocados no fundo do palco.'],
+                            correct: 1,
+                            hint: 'Quais efeitos imitam melhor as características do clima e os reflexos nas pessoas?',
+                            explanation: 'Excelente! Som, luz e atuação trabalham juntos para construir a tempestade.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Em uma cena, uma atriz segura uma carta que será lida pelo personagem. A carta é um:',
+                            context: 'Elementos cênicos que os atores manipulam.',
+                            options: ['Adereço de cena.', 'Equipamento de iluminação.', 'Tipo de plateia.', 'Gênero musical.'],
+                            correct: 0,
+                            hint: 'Objetos manipuláveis em cena recebem esse nome.',
+                            explanation: 'Correto! Adereço é um objeto usado pelos personagens durante a ação.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'A música fica mais rápida enquanto as personagens se aproximam de uma descoberta. O que essa mudança pode provocar no público?',
+                            context: 'Psicologia e efeitos da trilha sonora.',
+                            options: ['A sensação de que a cena ganhou urgência.', 'A certeza de que mudou o figurino.', 'A impressão de que a peça acabou.', 'A identificação automática do autor do texto.'],
+                            correct: 0,
+                            hint: 'Ritmos acelerados geralmente deixam as pessoas mais atentas e ansiosas.',
+                            explanation: 'Muito bem! O ritmo da música pode alterar a tensão percebida na cena e dar urgência à narrativa.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Uma turma tem poucos recursos para criar uma floresta no palco. Qual solução demonstra uso criativo das linguagens artísticas?',
+                            context: 'A criatividade como motor da arte cênica.',
+                            options: ['Cancelar a cena porque não há árvores reais.', 'Usar sombras, sons de animais e movimentos dos atores para sugerir a floresta.', 'Pedir que o público imagine tudo, sem planejar a apresentação.', 'Colocar qualquer música, mesmo que atrapalhe os diálogos.'],
+                            correct: 1,
+                            hint: 'Use a criatividade com os recursos disponíveis, como os sentidos e o corpo.',
+                            explanation: 'Perfeito! Um espaço pode ser sugerido e recriado pela combinação de imagem, som e atuação, sem precisar de elementos reais.'
+                        },
+                        {
+                            topic: 'Como se constrói um espetáculo',
+                            title: 'Qual afirmação descreve melhor a criação de um espetáculo teatral?',
+                            context: 'Natureza colaborativa do teatro.',
+                            options: ['Somente os atores participam da criação.', 'Cada elemento precisa funcionar isoladamente.', 'Diferentes profissionais e linguagens colaboram para construir a apresentação.', 'Cenário e iluminação sempre contam histórias diferentes.'],
+                            correct: 2,
+                            hint: 'O teatro é a união de várias artes trabalhando juntas.',
+                            explanation: 'Exato! O teatro reúne trabalhos interdisciplinares que precisam dialogar entre si para funcionar.'
+                        },
+                        {
+                            topic: 'Decisões de criação e trabalho em equipe',
+                            title: 'Durante um ensaio, a música está tão alta que o público não consegue ouvir as falas. Qual é a melhor decisão da equipe?',
+                            context: 'A importância e o propósito dos ensaios na arte.',
+                            options: ['Manter tudo igual, pois a música é mais importante.', 'Ajustar o volume e testar novamente a cena.', 'Retirar todas as falas da peça.', 'Pedir aos atores que parem de se movimentar.'],
+                            correct: 1,
+                            hint: 'A equipe precisa encontrar um equilíbrio para que todos os elementos sejam bem recebidos.',
+                            explanation: 'Certíssimo! O ensaio permite perceber problemas técnicos e artísticos para ajustar os elementos da cena.'
+                        },
+                        {
+                            topic: 'Decisões de criação e trabalho em equipe',
+                            title: 'Dois grupos propõem figurinos diferentes para a mesma personagem. Como a turma pode decidir?',
+                            context: 'Critérios artísticos de escolha.',
+                            options: ['Escolher o figurino de quem falou primeiro.', 'Considerar a história, a personagem e o efeito desejado no público.', 'Sortear sem observar as propostas.', 'Usar obrigatoriamente o figurino mais caro.'],
+                            correct: 1,
+                            hint: 'A melhor escolha é aquela que se adequa mais à narrativa e à visão do espetáculo.',
+                            explanation: 'Correto! As escolhas artísticas devem dialogar diretamente com a proposta da obra.'
+                        },
+                        {
+                            topic: 'Decisões de criação e trabalho em equipe',
+                            title: 'Uma peça começa em uma praça e termina em uma estação de trem. Qual recurso pode ajudar o público a perceber a mudança de lugar?',
+                            context: 'Sinalizações de mudança de cenário.',
+                            options: ['Uma mudança planejada no cenário, na projeção ou na iluminação.', 'O aumento do preço do ingresso.', 'A troca dos nomes dos artistas no cartaz.', 'A repetição da mesma fala, sem relação com a cena.'],
+                            correct: 0,
+                            hint: 'É preciso mostrar visualmente ao espectador que estamos em um novo local.',
+                            explanation: 'Muito bem! Mudanças de recursos visuais ou sonoros podem indicar a transição para um novo espaço cênico.'
+                        },
+                        {
+                            topic: 'Decisões de criação e trabalho em equipe',
+                            title: 'Em uma apresentação, a luz deveria acender quando a atriz abrisse a porta. O técnico acendeu antes, revelando a surpresa da cena. O que esse caso mostra?',
+                            context: 'O timing (tempo) e sincronia no espetáculo.',
+                            options: ['Que a iluminação não faz parte da narrativa.', 'Que o tempo das ações precisa ser combinado pela equipe.', 'Que os ensaios são desnecessários.', 'Que apenas a atriz é responsável pelo resultado.'],
+                            correct: 1,
+                            hint: 'No teatro, técnica e atuação dependem um do outro para a mágica funcionar.',
+                            explanation: 'Perfeito! A coordenação e a sincronia entre atuação e técnica afetam todo o sentido e a emoção da cena.'
+                        },
+                        {
+                            topic: 'Decisões de criação e trabalho em equipe',
+                            title: 'Uma turma quer que o público sinta alegria ao final da peça. Qual opção reúne escolhas coerentes com essa intenção?',
+                            context: 'Evocação de emoções através de escolhas técnicas.',
+                            options: ['Luz mais aberta, música festiva e movimentos de celebração.', 'Palco escuro, silêncio e personagens assustadas.', 'Som de trovões e movimentos de fuga.', 'Cortinas fechadas antes da última cena.'],
+                            correct: 0,
+                            hint: 'Luzes abertas (claras) e ritmos festivos transmitem boas energões.',
+                            explanation: 'Exato! Todos os elementos se reforçam harmoniosamente para comunicar a celebração e a alegria.'
+                        },
+                        {
+                            topic: 'Decisões de criação e trabalho em equipe',
+                            title: 'Uma apresentação mistura atuação, dança, música executada ao vivo e projeção de desenhos feitos pelos alunos. Ela é um exemplo de:',
+                            context: 'A combinação de linguagens.',
+                            options: ['Participação de diferentes linguagens artísticas.', 'Ausência de planejamento artístico.', 'Uso exclusivo das artes visuais.', 'Apresentação sem relação com o público.'],
+                            correct: 0,
+                            hint: 'Quando várias artes se unem no mesmo projeto.',
+                            explanation: 'Certíssimo! Teatro, dança, música e artes visuais estão participando ativamente da mesma criação.'
+                        },
+                        {
+                            topic: 'Decisões de criação e trabalho em equipe',
+                            title: 'Ao receber uma sugestão sobre a cena, um grupo discute a ideia, experimenta uma nova versão e observa o resultado. Essa atitude demonstra:',
+                            context: 'O processo artístico vivo e colaborativo.',
+                            options: ['Criação coletiva e disposição para revisar o trabalho.', 'Que a primeira versão era proibida.', 'Que somente uma pessoa pode decidir tudo.', 'Falta de interesse pela apresentação.'],
+                            correct: 0,
+                            hint: 'A arte é feita de testes, opiniões em conjunto e muitas melhorias.',
+                            explanation: 'Correto! Experimentar e rever escolhas de forma aberta faz parte do rico processo artístico colaborativo.'
+                        },
+                        {
+                            topic: 'Matrizes estéticas e culturais',
+                            title: 'Uma turma pesquisa manifestações culturais de diferentes comunidades para criar uma cena. Qual atitude é mais adequada?',
+                            context: 'Respeito à origem e à cultura das manifestações estéticas.',
+                            options: ['Copiar roupas e movimentos sem procurar seus significados.', 'Conhecer os contextos, respeitar as pessoas envolvidas e reconhecer as referências utilizadas.', 'Tratar todas as manifestações como se fossem iguais.', 'Afirmar que uma cultura é superior às outras.'],
+                            correct: 1,
+                            hint: 'Toda manifestação tem um povo e uma história por trás que merece respeito.',
+                            explanation: 'Muito bem! Estudar e respeitar o contexto ajuda a criar com ética em relação às referências culturais de outras comunidades.'
+                        },
+                        {
+                            topic: 'Matrizes estéticas e culturais',
+                            title: 'O que são matrizes estéticas e culturais no estudo da arte?',
+                            context: 'Compreendendo de onde vêm as influências da nossa arte.',
+                            options: ['Apenas materiais usados para construir um palco.', 'Referências, práticas e modos de expressão ligados às histórias e culturas de diferentes grupos.', 'Regras que obrigam todos os artistas a produzir obras iguais.', 'Uma lista de artistas famosos de um único país.'],
+                            correct: 1,
+                            hint: 'São as "sementes" históricas e de costumes que geram diferentes artes.',
+                            explanation: 'Perfeito! Matrizes ajudam a compreender de onde vêm práticas e formas de expressão artística de toda a sociedade.'
+                        },
+                        {
+                            topic: 'Matrizes estéticas e culturais',
+                            title: 'Ao estudar uma dança tradicional, por que é importante investigar quem a pratica e em quais ocasiões?',
+                            context: 'O vínculo entre as práticas artísticas e a vida cotidiana de um povo.',
+                            options: ['Porque a dança pode ter sentidos ligados à vida e à história daquela comunidade.', 'Porque movimentos corporais não têm relação com cultura.', 'Porque toda dança tradicional foi criada para o teatro.', 'Porque a pesquisa substitui a necessidade de observar a dança.'],
+                            correct: 0,
+                            hint: 'A dança muitas vezes celebra colheitas, crenças ou a própria história de um povo.',
+                            explanation: 'Exato! O contexto cultural em que ela acontece contribui profundamente para compreender a essência da manifestação artística.'
+                        },
+                        {
+                            topic: 'Matrizes estéticas e culturais',
+                            title: 'Um grupo cria uma peça inspirada em histórias contadas por moradores do bairro. Qual ação valoriza essa contribuição?',
+                            context: 'Participação comunitária na arte.',
+                            options: ['Apresentar as histórias como se tivessem sido inventadas apenas pelo grupo.', 'Conversar com os moradores e reconhecer sua participação, conforme combinado com eles.', 'Impedir que os moradores assistam à peça.', 'Alterar todas as histórias sem ouvir ninguém.'],
+                            correct: 1,
+                            hint: 'Dar os créditos a quem viveu as histórias é a forma correta de agradecer e valorizar.',
+                            explanation: 'Certíssimo! O diálogo transparente e o reconhecimento autoral respeitam as pessoas que compartilharam suas vivências.'
+                        },
+                        {
+                            topic: 'Matrizes estéticas e culturais',
+                            title: 'Dois espetáculos usam ritmos, roupas e formas de movimento diferentes. Qual conclusão é mais cuidadosa?',
+                            context: 'Hierarquia cultural e diversidade.',
+                            options: ['Um deles é automaticamente melhor.', 'As diferenças podem revelar referências culturais e escolhas de criação distintas.', 'Apenas o espetáculo com mais instrumentos é arte.', 'As diferenças não podem ser estudadas.'],
+                            correct: 1,
+                            hint: 'A diversidade não quer dizer que um é melhor que o outro.',
+                            explanation: 'Correto! Comparar as obras permite perceber referências e decisões sem estabelecer uma hierarquia cega de valor.'
+                        },
+                        {
+                            topic: 'Matrizes estéticas e culturais',
+                            title: 'Em uma peça sobre festas populares, a turma usa imagens e músicas pesquisadas em diferentes regiões brasileiras. Para aprofundar o trabalho, deve:',
+                            context: 'Aprofundamento na pesquisa e raízes culturais.',
+                            options: ['Investigar a origem e os sentidos dessas referências em cada contexto.', 'Misturar tudo e afirmar que todas as festas são idênticas.', 'Usar apenas a referência visual que parecer mais colorida.', 'Evitar mencionar as comunidades relacionadas às festas.'],
+                            correct: 0,
+                            hint: 'A pesquisa histórica aprofunda o significado de cada detalhe usado.',
+                            explanation: 'Muito bem! A investigação amplia a compreensão real das manifestações que estão sendo representadas.'
+                        },
+                        {
+                            topic: 'Profissionais da arte e relação com o público',
+                            title: 'Quem organiza a aparência visual do espaço em que acontece uma peça?',
+                            context: 'Funções dos profissionais de teatro.',
+                            options: ['Cenógrafo ou cenógrafa.', 'Bilheteiro ou bilheteira.', 'Espectador ou espectadora.', 'Instrumentista.'],
+                            correct: 0,
+                            hint: 'Esse profissional cria o "cenário" do teatro.',
+                            explanation: 'Perfeito! A cenografia (Cenógrafo/a) planeja e executa os elementos visuais do espaço cênico.'
+                        },
+                        {
+                            topic: 'Profissionais da arte e relação com o público',
+                            title: 'Uma exposição reúne obras de diferentes artistas em torno do tema “A cidade onde vivemos”. A pessoa que seleciona as obras e ajuda a organizar como serão apresentadas exerce a função de:',
+                            context: 'A organização em exposições artísticas visuais.',
+                            options: ['Curador ou curadora.', 'Personagem.', 'Sonoplasta.', 'Bailarino ou bailarina.'],
+                            correct: 0,
+                            hint: 'Essa função "cuida" de escolher quais obras se encaixam e como elas conversam entre si no museu.',
+                            explanation: 'Exato! A curadoria seleciona, zela e organiza as obras, construindo o sentido geral em uma exposição.'
+                        },
+                        {
+                            topic: 'Profissionais da arte e relação com o público',
+                            title: 'Um músico compõe sons para acompanhar cenas de uma peça. Seu trabalho pode:',
+                            context: 'O papel do profissional da música no teatro.',
+                            options: ['Ajudar a construir emoções, ambientes e mudanças na narrativa.', 'Substituir obrigatoriamente o trabalho de todos os atores.', 'Ser percebido somente por quem está no palco.', 'Definir sozinho o figurino.'],
+                            correct: 0,
+                            hint: 'O som atua junto com o roteiro para criar sentimentos no público.',
+                            explanation: 'Certíssimo! A música é poderosa para induzir estados emocionais e guiar a narrativa.'
+                        },
+                        {
+                            topic: 'Profissionais da arte e relação com o público',
+                            title: 'Uma coreógrafa trabalha com os artistas de uma peça. Qual atividade está mais diretamente relacionada à sua função?',
+                            context: 'As funções do movimento corporal.',
+                            options: ['Planejar e experimentar sequências de movimentos.', 'Vender os ingressos na entrada.', 'Pintar todas as paredes do teatro.', 'Corrigir a impressão dos programas.'],
+                            correct: 0,
+                            hint: 'Coreógrafos são especialistas no corpo e na dança.',
+                            explanation: 'Correto! A coreografia envolve toda a criação técnica e a organização dos movimentos corporais em cena.'
+                        },
+                        {
+                            topic: 'Profissionais da arte e relação com o público',
+                            title: 'Uma companhia apresenta uma peça gratuitamente em uma praça do bairro. Que relação entre arte e público essa escolha pode favorecer?',
+                            context: 'Formas de atuação social do espetáculo e democratização da arte.',
+                            options: ['O acesso de pessoas que talvez não frequentem um teatro fechado.', 'A garantia de que todos interpretarão a peça da mesma forma.', 'A eliminação da necessidade de planejar o espaço.', 'A participação apenas de artistas profissionais.'],
+                            correct: 0,
+                            hint: 'Levar a arte para a rua é uma forma de aproximar as pessoas que não têm acesso ao teatro.',
+                            explanation: 'Muito bem! Apresentar obras em espaços públicos e alternativos contribui para ampliar e democratizar o acesso à arte.'
+                        },
+                        {
+                            topic: 'Profissionais da arte e relação com o público',
+                            title: 'Depois de uma apresentação, os artistas conversam com a plateia e escutam interpretações diferentes da história. O que essa conversa mostra?',
+                            context: 'A recepção da obra e as múltiplas visões do público.',
+                            options: ['Que toda obra possui obrigatoriamente um único sentido.', 'Que o público também participa da experiência artística ao interpretar e reagir à obra.', 'Que as opiniões do público devem ser proibidas.', 'Que a apresentação não foi uma obra de arte.'],
+                            correct: 1,
+                            hint: 'O espectador traz sua própria bagagem e experiência de vida para interpretar o que acabou de assistir.',
+                            explanation: 'Perfeito! As experiências de vida de quem assiste influenciam profundamente a forma como a obra será sentida e percebida, não existindo apenas "um único sentido correto".'
+                        },
+                        {
+                            topic: 'Profissionais da arte e relação com o público',
+                            title: 'Uma artista visual cria cartazes para divulgar uma campanha de preservação de um rio local. Esse exemplo mostra que o trabalho artístico pode:',
+                            context: 'Função social da arte no cotidiano e na militância.',
+                            options: ['Participar de debates e ações da comunidade.', 'Existir apenas dentro de museus.', 'Ser produzido somente para agradar ao próprio artista.', 'Substituir sozinho todas as soluções para o problema ambiental.'],
+                            correct: 0,
+                            hint: 'A arte tem um forte poder de voz e comunicação na sociedade.',
+                            explanation: 'Exato! A arte não serve apenas para decorar, ela também age comunicando ideias e provocando reflexão pública sobre problemas reais.'
+                        }
+                    ]
                 }
             }
         };
+
+        let subjectsData = {};
 
         function playCelebrationSound() {
             try {
@@ -1247,7 +1533,7 @@
             } catch (e) { console.log(e); }
         }
 
-        // Helper para carregamento seguro de imagens
+        // Helper para carregamento seguro de imagens com fallback
         function handleImageError(imgEl, archId) {
             if (!imgEl) return;
             imgEl.onerror = null;
@@ -1491,11 +1777,11 @@
             document.getElementById('childSummaryName').textContent = parentData.childName;
 
             const userIconEl = document.getElementById('userAvatarIcon');
-            const dashIconEl = document.getElementById('dashboardHeroIcon');
+            const dashIconEl = document.getElementById('dashboardHeroAvatar');
             
             if (arch.characterImage) {
-                userIconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover">`;
-                dashIconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover">`;
+                userIconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover" onerror="handleImageError(this, '${arch.id}')">`;
+                dashIconEl.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover" onerror="handleImageError(this, '${arch.id}')">`;
             } else {
                 userIconEl.textContent = arch.icon;
                 dashIconEl.textContent = arch.icon;
@@ -1535,7 +1821,7 @@
             const arch = archetypes.find(a => a.id === parentData.archetype) || archetypes[0];
             const mascotGraphic = document.getElementById('mascotGraphic');
             if (arch.characterImage) {
-                mascotGraphic.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover">`;
+                mascotGraphic.innerHTML = `<img src="${arch.characterImage}" alt="${arch.name}" class="w-full h-full object-cover" onerror="handleImageError(this, '${arch.id}')">`;
             } else {
                 mascotGraphic.textContent = arch.icon;
             }
@@ -1730,7 +2016,7 @@
             } else {
                 document.getElementById('teacherAvatar').textContent = '👨‍🏫';
                 document.getElementById('teacherName').textContent = 'Prof. Benedito Palheta';
-                document.getElementById('teacherSubjects').textContent = 'Especialista em Matemática, Ciências e Inglês.';
+                document.getElementById('teacherSubjects').textContent = 'Especialista em Matemática, Ciências, Inglês e Artes.';
                 document.getElementById('teacherHoursBadge').textContent = 'Horários disponíveis (Noite): 19:00 e 20:00';
                 
                 timeSelect.innerHTML = `
